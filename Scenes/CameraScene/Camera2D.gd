@@ -35,11 +35,11 @@ func _process(delta):
 	var move_vector = Vector2();
 	var mouse_pos = get_viewport().get_mouse_position();
 
-	if mouse_pos.x < 30 && self.position.x - w_h_times_zoom > self.limit_left:
+	if mouse_pos.x < 60 && self.position.x - w_h_times_zoom > self.limit_left:
 		move_vector.x = -1;
 	elif mouse_pos.x > viewport_size.x - 30 && self.position.x + w_h_times_zoom < self.limit_right:
 		move_vector.x = 1;
-	if mouse_pos.y < 30 && self.position.y - h_h_times_zoom > self.limit_top:
+	if mouse_pos.y < 60 && self.position.y - h_h_times_zoom > self.limit_top:
 		move_vector.y = -1;
 	if mouse_pos.y > viewport_size.y - 30  && self.position.y + h_h_times_zoom < self.limit_bottom:
 		move_vector.y = 1;
