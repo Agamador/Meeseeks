@@ -27,3 +27,4 @@ func _speed_changed(value):
 	#change actual value of spawn time
 func _spawn_meeseek():
 	pass
+	#self.add_child()

@@ -24,7 +24,10 @@ func _physics_process(delta):
 			motion.x = 0
 			#para separar el cuerpor de las paredes al caer
 			if once:
-				self.position.x -= 13
+				if right > 0:
+					self.position.x += 13
+				else: 
+					self.position.x -= 13
 				once = false
 			$Sprite.scale.x = right
 			$AnimationPlayer.play("Fall")
