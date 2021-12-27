@@ -41,7 +41,10 @@ func _physics_process(delta):
 			#comprueba las colisiones durante el movimiento,
 			for i in get_slide_count():
 				var collision = get_slide_collision(i)
-				if collision: 
+				if collision:
+					if collision.get_collider().get_class() == "StaticBody2D":
+						pass
+						#sumar meeseek a contador de exito y borrarlo
 					#si la colisión es diferente a la colisión frente al suelo, y frente a la dirección en la que avanzo
 					if collision.normal != Vector2(0,-1) and collision.normal == Vector2(-right,0):
 						right = -right

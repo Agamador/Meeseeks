@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Resources/MeeseekSprites/Sprite.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Meeseek/Meeseek.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 17.0
@@ -69,6 +70,8 @@ tracks/0/keys = {
 }
 
 [node name="Meesek" type="KinematicBody2D"]
+collision_layer = 2
+script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
