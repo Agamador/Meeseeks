@@ -3,7 +3,7 @@
 [ext_resource path="res://Resources/portal.png" type="Texture" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10.7535, 32.489 )
+extents = Vector2( 3.88913, 32.489 )
 
 [node name="Goal" type="Node2D"]
 

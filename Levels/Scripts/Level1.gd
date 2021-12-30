@@ -1,6 +1,7 @@
 extends Node2D
 
 export var lives := 10
+var saved_lives := 0
 export var objective := 5
 export var total_time := 5.0
 var game_speed:= 50
@@ -25,3 +26,9 @@ func _spawn_meeseek():
 		var newMeeseek = meeseek.instance()
 		newMeeseek.position = $Spawn.position
 		add_child(newMeeseek)
+func meeseek_saved():
+	saved_lives += 1
+	print('Salvado maradona')
+	if saved_lives == objective:
+		pass
+		#fin
