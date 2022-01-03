@@ -7,8 +7,14 @@ export var total_time := 5.0
 var game_speed:= 50
 var game_speed_change:= 5
 var meeseek = preload("res://Scenes/Meeseek/Meeseek.tscn");
+
+#probando como modificar meeseeks
+var mouse_pointer := 0
+#el valor cambia según el boton, el tipo de meeseek va de 1 a .. de izq a derecha
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Camera2D.position =$Spawn.position;
 	pass
 	# Replace with function body.
 

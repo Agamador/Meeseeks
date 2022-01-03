@@ -65,3 +65,8 @@ func _set_zoom_level(value: float):
 		Tween.EASE_OUT);
 	tween.start();
 	
+
+
+func _on_DiggerButton_pressed():
+	print('botonsito')
+	get_parent().mouse_pointer = 1;

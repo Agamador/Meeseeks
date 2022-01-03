@@ -1,0 +1,6 @@
+[gd_scene format=2]
+
+[node name="DiggerButton" type="Button"]
+margin_right = 90.0
+margin_bottom = 90.0
+text = "Digger"

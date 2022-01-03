@@ -56,6 +56,23 @@ func _physics_process(delta):
 			$AnimationPlayer.play("Death")
 	move_and_slide(motion, Vector2.UP)
 
+#func _input_event(viewport, event, shape_idx):
+#	if event is InputEventMouseButton:
+#		match get_parent().mouse_pointer:
+#			_: print('ni modo')
+#			1: self.diggerMode();
+
+func diggerMode():
+	print('a cavar')
 #a esta función se llama desde la animación Death
 func death(): 
 	self.queue_free()
+
+
+func _on_Area2D_input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
+		print('clickado')
+		print(get_parent().mouse_pointer)
+		match get_parent().mouse_pointer:
+				1: self.diggerMode();
+				_: print('________')
