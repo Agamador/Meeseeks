@@ -19,12 +19,12 @@ onready var tween : Tween = $Tween
 
 func _ready():
 	TileMapBorder = $"../TileMap".get_used_rect();
-	print(TileMapBorder.position);
-	self.limit_top = TileMapBorder.position.x *64;
-	self.limit_left = TileMapBorder.position.y * 64;
-	self.limit_right = TileMapBorder.end.x * 64;
-	self.limit_bottom = TileMapBorder.end.y * 64;
-	print(TileMapBorder.position.x);
+	#print(TileMapBorder.position);
+	self.limit_top = TileMapBorder.position.x*64 - 64;
+	self.limit_left = TileMapBorder.position.y *64 - 64;
+	self.limit_right = TileMapBorder.end.x*64 +64;
+	self.limit_bottom = TileMapBorder.end.y *64 +64;
+	#print(TileMapBorder.position.x);
 	viewport_size = get_viewport().size;
 	width_half = viewport_size.x/2;
 	height_half = viewport_size.y/2;
@@ -69,4 +69,4 @@ func _set_zoom_level(value: float):
 
 func _on_DiggerButton_pressed():
 	print('botonsito')
-	get_parent().mouse_pointer = 1;
+	get_parent().mouse_pointer = 'Digger';

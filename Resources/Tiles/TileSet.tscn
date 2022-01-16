@@ -9,6 +9,7 @@ extents = Vector2( 32, 32 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0.23597, -0.23597 )
+scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 1 )
 hframes = 9
 __meta__ = {
@@ -22,6 +23,7 @@ shape = SubResource( 1 )
 
 [node name="Sprite2" type="Sprite" parent="."]
 position = Vector2( 96, 0 )
+scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 1 )
 hframes = 9
 frame = 1
@@ -36,6 +38,7 @@ shape = SubResource( 1 )
 
 [node name="Sprite3" type="Sprite" parent="."]
 position = Vector2( 192, 0 )
+scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 1 )
 hframes = 9
 frame = 2
@@ -48,22 +51,9 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite3/StaticBody2D"]
 shape = SubResource( 1 )
 
-[node name="Sprite4" type="Sprite" parent="."]
-position = Vector2( 192, 0 )
-texture = ExtResource( 1 )
-hframes = 9
-frame = 2
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Sprite4"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite4/StaticBody2D"]
-shape = SubResource( 1 )
-
 [node name="Sprite5" type="Sprite" parent="."]
 position = Vector2( 288, 0 )
+scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 1 )
 hframes = 9
 frame = 3
@@ -78,6 +68,7 @@ shape = SubResource( 1 )
 
 [node name="Sprite6" type="Sprite" parent="."]
 position = Vector2( 384, -0.23597 )
+scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 1 )
 hframes = 9
 frame = 4
@@ -92,6 +83,7 @@ shape = SubResource( 1 )
 
 [node name="Sprite7" type="Sprite" parent="."]
 position = Vector2( 480, 0 )
+scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 1 )
 hframes = 9
 frame = 5
@@ -106,6 +98,7 @@ shape = SubResource( 1 )
 
 [node name="Sprite8" type="Sprite" parent="."]
 position = Vector2( 576, -0.23597 )
+scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 1 )
 hframes = 9
 frame = 6
@@ -120,6 +113,7 @@ shape = SubResource( 1 )
 
 [node name="Sprite9" type="Sprite" parent="."]
 position = Vector2( 672, 0 )
+scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 1 )
 hframes = 9
 frame = 7
