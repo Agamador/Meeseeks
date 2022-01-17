@@ -20,8 +20,8 @@ onready var tween : Tween = $Tween
 func _ready():
 	TileMapBorder = $"../TileMap".get_used_rect();
 	#print(TileMapBorder.position);
-	self.limit_top = TileMapBorder.position.x*64 - 64;
-	self.limit_left = TileMapBorder.position.y *64 - 64;
+	self.limit_top = TileMapBorder.position.x*64;
+	self.limit_left = TileMapBorder.position.y *64;
 	self.limit_right = TileMapBorder.end.x*64 +64;
 	self.limit_bottom = TileMapBorder.end.y *64 +64;
 	#print(TileMapBorder.position.x);
