@@ -17,6 +17,7 @@ editor_draw_screen = false
 position = Vector2( 287.71, 280.042 )
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
 autostart = true
 
 [node name="Goal" parent="." instance=ExtResource( 5 )]

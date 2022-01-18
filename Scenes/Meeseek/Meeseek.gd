@@ -24,10 +24,9 @@ func _ready():
 
 func _physics_process(delta):
 	match state:
-		'Basic': normal_meeseek()
+		'Basic': normal_meeseek(); 
 		'Digger': digger_meeseek()
 		_: normal_meeseek()
-	
 	move_and_slide(motion, Vector2.UP)
 
 func normal_meeseek():
@@ -100,8 +99,7 @@ func digger_meeseek():
 			air_time = 0
 			$Sprite.scale.x = right
 			$AnimationPlayer.play("Walking") 
-			if motion.y > 0:
-				motion.x = MAXSPEED * right
+			motion.x = MAXSPEED * right
 			#comprueba las colisiones durante el movimiento,
 			for i in get_slide_count():
 				var collision = get_slide_collision(i)
@@ -112,13 +110,13 @@ func digger_meeseek():
 						#sumar meeseek a contador de exito y borrarlo
 					#si la colisión es diferente a la colisión frente al suelo, y frente a la dirección en la que avanzo
 					if collision.normal != Vector2(0,-1) and collision.normal == Vector2(-right,0):
-						#se para
-						#self.position.x = self.position.x + 13 * right
+						celda = map.world_to_map(collision.position - collision.normal)
+						#print(map.get_cellv(celda))
+						#if first_collision != -1 and map.get_cellv(celda)
 						motion.x = 0
 						##inicia animación excavar
 						
 						
-						celda = map.world_to_map(collision.position - collision.normal)
 						#numero de frames que se excavan 60 = 1 segundo
 						if frames_digging < 30:
 							frames_digging += 1
@@ -127,26 +125,37 @@ func digger_meeseek():
 						else:
 							frames_digging = 0 
 							#5 a 7 son tiles destrozandose, 8 es el ultimo paso y -1 elimina la casilla
+							#posibilidad de cambiar por 9 a 11 (revisar numeros)
 							if first_collision >= 5 and first_collision <= 7:
 								first_collision = first_collision + 1
 								map.set_cellv(celda, first_collision+1)
 							elif first_collision == 8:
 								first_collision = -1
 								map.set_cellv(celda, -1)
-						#right = -right
 	else:
 		air_time += 1;
 		if is_on_floor() or air_time > 600:
 			motion = Vector2();
 			$AnimationPlayer.play("Death")
+			
+			
 #a esta función se llama desde la animación Death para que el meeseek muera al terminar la animación
 func death(): 
 	get_parent().meeseek_deceased();
 	self.queue_free()
 
-#función para escoger actitud meeseek cuando se le clicka con el ratón 
-func _on_Area2D_input_event(viewport, event, shape_idx):
-	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
-		self.state = get_parent().mouse_pointer
-		print(get_parent().mouse_pointer)
-		#plantear match para cambiar el collision shape|
+#dar actitud a un meesek al clickarle
+var mouse_in := true
+func _unhandled_input(event):
+	if mouse_in: 
+		if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
+			self.state = get_parent().mouse_pointer
+			print(get_parent().mouse_pointer)
+			get_tree().set_input_as_handled()
+
+func _on_Meesek_mouse_entered():
+	mouse_in = true
+
+
+func _on_Meesek_mouse_exited():
+	mouse_in = false
