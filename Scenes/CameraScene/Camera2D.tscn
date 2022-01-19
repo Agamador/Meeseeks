@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scenes/CameraScene/Camera2D.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/Buttons/Scenes/DiggerButton.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Buttons/Scripts/DiggerButton.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Buttons/Scenes/BehaviourButton.tscn" type="PackedScene" id=2]
 
 [node name="Camera2D" type="Camera2D"]
 current = true
@@ -22,9 +21,64 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DiggerButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_right = 53.0
+[node name="DiggerSideButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
+margin_right = 80.0
 margin_bottom = 87.0
-script = ExtResource( 3 )
 
-[connection signal="pressed" from="CanvasLayer/HBoxContainer/DiggerButton" to="." method="_on_DiggerButton_pressed"]
+[node name="DiggerDownButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
+margin_left = 84.0
+margin_right = 173.0
+margin_bottom = 87.0
+text = "DiggerDown"
+
+[node name="StopperButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
+margin_left = 177.0
+margin_right = 238.0
+margin_bottom = 87.0
+text = "Stopper"
+
+[node name="UmbrellaButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
+margin_left = 242.0
+margin_right = 313.0
+margin_bottom = 87.0
+text = "Umbrella"
+
+[node name="StairButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
+margin_left = 317.0
+margin_right = 357.0
+margin_bottom = 87.0
+text = "Stair"
+
+[node name="ClimbButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
+margin_left = 361.0
+margin_right = 410.0
+margin_bottom = 87.0
+text = "Climb"
+
+[node name="RestartButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
+margin_left = 414.0
+margin_right = 471.0
+margin_bottom = 87.0
+text = "Restart"
+
+[node name="TimeDownButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
+margin_left = 475.0
+margin_right = 516.0
+margin_bottom = 87.0
+text = "Slow"
+
+[node name="TimeUpButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
+margin_left = 520.0
+margin_right = 558.0
+margin_bottom = 87.0
+text = "Fast"
+
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/DiggerSideButton" to="." method="_on_DiggerSideButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/DiggerDownButton" to="." method="_on_DiggerDownButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/StopperButton" to="." method="_on_StopperButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/UmbrellaButton" to="." method="_on_UmbrellaButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/StairButton" to="." method="_on_StairButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/ClimbButton" to="." method="_on_ClimbButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/TimeDownButton" to="." method="_on_TimeDownButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/TimeUpButton" to="." method="_on_TimeUpButton_pressed"]

@@ -3,4 +3,7 @@
 [node name="DiggerButton" type="Button"]
 margin_right = 90.0
 margin_bottom = 90.0
-text = "Digger"
+text = "DiggerSide"
+__meta__ = {
+"_edit_use_anchors_": false
+}
