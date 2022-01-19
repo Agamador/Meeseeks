@@ -14,6 +14,10 @@ var map
 #digger
 var first_collision := -1
 var frames_digging	:= 0
+var next_collision := 0
+var stop_digging := false
+#Umbrella
+var stop_umbrella := false
 #Se inicia el movimiento del misik en caida
 var motion = Vector2(0,GRAVITY)
 
@@ -24,13 +28,13 @@ func _ready():
 
 func _physics_process(delta):
 	match state:
-		'Basic': normal_meeseek(); 
+		'Basic': normal_meeseek()
 		'DigSide': digSide_meeseek()
-		'DigDown': pass
-		'Stopper': pass
-		'Umbrella': pass
-		'Stair': pass
-		'Climb': pass
+		'DigDown': digDown_meeseek()
+		'Stopper': stopper_meeseek()
+		'Umbrella': umbrella_meeseek()
+		'Stair': stair_meeseek()
+		'Climb': climb_meeseek()
 		_: normal_meeseek()
 	move_and_slide(motion, Vector2.UP)
 
@@ -73,7 +77,10 @@ func normal_meeseek():
 						right = -right
 	else:
 		air_time += 1;
-		if is_on_floor() or air_time > 600:
+		if (self.position.y > map.get_used_rect().end.y or 
+			self.position.x < map.get_used_rect().position.x or
+			self.position.x > map.get_used_rect().end.x or 
+			self.position.y < map.get_used_rect().position.y):
 			motion = Vector2();
 			$AnimationPlayer.play("Death")
 
@@ -119,13 +126,15 @@ func digSide_meeseek():
 						#if first_collision != -1 and map.get_cellv(celda)
 						motion.x = 0
 						##inicia animación excavar
-						
-						
+
 						#numero de frames que se excavan 60 = 1 segundo
 						if frames_digging < 30:
 							frames_digging += 1
 							if first_collision == -1:
 								first_collision = map.get_cellv(celda)
+								next_collision = map.get_cellv(celda + Vector2(right,0))
+								if next_collision == -1: 
+									stop_digging = true;
 						else:
 							frames_digging = 0 
 							#5 a 7 son tiles destrozandose, 8 es el ultimo paso y -1 elimina la casilla
@@ -136,10 +145,15 @@ func digSide_meeseek():
 								first_collision = -1
 								#añadir animación de romper bloque
 								map.set_cellv(celda, -1)
-								
+								if stop_digging == true:
+									self.state = 'Basic'
+									stop_digging = false
 	else:
 		air_time += 1;
-		if is_on_floor() or air_time > 600:
+		if (self.position.y > map.get_used_rect().end.y or 
+			self.position.x < map.get_used_rect().position.x or
+			self.position.x > map.get_used_rect().end.x or 
+			self.position.y < map.get_used_rect().position.y):
 			motion = Vector2();
 			$AnimationPlayer.play("Death")
 			
@@ -161,13 +175,104 @@ func digDown_meeseek():
 				once = false
 			$Sprite.scale.x = right
 			$AnimationPlayer.play("Fall")
+			
 		#bloque meeseek en el suelo
 		else:
+			#reset la separación de la pared al tocar el suelo
+			#once = true
+			air_time = 0
+			$Sprite.scale.x = right
+			motion.x = 0
+			for i in get_slide_count():
+				var collision = get_slide_collision(i)
+				celda = map.world_to_map(collision.position - collision.normal)
+				#numero de frames que se excavan 60 = 1 segundo
+				if frames_digging < 30 :
+					frames_digging += 1
+					if first_collision == -1:
+						first_collision = map.get_cellv(celda)
+						next_collision = map.get_cellv(celda + Vector2(0,1))
+						if next_collision == -1: 
+							stop_digging = true;
+				else:
+					frames_digging = 0 
+					#5 a 7 son tiles destrozandose, 8 es el ultimo paso y -1 elimina la casilla
+					if first_collision >= 5 and first_collision <= 7:
+						first_collision = first_collision + 1
+						map.set_cellv(celda, first_collision+1)
+					elif first_collision == 8:
+						first_collision = -1
+						#añadir animación de romper bloque
+						map.set_cellv(celda, -1)
+						if stop_digging == true:
+							self.state = 'Basic'
+							stop_digging = false
+	else:
+		air_time += 1;
+		if (self.position.y > map.get_used_rect().end.y or 
+			self.position.x < map.get_used_rect().position.x or
+			self.position.x > map.get_used_rect().end.x or 
+			self.position.y < map.get_used_rect().position.y):
+			motion = Vector2();
+			$AnimationPlayer.play("Death")
+			
+func stopper_meeseek():
+	if(alive):
+		#bloque meeseek en el aire
+		#si vuela durante más de 2 segundos aprox(5 bloques)
+		if air_time > 120: 
+			alive = false;
+		if !is_on_floor():	
+			air_time += 1
+			motion.x = 0
+			#para separar el cuerpor de las paredes al caer
+			if once:
+				if right > 0:
+					self.position.x += 13
+				else: 
+					self.position.x -= 13
+				once = false
+			$Sprite.scale.x = right
+			$AnimationPlayer.play("Fall")
+		else:
+			motion.x = 0
+			self.set_collision_layer_bit(0,true)
+	else: 
+		air_time += 1;
+		if (self.position.y > map.get_used_rect().end.y or 
+			self.position.x < map.get_used_rect().position.x or
+			self.position.x > map.get_used_rect().end.x or 
+			self.position.y < map.get_used_rect().position.y):
+			motion = Vector2();
+			$AnimationPlayer.play("Death")
+			
+func umbrella_meeseek():
+	if(alive):
+		#bloque meeseek en el aire
+		#si vuela durante más de 2 segundos aprox(5 bloques)
+		if !is_on_floor():	
+			air_time += 1
+			motion.y = GRAVITY/2
+			motion.x = 0
+			#para separar el cuerpor de las paredes al caer
+			if once:
+				if right > 0:
+					self.position.x += 13
+				else: 
+					self.position.x -= 13
+				once = false
+			$Sprite.scale.x = right
+			$AnimationPlayer.play("Fall")
+		#bloque meeseek en el suelo
+		else:
+			#ya ha estado en el aire
+			if !once:
+				self.state = 'Basic'
 			#reset la separación de la pared al tocar el suelo
 			once = true
 			air_time = 0
 			$Sprite.scale.x = right
-			$AnimationPlayer.play("Walking") 
+			$AnimationPlayer.play("Walking")
 			motion.x = MAXSPEED * right
 			#comprueba las colisiones durante el movimiento,
 			for i in get_slide_count():
@@ -179,39 +284,15 @@ func digDown_meeseek():
 						#sumar meeseek a contador de exito y borrarlo
 					#si la colisión es diferente a la colisión frente al suelo, y frente a la dirección en la que avanzo
 					if collision.normal != Vector2(0,-1) and collision.normal == Vector2(-right,0):
-						celda = map.world_to_map(collision.position - collision.normal)
-						#print(map.get_cellv(celda))
-						#if first_collision != -1 and map.get_cellv(celda)
-						motion.x = 0
-						##inicia animación excavar
-						
-						
-						#numero de frames que se excavan 60 = 1 segundo
-						if frames_digging < 30:
-							frames_digging += 1
-							if first_collision == -1:
-								first_collision = map.get_cellv(celda)
-						else:
-							frames_digging = 0 
-							#5 a 7 son tiles destrozandose, 8 es el ultimo paso y -1 elimina la casilla
-							if first_collision >= 5 and first_collision <= 7:
-								first_collision = first_collision + 1
-								map.set_cellv(celda, first_collision+1)
-							elif first_collision == 8:
-								first_collision = -1
-								#añadir animación de romper bloque
-								map.set_cellv(celda, -1)
-								
+						right = -right
 	else:
 		air_time += 1;
-		if is_on_floor() or air_time > 600:
+		if (self.position.y > map.get_used_rect().end.y or 
+			self.position.x < map.get_used_rect().position.x or
+			self.position.x > map.get_used_rect().end.x or 
+			self.position.y < map.get_used_rect().position.y):
 			motion = Vector2();
 			$AnimationPlayer.play("Death")
-			
-func stopper_meeseek():
-	pass
-func umbrella_meeseek():
-	pass
 func stair_meeseek():
 	pass
 func climb_meeseek():
@@ -223,7 +304,7 @@ func death():
 	self.queue_free()
 
 #dar actitud a un meesek al clickarle
-var mouse_in := true
+var mouse_in := false
 func _unhandled_input(event):
 	if mouse_in: 
 		if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
