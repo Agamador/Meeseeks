@@ -1,9 +1,13 @@
-[gd_resource type="TileSet" load_steps=3 format=2]
+[gd_resource type="TileSet" load_steps=4 format=2]
 
 [ext_resource path="res://Resources/Tiles.png" type="Texture" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
+
+[sub_resource type="SegmentShape2D" id=2]
+a = Vector2( 25.9742, -28.6762 )
+b = Vector2( -34.4834, 35.8474 )
 
 [resource]
 0/name = "Rock1"
@@ -279,3 +283,108 @@ extents = Vector2( 32, 32 )
 "shape_transform": Transform2D( 1, 0, 0, 1, 32, 32 )
 } ]
 12/z_index = 0
+13/name = "Stairs1"
+13/texture = ExtResource( 1 )
+13/tex_offset = Vector2( 0, 0 )
+13/modulate = Color( 1, 1, 1, 1 )
+13/region = Rect2( 0, 192, 64, 64 )
+13/tile_mode = 0
+13/occluder_offset = Vector2( 32, 32 )
+13/navigation_offset = Vector2( 32, 32 )
+13/shape_offset = Vector2( 0, 0 )
+13/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+13/shape_one_way = false
+13/shape_one_way_margin = 0.0
+13/shapes = [  ]
+13/z_index = 0
+14/name = "Stairs2"
+14/texture = ExtResource( 1 )
+14/tex_offset = Vector2( 0, 0 )
+14/modulate = Color( 1, 1, 1, 1 )
+14/region = Rect2( 64, 192, 64, 64 )
+14/tile_mode = 0
+14/occluder_offset = Vector2( 32, 32 )
+14/navigation_offset = Vector2( 32, 32 )
+14/shape_offset = Vector2( 0, 0 )
+14/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+14/shape_one_way = false
+14/shape_one_way_margin = 0.0
+14/shapes = [  ]
+14/z_index = 0
+15/name = "Stairs3"
+15/texture = ExtResource( 1 )
+15/tex_offset = Vector2( 0, 0 )
+15/modulate = Color( 1, 1, 1, 1 )
+15/region = Rect2( 128, 192, 64, 64 )
+15/tile_mode = 0
+15/occluder_offset = Vector2( 32, 32 )
+15/navigation_offset = Vector2( 32, 32 )
+15/shape_offset = Vector2( 0, 0 )
+15/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+15/shape_one_way = false
+15/shape_one_way_margin = 0.0
+15/shapes = [  ]
+15/z_index = 0
+16/name = "Stairs4"
+16/texture = ExtResource( 1 )
+16/tex_offset = Vector2( 0, 0 )
+16/modulate = Color( 1, 1, 1, 1 )
+16/region = Rect2( 192, 192, 64, 64 )
+16/tile_mode = 0
+16/occluder_offset = Vector2( 32, 32 )
+16/navigation_offset = Vector2( 32, 32 )
+16/shape_offset = Vector2( 0, 0 )
+16/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+16/shape_one_way = false
+16/shape_one_way_margin = 0.0
+16/shapes = [  ]
+16/z_index = 0
+17/name = "Stairs5"
+17/texture = ExtResource( 1 )
+17/tex_offset = Vector2( 0, 0 )
+17/modulate = Color( 1, 1, 1, 1 )
+17/region = Rect2( 256, 192, 64, 64 )
+17/tile_mode = 0
+17/occluder_offset = Vector2( 32, 32 )
+17/navigation_offset = Vector2( 32, 32 )
+17/shape_offset = Vector2( 0, 0 )
+17/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+17/shape_one_way = false
+17/shape_one_way_margin = 0.0
+17/shapes = [  ]
+17/z_index = 0
+18/name = "Stairs6"
+18/texture = ExtResource( 1 )
+18/tex_offset = Vector2( 0, 0 )
+18/modulate = Color( 1, 1, 1, 1 )
+18/region = Rect2( 256, 128, 64, 64 )
+18/tile_mode = 0
+18/occluder_offset = Vector2( 32, 32 )
+18/navigation_offset = Vector2( 32, 32 )
+18/shape_offset = Vector2( 0, 0 )
+18/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+18/shape_one_way = false
+18/shape_one_way_margin = 0.0
+18/shapes = [  ]
+18/z_index = 0
+19/name = "Stairs7"
+19/texture = ExtResource( 1 )
+19/tex_offset = Vector2( 0, 0 )
+19/modulate = Color( 1, 1, 1, 1 )
+19/region = Rect2( 256, 64, 64, 64 )
+19/tile_mode = 0
+19/occluder_offset = Vector2( 32, 32 )
+19/navigation_offset = Vector2( 32, 32 )
+19/shape_offset = Vector2( 37.8367, 29.9367 )
+19/shape_transform = Transform2D( 1, 0, 0, 1, 37.8367, 29.9367 )
+19/shape = SubResource( 2 )
+19/shape_one_way = true
+19/shape_one_way_margin = 1.0
+19/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": true,
+"one_way_margin": 1.0,
+"shape": SubResource( 2 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 37.8367, 29.9367 )
+} ]
+19/z_index = 0

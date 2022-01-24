@@ -1,16 +1,20 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Resources/Tiles.png" type="Texture" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
 
+[sub_resource type="SegmentShape2D" id=2]
+a = Vector2( 25.9742, -28.6762 )
+b = Vector2( -34.4834, 35.8474 )
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Rock1" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 3
+vframes = 4
 __meta__ = {
 "_edit_group_": true
 }
@@ -24,7 +28,7 @@ shape = SubResource( 1 )
 position = Vector2( 64, 0 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 3
+vframes = 4
 frame = 1
 __meta__ = {
 "_edit_group_": true
@@ -39,7 +43,7 @@ shape = SubResource( 1 )
 position = Vector2( 128, 0 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 3
+vframes = 4
 frame = 2
 __meta__ = {
 "_edit_group_": true
@@ -54,7 +58,7 @@ shape = SubResource( 1 )
 position = Vector2( 192, 0 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 3
+vframes = 4
 frame = 3
 __meta__ = {
 "_edit_group_": true
@@ -69,7 +73,7 @@ shape = SubResource( 1 )
 position = Vector2( 256, 0 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 3
+vframes = 4
 frame = 4
 __meta__ = {
 "_edit_group_": true
@@ -85,7 +89,7 @@ shape = SubResource( 1 )
 position = Vector2( 321.511, -0.840881 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 3
+vframes = 4
 frame = 5
 __meta__ = {
 "_edit_group_": true
@@ -102,7 +106,7 @@ shape = SubResource( 1 )
 position = Vector2( 394.669, -7.62939e-06 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 3
+vframes = 4
 frame = 6
 __meta__ = {
 "_edit_group_": true
@@ -119,7 +123,7 @@ shape = SubResource( 1 )
 position = Vector2( 468.798, 0.179276 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 3
+vframes = 4
 frame = 7
 __meta__ = {
 "_edit_group_": true
@@ -136,7 +140,7 @@ shape = SubResource( 1 )
 position = Vector2( 540.48, 0.308945 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 3
+vframes = 4
 frame = 8
 __meta__ = {
 "_edit_group_": true
@@ -153,7 +157,7 @@ shape = SubResource( 1 )
 position = Vector2( 628.242, 0.180084 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 3
+vframes = 4
 frame = 10
 __meta__ = {
 "_edit_group_": true
@@ -170,7 +174,7 @@ shape = SubResource( 1 )
 position = Vector2( 705.168, -0.291855 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 3
+vframes = 4
 frame = 11
 __meta__ = {
 "_edit_group_": true
@@ -187,7 +191,7 @@ shape = SubResource( 1 )
 position = Vector2( 786.813, 0.180084 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 3
+vframes = 4
 frame = 12
 __meta__ = {
 "_edit_group_": true
@@ -204,7 +208,7 @@ shape = SubResource( 1 )
 position = Vector2( 870.818, -1.23572 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 3
+vframes = 4
 frame = 13
 __meta__ = {
 "_edit_group_": true
@@ -216,3 +220,79 @@ visible = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TerrainUp4/StaticBody2D"]
 visible = false
 shape = SubResource( 1 )
+
+[node name="Stairs1" type="Sprite" parent="."]
+position = Vector2( 950.014, -0.528612 )
+texture = ExtResource( 1 )
+hframes = 5
+vframes = 4
+frame = 15
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Stairs2" type="Sprite" parent="."]
+position = Vector2( 1033.51, 0.471388 )
+texture = ExtResource( 1 )
+hframes = 5
+vframes = 4
+frame = 16
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Stairs3" type="Sprite" parent="."]
+position = Vector2( 1103.76, -0.0286125 )
+texture = ExtResource( 1 )
+hframes = 5
+vframes = 4
+frame = 17
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Stairs4" type="Sprite" parent="."]
+position = Vector2( 1172.26, 4.47139 )
+texture = ExtResource( 1 )
+hframes = 5
+vframes = 4
+frame = 18
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Stairs5" type="Sprite" parent="."]
+position = Vector2( 1245.01, 1.97139 )
+texture = ExtResource( 1 )
+hframes = 5
+vframes = 4
+frame = 19
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Stairs6" type="Sprite" parent="."]
+position = Vector2( 1329.26, 0.471387 )
+texture = ExtResource( 1 )
+hframes = 5
+vframes = 4
+frame = 14
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Stairs7" type="Sprite" parent="."]
+position = Vector2( 1428.5, -0.590479 )
+texture = ExtResource( 1 )
+hframes = 5
+vframes = 4
+frame = 9
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Stairs7"]
+position = Vector2( 5.30957, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stairs7/StaticBody2D"]
+position = Vector2( 0.527095, -2.06333 )
+shape = SubResource( 2 )
+one_way_collision = true
+one_way_collision_margin = 0.0
