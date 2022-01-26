@@ -5,16 +5,15 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
 
-[sub_resource type="SegmentShape2D" id=2]
-a = Vector2( 25.9742, -28.6762 )
-b = Vector2( -34.4834, 35.8474 )
+[sub_resource type="ConvexPolygonShape2D" id=2]
+points = PoolVector2Array( 32, -32, 29, -32, -32, 32, -29, 32 )
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Rock1" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 __meta__ = {
 "_edit_group_": true
 }
@@ -28,7 +27,7 @@ shape = SubResource( 1 )
 position = Vector2( 64, 0 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 frame = 1
 __meta__ = {
 "_edit_group_": true
@@ -43,7 +42,7 @@ shape = SubResource( 1 )
 position = Vector2( 128, 0 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 frame = 2
 __meta__ = {
 "_edit_group_": true
@@ -58,7 +57,7 @@ shape = SubResource( 1 )
 position = Vector2( 192, 0 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 frame = 3
 __meta__ = {
 "_edit_group_": true
@@ -73,7 +72,7 @@ shape = SubResource( 1 )
 position = Vector2( 256, 0 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 frame = 4
 __meta__ = {
 "_edit_group_": true
@@ -89,7 +88,7 @@ shape = SubResource( 1 )
 position = Vector2( 321.511, -0.840881 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 frame = 5
 __meta__ = {
 "_edit_group_": true
@@ -106,7 +105,7 @@ shape = SubResource( 1 )
 position = Vector2( 394.669, -7.62939e-06 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 frame = 6
 __meta__ = {
 "_edit_group_": true
@@ -123,7 +122,7 @@ shape = SubResource( 1 )
 position = Vector2( 468.798, 0.179276 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 frame = 7
 __meta__ = {
 "_edit_group_": true
@@ -140,7 +139,7 @@ shape = SubResource( 1 )
 position = Vector2( 540.48, 0.308945 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 frame = 8
 __meta__ = {
 "_edit_group_": true
@@ -157,7 +156,7 @@ shape = SubResource( 1 )
 position = Vector2( 628.242, 0.180084 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 frame = 10
 __meta__ = {
 "_edit_group_": true
@@ -174,7 +173,7 @@ shape = SubResource( 1 )
 position = Vector2( 705.168, -0.291855 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 frame = 11
 __meta__ = {
 "_edit_group_": true
@@ -191,7 +190,7 @@ shape = SubResource( 1 )
 position = Vector2( 786.813, 0.180084 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 frame = 12
 __meta__ = {
 "_edit_group_": true
@@ -208,7 +207,7 @@ shape = SubResource( 1 )
 position = Vector2( 870.818, -1.23572 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 frame = 13
 __meta__ = {
 "_edit_group_": true
@@ -225,74 +224,223 @@ shape = SubResource( 1 )
 position = Vector2( 950.014, -0.528612 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 frame = 15
 __meta__ = {
 "_edit_group_": true
 }
 
+[node name="StaticBody2D" type="StaticBody2D" parent="Stairs1"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stairs1/StaticBody2D"]
+polygon = PoolVector2Array( -15, 22, -30, 32, -32, 32, -17, 22 )
+one_way_collision = true
+
 [node name="Stairs2" type="Sprite" parent="."]
-position = Vector2( 1033.51, 0.471388 )
+position = Vector2( 1033.77, 0.206526 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 frame = 16
 __meta__ = {
 "_edit_group_": true
 }
 
+[node name="StaticBody2D" type="StaticBody2D" parent="Stairs2"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stairs2/StaticBody2D"]
+polygon = PoolVector2Array( -7, 13, -30, 32, -32, 32, -9, 13 )
+one_way_collision = true
+
 [node name="Stairs3" type="Sprite" parent="."]
 position = Vector2( 1103.76, -0.0286125 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 frame = 17
 __meta__ = {
 "_edit_group_": true
 }
 
+[node name="StaticBody2D" type="StaticBody2D" parent="Stairs3"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stairs3/StaticBody2D"]
+polygon = PoolVector2Array( 1, 4, -30, 32, -32, 32, -1, 4 )
+one_way_collision = true
+
 [node name="Stairs4" type="Sprite" parent="."]
 position = Vector2( 1172.26, 4.47139 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 frame = 18
 __meta__ = {
 "_edit_group_": true
 }
 
+[node name="StaticBody2D" type="StaticBody2D" parent="Stairs4"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stairs4/StaticBody2D"]
+polygon = PoolVector2Array( 9, -5, -29, 32, -32, 32, 7, -5 )
+one_way_collision = true
+
 [node name="Stairs5" type="Sprite" parent="."]
 position = Vector2( 1245.01, 1.97139 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 frame = 19
 __meta__ = {
 "_edit_group_": true
 }
 
+[node name="StaticBody2D" type="StaticBody2D" parent="Stairs5"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stairs5/StaticBody2D"]
+polygon = PoolVector2Array( 17, -14, -30, 32, -32, 32, 15, -14 )
+one_way_collision = true
+
 [node name="Stairs6" type="Sprite" parent="."]
 position = Vector2( 1329.26, 0.471387 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 frame = 14
 __meta__ = {
 "_edit_group_": true
 }
 
+[node name="StaticBody2D" type="StaticBody2D" parent="Stairs6"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stairs6/StaticBody2D"]
+polygon = PoolVector2Array( 23, -23, 25, -23, -29, 32, -32, 32 )
+one_way_collision = true
+
 [node name="Stairs7" type="Sprite" parent="."]
 position = Vector2( 1428.5, -0.590479 )
 texture = ExtResource( 1 )
 hframes = 5
-vframes = 4
+vframes = 6
 frame = 9
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Stairs7"]
-position = Vector2( 5.30957, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Stairs7/StaticBody2D"]
-position = Vector2( 0.527095, -2.06333 )
 shape = SubResource( 2 )
 one_way_collision = true
 one_way_collision_margin = 0.0
+
+[node name="Stairs8" type="Sprite" parent="."]
+position = Vector2( 1553.83, 0.969679 )
+texture = ExtResource( 1 )
+hframes = 5
+vframes = 6
+frame = 20
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Stairs8"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stairs8/StaticBody2D"]
+polygon = PoolVector2Array( 32, 32, 17, 22, 15, 22, 30, 32 )
+one_way_collision = true
+
+[node name="Stairs9" type="Sprite" parent="."]
+position = Vector2( 1629.2, 0.978821 )
+texture = ExtResource( 1 )
+hframes = 5
+vframes = 6
+frame = 21
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Stairs9"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stairs9/StaticBody2D"]
+polygon = PoolVector2Array( 32, 32, 9, 13, 7, 13, 30, 32 )
+one_way_collision = true
+
+[node name="Stairs10" type="Sprite" parent="."]
+position = Vector2( 1710.41, 0.267561 )
+texture = ExtResource( 1 )
+hframes = 5
+vframes = 6
+frame = 22
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Stairs10"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stairs10/StaticBody2D"]
+polygon = PoolVector2Array( 29.8995, 31.8372, 32.0823, 31.8372, 0.942139, 4.04032, -1.51599, 4.04032 )
+one_way_collision = true
+
+[node name="Stairs11" type="Sprite" parent="."]
+position = Vector2( 1783.89, 1.16783 )
+texture = ExtResource( 1 )
+hframes = 5
+vframes = 6
+frame = 23
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Stairs11"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stairs11/StaticBody2D"]
+polygon = PoolVector2Array( 32.0039, 31.9729, 30.0159, 31.9884, -9.03027, -4.93984, -6.91431, -4.93984 )
+one_way_collision = true
+
+[node name="Stairs12" type="Sprite" parent="."]
+position = Vector2( 1862.37, 0.636551 )
+texture = ExtResource( 1 )
+hframes = 5
+vframes = 6
+frame = 24
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Stairs12"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stairs12/StaticBody2D"]
+polygon = PoolVector2Array( 31.9858, 31.9884, -14.9801, -13.8786, -16.9487, -13.9574, 29.9702, 32.0041 )
+one_way_collision = true
+
+[node name="Stairs13" type="Sprite" parent="."]
+position = Vector2( 1940.64, 1.41634 )
+texture = ExtResource( 1 )
+hframes = 5
+vframes = 6
+frame = 25
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Stairs13"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stairs13/StaticBody2D"]
+polygon = PoolVector2Array( 32.0352, 31.9899, -23.0273, -23.0023, -24.9805, -23.0023, 29.9883, 31.9743 )
+one_way_collision = true
+
+[node name="Stairs14" type="Sprite" parent="."]
+position = Vector2( 2020.31, 1.76922 )
+texture = ExtResource( 1 )
+hframes = 5
+vframes = 6
+frame = 26
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Stairs14"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stairs14/StaticBody2D"]
+polygon = PoolVector2Array( 31.9878, 31.9886, -30.1138, -32.0036, -31.9966, -31.988, 29.9878, 31.9808 )
+one_way_collision = true
