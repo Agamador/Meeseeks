@@ -1,7 +1,7 @@
 extends KinematicBody2D
-
+#las velocidades van en píxeles por segundo, 1 segundo = 60 frames
 const DEADSPEED = 200
-const MAXSPEED = 60
+const MAXSPEED = 64
 const GRAVITY = 150
 var right = 1
 var alive = true
@@ -9,7 +9,9 @@ var air_time = 0
 var on_air := false
 var once = true
 var state := "basic"
+var collision
 #escalera
+#stair step = 8,10
 var en_escalera := false
 var stair_tiles := [19, 18, 17, 16, 15, 14, 13, 20, 21, 22, 23 ,24 ,25 ,26]
 #mapa
@@ -24,11 +26,15 @@ var stop_digging := false
 var digging := false
 #Umbrella
 var stop_umbrella := false
+#Stair
+var building := false
+var building_block := 0
+var building_cell 
+var building_frame := 0
 #Climber
 var climbing := false
 #Se inicia el movimiento del misik en caida
 var motion = Vector2(0, GRAVITY)
-
 
 func _ready():
 	#mapa
@@ -38,25 +44,37 @@ func _ready():
 func _physics_process(delta):
 	match state:
 		"Basic":
+			self.set_collision_layer_bit(0, false)
 			normal_meeseek()
 		"DigSide":
+			self.set_collision_layer_bit(0, false)
 			digSide_meeseek()
 		"DigDown":
+			self.set_collision_layer_bit(0, false)
 			digDown_meeseek()
 		"Stopper":
 			stopper_meeseek()
 		"Umbrella":
+			self.set_collision_layer_bit(0, false)
 			umbrella_meeseek()
 		"Stair":
+			self.set_collision_layer_bit(0, false)
 			stair_meeseek()
 		"Climb":
+			self.set_collision_layer_bit(0, false)
 			climb_meeseek()
 		_:
 			normal_meeseek()
 	move_and_slide(motion, Vector2.UP)
 
-
 func normal_meeseek():
+	if (
+		self.position.y > map.get_used_rect().end.y * 64
+		or self.position.x < map.get_used_rect().position.x * 64
+		or self.position.x > map.get_used_rect().end.x * 64
+		or self.position.y < map.get_used_rect().position.y * 64
+	):
+		alive = false
 	if alive:
 		#bloque meeseek en el aire
 		#si vuela durante m�s de 2 segundos aprox(5 bloques)
@@ -64,6 +82,12 @@ func normal_meeseek():
 			alive = false
 			#la escalera no se detecta como suelo
 		if !is_on_floor():
+			#comprobación de si estamos en una escalera al caer
+			if get_slide_count() != 0:
+				for i in get_slide_count():
+					collision = get_slide_collision(i)
+					if stair_tiles.has(map.get_cellv(map.world_to_map(collision.position - collision.normal))):
+						en_escalera = true;
 			if !en_escalera:
 				air_time += 1
 				motion.x = 0
@@ -91,37 +115,34 @@ func normal_meeseek():
 			motion.x = MAXSPEED * right
 			#comprueba las colisiones durante el movimiento,
 			for i in get_slide_count():
-				var collision = get_slide_collision(i)
-				if collision:
-					if collision.get_collider().get_class() == "StaticBody2D":
+				collision = get_slide_collision(i)
+				if collision.get_collider().get_class() == "StaticBody2D":
 						self.get_parent().meeseek_saved()
 						self.queue_free()  #borrado
-						#sumar meeseek a contador de exito y borrarlo
+						###sumar meeseek a contador de exito y borrarlo
 					#si la colisi�n es diferente a la colisi�n frente al suelo, y frente a la direcci�n en la que avanzo
-					if collision.normal != Vector2(0, -1):
-						if collision.get_collider().get_class() == "TileMap":
-							celda = map.world_to_map(collision.position - collision.normal)
-							if stair_tiles.has(map.get_cellv(celda)):
-								en_escalera = true
-								motion.y = collision.normal.y
-							else:
-								en_escalera = false
-					if collision.normal == Vector2(-right, 0):
-						right = -right
+				if collision.normal != Vector2(0,-1):
+					if collision.get_collider().get_class() == "TileMap":
+						celda = map.world_to_map(collision.position - collision.normal)
+						if stair_tiles.has(map.get_cellv(celda)):
+							en_escalera = true
+							motion.y = collision.normal.y
+						else:
+							en_escalera = false
+				if collision.normal == Vector2(-right, 0):
+					right = -right
 	else:
-		air_time += 1
-		if (
-			self.position.y > map.get_used_rect().end.y
-			or self.position.x < map.get_used_rect().position.x
-			or self.position.x > map.get_used_rect().end.x
-			or self.position.y < map.get_used_rect().position.y
-		):
-			motion = Vector2()
-			$AnimationPlayer.play("Death")
+		motion = Vector2()
+		$AnimationPlayer.play("Death")
 
-
-#selfxplaining
 func digSide_meeseek():
+	if (
+		self.position.y > map.get_used_rect().end.y * 64
+		or self.position.x < map.get_used_rect().position.x * 64
+		or self.position.x > map.get_used_rect().end.x * 64
+		or self.position.y < map.get_used_rect().position.y * 64
+	):
+		alive = false
 	if alive:
 		#bloque meeseek en el aire
 		#si vuela durante m�s de 2 segundos aprox(5 bloques)
@@ -154,7 +175,7 @@ func digSide_meeseek():
 			motion.x = MAXSPEED * right
 			#comprueba las colisiones durante el movimiento,
 			for i in get_slide_count():
-				var collision = get_slide_collision(i)
+				collision =get_slide_collision(i)
 				if collision:
 					if collision.get_collider().get_class() == "StaticBody2D":
 						self.get_parent().meeseek_saved()
@@ -203,18 +224,17 @@ func digSide_meeseek():
 						else:
 							right = -right
 	else:
-		air_time += 1
-		if (
-			self.position.y > map.get_used_rect().end.y
-			or self.position.x < map.get_used_rect().position.x
-			or self.position.x > map.get_used_rect().end.x
-			or self.position.y < map.get_used_rect().position.y
-		):
-			motion = Vector2()
-			$AnimationPlayer.play("Death")
-
+		motion = Vector2()
+		$AnimationPlayer.play("Death")
 
 func digDown_meeseek():
+	if (
+		self.position.y > map.get_used_rect().end.y * 64
+		or self.position.x < map.get_used_rect().position.x * 64
+		or self.position.x > map.get_used_rect().end.x * 64
+		or self.position.y < map.get_used_rect().position.y * 64
+	):
+		alive = false
 	if alive:
 		#bloque meeseek en el aire
 		#si vuela durante m�s de 2 segundos aprox(5 bloques)
@@ -248,10 +268,9 @@ func digDown_meeseek():
 				$AnimationPlayer.play("Walking")
 				motion.x = MAXSPEED *right
 			for i in get_slide_count():
-				var collision = get_slide_collision(i)
+				collision =get_slide_collision(i)
 				if collision:
 					celda = map.world_to_map(collision.position - collision.normal)
-					print(map.get_cellv(celda))
 					if collision.get_collider().get_class() == "StaticBody2D":
 						self.get_parent().meeseek_saved()
 						self.queue_free()  #borrado
@@ -297,18 +316,17 @@ func digDown_meeseek():
 									digging = false
 						
 	else:
-		air_time += 1
-		if (
-			self.position.y > map.get_used_rect().end.y
-			or self.position.x < map.get_used_rect().position.x
-			or self.position.x > map.get_used_rect().end.x
-			or self.position.y < map.get_used_rect().position.y
-		):
-			motion = Vector2()
-			$AnimationPlayer.play("Death")
-
+		motion = Vector2()
+		$AnimationPlayer.play("Death")
 
 func stopper_meeseek():
+	if (
+		self.position.y > map.get_used_rect().end.y * 64
+		or self.position.x < map.get_used_rect().position.x * 64
+		or self.position.x > map.get_used_rect().end.x * 64
+		or self.position.y < map.get_used_rect().position.y * 64
+	):
+		alive = false
 	if alive:
 		#bloque meeseek en el aire
 		#si vuela durante m�s de 2 segundos aprox(5 bloques)
@@ -326,27 +344,24 @@ func stopper_meeseek():
 				$Sprite.scale.x = right
 				$AnimationPlayer.play("Fall")
 			else:
-				once = false
 				if get_slide_count() == 0:
 					en_escalera = false
 					motion.y = GRAVITY
-					once = false
 		else:
 			motion.x = 0
 			self.set_collision_layer_bit(0, true)
 	else:
-		air_time += 1
-		if (
-			self.position.y > map.get_used_rect().end.y
-			or self.position.x < map.get_used_rect().position.x
-			or self.position.x > map.get_used_rect().end.x
-			or self.position.y < map.get_used_rect().position.y
-		):
-			motion = Vector2()
-			$AnimationPlayer.play("Death")
-
+		motion = Vector2()
+		$AnimationPlayer.play("Death")
 
 func umbrella_meeseek():
+	if (
+		self.position.y > map.get_used_rect().end.y * 64
+		or self.position.x < map.get_used_rect().position.x * 64
+		or self.position.x > map.get_used_rect().end.x * 64
+		or self.position.y < map.get_used_rect().position.y * 64
+	):
+		alive = false
 	if alive:
 		#bloque meeseek en el aire
 		#si vuela durante m�s de 2 segundos aprox(5 bloques)
@@ -380,7 +395,7 @@ func umbrella_meeseek():
 			motion.x = MAXSPEED * right
 			#comprueba las colisiones durante el movimiento,
 			for i in get_slide_count():
-				var collision = get_slide_collision(i)
+				collision =get_slide_collision(i)
 				if collision:
 					if collision.get_collider().get_class() == "StaticBody2D":
 						self.get_parent().meeseek_saved()
@@ -393,22 +408,128 @@ func umbrella_meeseek():
 					):
 						right = -right
 	else:
-		air_time += 1
-		if (
-			self.position.y > map.get_used_rect().end.y
-			or self.position.x < map.get_used_rect().position.x
-			or self.position.x > map.get_used_rect().end.x
-			or self.position.y < map.get_used_rect().position.y
-		):
-			motion = Vector2()
-			$AnimationPlayer.play("Death")
-
+		motion = Vector2()
+		$AnimationPlayer.play("Death")
 
 func stair_meeseek():
-	pass
+	if (
+		self.position.y > map.get_used_rect().end.y * 64
+		or self.position.x < map.get_used_rect().position.x * 64
+		or self.position.x > map.get_used_rect().end.x * 64
+		or self.position.y < map.get_used_rect().position.y * 64
+	):
+		alive = false
+	if alive:
+		if building:
+			if right > 0:
+				if building_block == 0:
+					building_block = 13
+				if  building_frame > 60:
+					building_frame = 0 
+					building_block += 1
+					if building_block <= 19 :
+						map.set_cellv(building_cell, building_block)
+						self.position.x += 8 * right;
+						self.position.y -= 10;
+					else:
+						building = false;
+						self.state = 'Basic'
+						building_block = 0
+						building_cell = null
+				else: 
+					building_frame += 1
+			else: 
+				if building_block == 0:
+					building_block = 20
+				else: 
+					building_block += 1
+				if building_block <= 26:
+					map.set_cellv(building_cell, building_block)
+					self.position.x += 8 * right;
+					self.position.y += 10;
+				else:
+					building = false;
+					self.state = 'Basic'
+					building_block = 0
+					building_cell = null
+		else:
+			#bloque meeseek en el aire
+			#si vuela durante m�s de 2 segundos aprox(5 bloques)
+			if air_time > 120:
+				alive = false
+				#la escalera no se detecta como suelo
+			if !is_on_floor():
+				#comprobación de si estamos en una escalera al caer
+				if get_slide_count() != 0:
+					for i in get_slide_count():
+						collision = get_slide_collision(i)
+						if stair_tiles.has(map.get_cellv(map.world_to_map(collision.position - collision.normal))):
+							en_escalera = true;
+				if !en_escalera:
+					air_time += 1
+					motion.x = 0
+					motion.y = GRAVITY
+					#para separar el cuerpor de las paredes al caer
+					if once:
+						self.position.x += right * 13
+						once = false
+					$Sprite.scale.x = right
+					$AnimationPlayer.play("Fall")
+				else:
+					once = false
+					if get_slide_count() == 0:
+						en_escalera = false
+						motion.y = GRAVITY
+						once = false
+			#bloque meeseek en el suelo
+			else:
+				#reset la separaci�n de la pared al tocar el suelo
+				once = true
+				en_escalera = false
+				air_time = 0
+				$Sprite.scale.x = right
+				$AnimationPlayer.play("Walking")
+				motion.x = MAXSPEED * right
+				#comprueba las colisiones durante el movimiento,
+				for i in get_slide_count():
+					collision =get_slide_collision(i)
+					if collision.get_collider().get_class() == "StaticBody2D":
+						self.get_parent().meeseek_saved()
+						self.queue_free()  #borrado
+						###sumar meeseek a contador de exito y borrarlo
+					#si la colisi�n es diferente a la colisi�n frente al suelo, y frente a la direcci�n en la que avanzo
+					if collision.normal == Vector2(0, -1):
+						building_cell = map.world_to_map(self.position)
+						building_cell.x = building_cell.x + right
+						#la celda de enfrente está vacía
+						if map.get_cellv(building_cell) == -1:
+							printt(self.position, building_cell, building_cell *64, -right * 5)
+							if self.position.x - (right * building_cell.x * 64 ) > -5:
+								building = true
+								motion = Vector2(0,0)
 
+					else:
+						if collision.get_collider().get_class() == "TileMap":
+							celda = map.world_to_map(collision.position - collision.normal)
+							if stair_tiles.has(map.get_cellv(celda)):
+								en_escalera = true
+								motion.y = collision.normal.y
+							else:
+								en_escalera = false
+						if collision.normal == Vector2(-right, 0):
+							right = -right
+	else:
+		motion = Vector2()
+		$AnimationPlayer.play("Death")	
 
 func climb_meeseek():
+	if (
+		self.position.y > map.get_used_rect().end.y * 64
+		or self.position.x < map.get_used_rect().position.x * 64
+		or self.position.x > map.get_used_rect().end.x * 64
+		or self.position.y < map.get_used_rect().position.y * 64
+	):
+		alive = false
 	if alive:
 		if climbing:
 			celda = map.world_to_map(self.position + Vector2(right * 65, 0))
@@ -451,7 +572,7 @@ func climb_meeseek():
 				motion.x = MAXSPEED * right
 				#comprueba las colisiones durante el movimiento,
 				for i in get_slide_count():
-					var collision = get_slide_collision(i)
+					collision =get_slide_collision(i)
 					if collision:
 						if collision.get_collider().get_class() == "StaticBody2D":
 							self.get_parent().meeseek_saved()
@@ -469,15 +590,8 @@ func climb_meeseek():
 							else:
 								right = -right
 	else:
-		air_time += 1
-		if (
-			self.position.y > map.get_used_rect().end.y
-			or self.position.x < map.get_used_rect().position.x
-			or self.position.x > map.get_used_rect().end.x
-			or self.position.y < map.get_used_rect().position.y
-		):
-			motion = Vector2()
-			$AnimationPlayer.play("Death")
+		motion = Vector2()
+		$AnimationPlayer.play("Death")
 
 
 #a esta funci�n se llama desde la animaci�n Death para que el meeseek muera al terminar la animaci�n

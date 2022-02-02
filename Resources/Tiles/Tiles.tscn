@@ -6,7 +6,7 @@
 extents = Vector2( 32, 32 )
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
-points = PoolVector2Array( 32, -32, 29, -32, -32, 32, -29, 32 )
+points = PoolVector2Array( 32, -32, -32, 32, -29, 32 )
 
 [node name="Node2D" type="Node2D"]
 
@@ -442,5 +442,5 @@ __meta__ = {
 [node name="StaticBody2D" type="StaticBody2D" parent="Stairs14"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stairs14/StaticBody2D"]
-polygon = PoolVector2Array( 31.9878, 31.9886, -30.1138, -32.0036, -31.9966, -31.988, 29.9878, 31.9808 )
+polygon = PoolVector2Array( 31.9878, 31.9886, -31.9668, -31.9704, 29.9878, 31.9808 )
 one_way_collision = true
