@@ -39,6 +39,8 @@ var motion = Vector2(0, GRAVITY)
 func _ready():
 	#mapa
 	map = get_parent().get_node("TileMap")
+	#tiempo
+	Engine.time_scale = 1
 
 
 func _physics_process(delta):
@@ -78,7 +80,7 @@ func normal_meeseek():
 	if alive:
 		#bloque meeseek en el aire
 		#si vuela durante m�s de 2 segundos aprox(5 bloques)
-		if air_time > 120:
+		if air_time * Engine.time_scale > 120:
 			alive = false
 			#la escalera no se detecta como suelo
 		if !is_on_floor():
@@ -146,7 +148,7 @@ func digSide_meeseek():
 	if alive:
 		#bloque meeseek en el aire
 		#si vuela durante m�s de 2 segundos aprox(5 bloques)
-		if air_time > 120:
+		if air_time * Engine.time_scale > 120:
 			alive = false
 		if !is_on_floor():
 			if !en_escalera:
@@ -238,7 +240,7 @@ func digDown_meeseek():
 	if alive:
 		#bloque meeseek en el aire
 		#si vuela durante m�s de 2 segundos aprox(5 bloques)
-		if air_time > 120:
+		if air_time * Engine.time_scale > 120:
 			alive = false
 		if !is_on_floor():
 			if !en_escalera:
@@ -330,7 +332,7 @@ func stopper_meeseek():
 	if alive:
 		#bloque meeseek en el aire
 		#si vuela durante m�s de 2 segundos aprox(5 bloques)
-		if air_time > 120:
+		if air_time * Engine.time_scale > 120:
 			alive = false
 		if !is_on_floor():
 			if !en_escalera:
@@ -455,7 +457,7 @@ func stair_meeseek():
 		else:
 			#bloque meeseek en el aire
 			#si vuela durante m�s de 2 segundos aprox(5 bloques)
-			if air_time > 120:
+			if air_time * Engine.time_scale > 120:
 				alive = false
 				#la escalera no se detecta como suelo
 			if !is_on_floor():
@@ -553,7 +555,7 @@ func climb_meeseek():
 		else:
 			#bloque meeseek en el aire
 			#si vuela durante m�s de 2 segundos aprox(5 bloques)
-			if air_time > 120:
+			if air_time * Engine.time_scale > 120:
 				alive = false
 			if !is_on_floor():
 				if !en_escalera:

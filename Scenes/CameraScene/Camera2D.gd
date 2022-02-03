@@ -14,8 +14,11 @@ export var max_zoom := 2.0
 export var min_zoom := 0.5
 var zoom_level := 1.0 setget _set_zoom_level
 var _zoom_factor := 0.1
-
 onready var tween : Tween = $Tween
+
+var time_step := 0.1
+var min_speed:= 0.5
+var max_speed := 2
 
 func _ready():
 	TileMapBorder = $"../TileMap".get_used_rect();
@@ -92,10 +95,12 @@ func _on_ClimbButton_pressed():
 	get_parent().mouse_pointer = 'Climb';
 
 func _on_RestartButton_pressed():
-	pass
+	get_tree().reload_current_scene()
 
 func _on_TimeDownButton_pressed():
-	pass
+	Engine.time_scale = clamp(Engine.time_scale - time_step, min_speed, max_speed)
+	print(Engine.time_scale)
 
 func _on_TimeUpButton_pressed():
-	pass
+	Engine.time_scale = clamp(Engine.time_scale + time_step, min_speed, max_speed)
+	print(Engine.time_scale)
