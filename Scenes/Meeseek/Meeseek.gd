@@ -475,12 +475,20 @@ func stair_meeseek():
 						once = false
 					$Sprite.scale.x = right
 					$AnimationPlayer.play("Fall")
-				else:
-					once = false
-					if get_slide_count() == 0:
-						en_escalera = false
-						motion.y = GRAVITY
-						once = false
+				# else:
+					# building_cell = map.world_to_map(self.position)
+					# building_cell.x += 1
+					# building_cell.y -= 1
+					# # get_tree().paused = true;
+					# if map.get_cellv(building_cell) == -1:
+					# 	if self.position.x - (right * building_cell.x *64) > -5:
+					# 		building = true
+					# 		motion = Vector2(0,0)
+					# once = false
+					# if get_slide_count() == 0:
+					# 	en_escalera = false
+					# 	motion.y = GRAVITY
+					# 	once = false
 			#bloque meeseek en el suelo
 			else:
 				#reset la separaci�n de la pared al tocar el suelo
@@ -498,13 +506,17 @@ func stair_meeseek():
 						self.queue_free()  #borrado
 						###sumar meeseek a contador de exito y borrarlo
 					#si la colisi�n es diferente a la colisi�n frente al suelo, y frente a la direcci�n en la que avanzo
-					if collision.normal == Vector2(0, -1):
+					if collision.normal == Vector2(0, -1) or en_escalera:
+						
 						building_cell = map.world_to_map(self.position)
-						building_cell.x = building_cell.x + right
+						building_cell.x += right
+						# if en_escalera:
+						# 	building_cell.y -= 1
 						#la celda de enfrente está vacía
 						if map.get_cellv(building_cell) == -1:
-							printt(self.position, building_cell, building_cell *64, -right * 5)
-							if self.position.x - (right * building_cell.x * 64 ) > -5:
+							printt(building_cell, self.position.x, right * building_cell.x *64)
+							# get_tree().paused = true
+							if self.position.x - (right * building_cell.x * 64 ) > -20:
 								building = true
 								motion = Vector2(0,0)
 
