@@ -73,6 +73,19 @@ margin_right = 558.0
 margin_bottom = 87.0
 text = "Fast"
 
+[node name="Panel" type="Panel" parent="CanvasLayer/HBoxContainer"]
+margin_left = 562.0
+margin_right = 1024.0
+margin_bottom = 87.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/HBoxContainer/Panel"]
+margin_right = 40.0
+margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/DiggerSideButton" to="." method="_on_DiggerSideButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/DiggerDownButton" to="." method="_on_DiggerDownButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/StopperButton" to="." method="_on_StopperButton_pressed"]

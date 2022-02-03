@@ -443,17 +443,20 @@ func stair_meeseek():
 			else: 
 				if building_block == 0:
 					building_block = 20
-				else: 
+				if building_frame > 60:
+					building_frame = 0 
 					building_block += 1
-				if building_block <= 26:
-					map.set_cellv(building_cell, building_block)
-					self.position.x += 8 * right;
-					self.position.y += 10;
+					if building_block <= 26:
+						map.set_cellv(building_cell, building_block)
+						self.position.x += 8 * right;
+						self.position.y += 10;
+					else:
+						building = false;
+						self.state = 'Basic'
+						building_block = 0
+						building_cell = null
 				else:
-					building = false;
-					self.state = 'Basic'
-					building_block = 0
-					building_cell = null
+					 building_frame += 1
 		else:
 			#bloque meeseek en el aire
 			#si vuela durante m�s de 2 segundos aprox(5 bloques)
@@ -477,20 +480,7 @@ func stair_meeseek():
 						once = false
 					$Sprite.scale.x = right
 					$AnimationPlayer.play("Fall")
-				# else:
-					# building_cell = map.world_to_map(self.position)
-					# building_cell.x += 1
-					# building_cell.y -= 1
-					# # get_tree().paused = true;
-					# if map.get_cellv(building_cell) == -1:
-					# 	if self.position.x - (right * building_cell.x *64) > -5:
-					# 		building = true
-					# 		motion = Vector2(0,0)
-					# once = false
-					# if get_slide_count() == 0:
-					# 	en_escalera = false
-					# 	motion.y = GRAVITY
-					# 	once = false
+
 			#bloque meeseek en el suelo
 			else:
 				#reset la separaci�n de la pared al tocar el suelo
@@ -516,11 +506,16 @@ func stair_meeseek():
 						# 	building_cell.y -= 1
 						#la celda de enfrente está vacía
 						if map.get_cellv(building_cell) == -1:
-							printt(building_cell, self.position.x, right * building_cell.x *64)
 							# get_tree().paused = true
-							if self.position.x - (right * building_cell.x * 64 ) > -20:
-								building = true
-								motion = Vector2(0,0)
+							if right > 0:
+								if abs(self.position.x - (building_cell.x * 64 )) < 20:
+									building = true
+									motion = Vector2(0,0)
+							else :
+								#printt(building_cell, self.position.x, building_cell.x *64,self.position.x - building_cell.x * 64 )
+								if abs(self.position.x - (building_cell.x * 64 + 64)) < 20:
+									building = true
+									motion = Vector2(0,0)
 
 					else:
 						if collision.get_collider().get_class() == "TileMap":
@@ -617,7 +612,6 @@ func death():
 #dar actitud a un meesek al clickarle
 var mouse_in := false
 
-
 func _unhandled_input(event):
 	if mouse_in:
 		if (
@@ -625,15 +619,48 @@ func _unhandled_input(event):
 			and event.button_index == BUTTON_LEFT
 			and event.is_pressed()
 		):
-			self.state = get_parent().mouse_pointer
-			print(get_parent().mouse_pointer)
-			get_tree().set_input_as_handled()
-
+			if self.state != get_parent().mouse_pointer:
+				match get_parent().mouse_pointer:
+					"DigSide":
+						if get_parent().Digsideers >= 1:
+							self.state = get_parent().mouse_pointer
+							get_parent().Digsideers -= 1
+							get_parent().updateButtonsValues()
+							get_tree().set_input_as_handled()
+					"DigDown":
+						if get_parent().Digdowners >= 1:
+							self.state = get_parent().mouse_pointer
+							get_parent().Digdowners -= 1
+							get_parent().updateButtonsValues()
+							get_tree().set_input_as_handled()
+					"Stopper":
+						if get_parent().Stopperers >= 1:
+							self.state = get_parent().mouse_pointer
+							get_parent().Stopperers -= 1
+							get_parent().updateButtonsValues()
+							get_tree().set_input_as_handled()
+					"Umbrella":
+						if get_parent(). Umbrellaers >= 1:
+							self.state = get_parent().mouse_pointer
+							get_parent(). Umbrellaers -= 1
+							get_parent().updateButtonsValues()
+							get_tree().set_input_as_handled()
+					"Stair":
+						if get_parent().Stairers >= 1:
+							self.state = get_parent().mouse_pointer
+							get_parent().Stairers -= 1
+							get_parent().updateButtonsValues()
+							get_tree().set_input_as_handled()
+					"Climb":
+						if get_parent().Climbers >= 1:
+							self.state = get_parent().mouse_pointer
+							get_parent().Climbers -= 1
+							get_parent().updateButtonsValues()
+							get_tree().set_input_as_handled()
 
 #funciones para controlar el clickar un solo meeseek a la vez (topmost order)
 func _on_Meesek_mouse_entered():
 	mouse_in = true
-
 
 func _on_Meesek_mouse_exited():
 	mouse_in = false
