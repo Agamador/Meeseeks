@@ -16,9 +16,9 @@ var zoom_level := 1.0 setget _set_zoom_level
 var _zoom_factor := 0.1
 onready var tween: Tween = $Tween
 
-var time_step := 0.1
+var time_step := 0.25
 var min_speed := 0.5
-var max_speed := 3
+var max_speed := 2
 
 
 func _ready():
@@ -126,10 +126,10 @@ func _on_RestartButton_pressed():
 
 
 func _on_TimeDownButton_pressed():
-	Engine.time_scale = clamp(Engine.time_scale - time_step, min_speed, max_speed)
+	Engine.set_time_scale(clamp(Engine.time_scale - time_step, min_speed, max_speed))
 	print(Engine.time_scale)
 
 
 func _on_TimeUpButton_pressed():
-	Engine.time_scale = clamp(Engine.time_scale + time_step, min_speed, max_speed)
+	Engine.set_time_scale(clamp(Engine.time_scale + time_step, min_speed, max_speed))
 	print(Engine.time_scale)

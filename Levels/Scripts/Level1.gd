@@ -1,6 +1,6 @@
 extends Node2D
 
-export var lives := 3
+export var lives := 10
 var saved_lives := 0
 var lost_lives := 0
 export var objective := 5
@@ -8,6 +8,9 @@ export var objective := 5
 #cortamos un nivel cuando no se puede superar? En un principio no
 export var total_time := 5.0
 var meeseek = preload("res://Scenes/Meeseek/Meeseek.tscn");
+#Mouse icons
+var arrow = load("res://Resources/Mouses/Mouse.png");
+var selector = load("res://Resources/Mouses/MouseHover.png")
 #tiempo
 var time_start := 0
 var time_now := 0
@@ -25,8 +28,8 @@ var Stairers := 5
 var Climbers := 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Input.set_custom_mouse_cursor(arrow)
 	time_start = OS.get_unix_time()
-	
 	$Camera2D.position =$Spawn.position;
 
 func _process(delta):
