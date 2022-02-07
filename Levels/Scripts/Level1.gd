@@ -25,12 +25,13 @@ var Digdowners := 5
 var Stopperers := 5
 var Umbrellaers := 5
 var Stairers := 5
-var Climbers := 0
+var Climbers := 1
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.set_custom_mouse_cursor(arrow)
 	time_start = OS.get_unix_time()
 	$Camera2D.position =$Spawn.position;
+	$Camera2D/CanvasLayer/HBoxContainer/Panel/VBoxContainer/SpeedLabel.text = '50'
 
 func _process(delta):
 	time_now = OS.get_unix_time()
@@ -38,7 +39,7 @@ func _process(delta):
 	minutes = elapsed / 60
 	seconds = elapsed % 60
 	str_elapsed = "%02d : %02d" % [minutes, seconds]
-	$Camera2D/CanvasLayer/HBoxContainer/Panel/Label.text = str_elapsed
+	$Camera2D/CanvasLayer/HBoxContainer/Panel/VBoxContainer/TimeLabel.text = str_elapsed
 	
 func _spawn_meeseek():
 	if lives>0:

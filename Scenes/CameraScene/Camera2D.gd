@@ -20,7 +20,6 @@ var time_step := 0.25
 var min_speed := 0.5
 var max_speed := 2
 
-
 func _ready():
 	TileMapBorder = $"../TileMap".get_used_rect()
 	#print(TileMapBorder.position);
@@ -35,7 +34,6 @@ func _ready():
 	w_h_times_zoom = width_half * self.zoom.x
 	h_h_times_zoom = height_half * self.zoom.y
 	updateButtonsValues()
-
 
 func _process(delta):
 	var move_vector = Vector2()
@@ -52,7 +50,6 @@ func _process(delta):
 
 	global_translate(move_vector * delta * 300 * self.zoom.x)
 
-
 func _update_wiewport():
 	viewport_size = get_viewport().size
 	width_half = viewport_size.x / 2
@@ -60,13 +57,11 @@ func _update_wiewport():
 	w_h_times_zoom = width_half * self.zoom.x
 	h_h_times_zoom = height_half * self.zoom.y
 
-
 func _unhandled_input(event):
 	if event.is_action_pressed("zoom_in"):
 		_set_zoom_level(zoom_level - _zoom_factor)
 	if event.is_action_pressed("zoom_out"):
 		_set_zoom_level(zoom_level + _zoom_factor)
-
 
 #el zoom ahora mismo permite ver fuera del mapa.
 func _set_zoom_level(value: float):
@@ -90,46 +85,40 @@ func updateButtonsValues():
 	$CanvasLayer/HBoxContainer/StairButton/Label.text = str(get_parent().Stairers)
 	$CanvasLayer/HBoxContainer/ClimbButton/Label.text = str(get_parent().Climbers)
 
-
 func _on_DiggerSideButton_pressed():
 	if get_parent().Digsideers >= 1:
 		get_parent().mouse_pointer = "DigSide"
-
 
 func _on_DiggerDownButton_pressed():
 	if get_parent().Digdowners >= 1:
 		get_parent().mouse_pointer = "DigDown"
 
-
 func _on_StopperButton_pressed():
 	if get_parent().Stopperers >= 1:
 		get_parent().mouse_pointer = "Stopper"
-
 
 func _on_UmbrellaButton_pressed():
 	if get_parent().Umbrellaers >= 1:
 		get_parent().mouse_pointer = "Umbrella"
 
-
 func _on_StairButton_pressed():
 	if get_parent().Stairers >= 1:
 		get_parent().mouse_pointer = "Stair"
-
 
 func _on_ClimbButton_pressed():
 	if get_parent().Climbers >= 1:
 		get_parent().mouse_pointer = "Climb"
 
-
 func _on_RestartButton_pressed():
 	get_tree().reload_current_scene()
 
-
 func _on_TimeDownButton_pressed():
 	Engine.set_time_scale(clamp(Engine.time_scale - time_step, min_speed, max_speed))
-	print(Engine.time_scale)
-
+	_updateSpeedLabel()
 
 func _on_TimeUpButton_pressed():
 	Engine.set_time_scale(clamp(Engine.time_scale + time_step, min_speed, max_speed))
-	print(Engine.time_scale)
+	_updateSpeedLabel()
+
+func _updateSpeedLabel():
+	$CanvasLayer/HBoxContainer/Panel/VBoxContainer/SpeedLabel.text = str(Engine.get_time_scale()*50)

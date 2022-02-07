@@ -5,11 +5,13 @@ const MAXSPEED = 64
 const GRAVITY = 150
 var right = 1
 var alive = true
-var air_time = 0
 var on_air := false
 var once = true
 var state := "basic"
 var collision
+#dar actitud a un meesek al clickarle
+var mouse_in := false
+
 #escalera
 #stair step = 8,10
 var en_escalera := false
@@ -39,7 +41,7 @@ var motion = Vector2(0, GRAVITY)
 func _ready():
 	#mapa
 	map = get_parent().get_node("TileMap")
-
+	$Timer.stop()
 
 func _physics_process(delta):
 	match state:
@@ -68,19 +70,11 @@ func _physics_process(delta):
 	move_and_slide(motion, Vector2.UP)
 
 func normal_meeseek():
-	if (
-		self.position.y > map.get_used_rect().end.y * 64
-		or self.position.x < map.get_used_rect().position.x * 64
-		or self.position.x > map.get_used_rect().end.x * 64
-		or self.position.y < map.get_used_rect().position.y * 64
-	):
+	if outOfBounds():
 		alive = false
 	if alive:
 		#bloque meeseek en el aire
 		#si vuela durante m�s de 2 segundos aprox(5 bloques)
-		if air_time * Engine.get_time_scale() > 120:
-			alive = false
-			#la escalera no se detecta como suelo
 		if !is_on_floor():
 			#comprobación de si estamos en una escalera al caer
 			if get_slide_count() != 0:
@@ -89,7 +83,8 @@ func normal_meeseek():
 					if stair_tiles.has(map.get_cellv(map.world_to_map(collision.position - collision.normal))):
 						en_escalera = true;
 			if !en_escalera:
-				air_time += 1
+				$Timer.start()
+				$Timer.start()
 				motion.x = 0
 				motion.y = GRAVITY
 				#para separar el cuerpor de las paredes al caer
@@ -98,18 +93,13 @@ func normal_meeseek():
 					once = false
 				$Sprite.scale.x = right
 				$AnimationPlayer.play("Fall")
-			else:
-				once = false
-				if get_slide_count() == 0:
-					en_escalera = false
-					motion.y = GRAVITY
-					once = false
 		#bloque meeseek en el suelo
 		else:
+			$Timer.stop()
 			#reset la separaci�n de la pared al tocar el suelo
 			once = true
 			en_escalera = false
-			air_time = 0
+			$Timer.stop()
 			$Sprite.scale.x = right
 			$AnimationPlayer.play("Walking")
 			motion.x = MAXSPEED * right
@@ -132,25 +122,18 @@ func normal_meeseek():
 				if collision.normal == Vector2(-right, 0):
 					right = -right
 	else:
-		motion = Vector2()
-		$AnimationPlayer.play("Death")
+		if is_on_floor() or outOfBounds():
+			motion = Vector2()
+			$AnimationPlayer.play("Death")
 
 func digSide_meeseek():
-	if (
-		self.position.y > map.get_used_rect().end.y * 64
-		or self.position.x < map.get_used_rect().position.x * 64
-		or self.position.x > map.get_used_rect().end.x * 64
-		or self.position.y < map.get_used_rect().position.y * 64
-	):
+	if outOfBounds():
 		alive = false
 	if alive:
 		#bloque meeseek en el aire
-		#si vuela durante m�s de 2 segundos aprox(5 bloques)
-		if air_time * Engine.get_time_scale() > 120:
-			alive = false
 		if !is_on_floor():
 			if !en_escalera:
-				air_time += 1
+				$Timer.start()
 				motion.x = 0
 				motion.y = GRAVITY
 				#para separar el cuerpor de las paredes al caer
@@ -159,17 +142,11 @@ func digSide_meeseek():
 					once = false
 				$Sprite.scale.x = right
 				$AnimationPlayer.play("Fall")
-			else:
-				once = false
-				if get_slide_count() == 0:
-					en_escalera = false
-					motion.y = GRAVITY
-					once = false
 		#bloque meeseek en el suelo
 		else:
 			#reset la separaci�n de la pared al tocar el suelo
 			once = true
-			air_time = 0
+			$Timer.stop()
 			$Sprite.scale.x = right
 			$AnimationPlayer.play("Walking")
 			motion.x = MAXSPEED * right
@@ -224,25 +201,19 @@ func digSide_meeseek():
 						else:
 							right = -right
 	else:
-		motion = Vector2()
-		$AnimationPlayer.play("Death")
+		if is_on_floor() or outOfBounds():
+			motion = Vector2()
+			$AnimationPlayer.play("Death")
 
 func digDown_meeseek():
-	if (
-		self.position.y > map.get_used_rect().end.y * 64
-		or self.position.x < map.get_used_rect().position.x * 64
-		or self.position.x > map.get_used_rect().end.x * 64
-		or self.position.y < map.get_used_rect().position.y * 64
-	):
+	if outOfBounds():
 		alive = false
 	if alive:
 		#bloque meeseek en el aire
 		#si vuela durante m�s de 2 segundos aprox(5 bloques)
-		if air_time * Engine.get_time_scale() > 120:
-			alive = false
 		if !is_on_floor():
 			if !en_escalera:
-				air_time += 1
+				$Timer.start()
 				motion.x = 0
 				motion.y = GRAVITY
 				#para separar el cuerpor de las paredes al caer
@@ -262,7 +233,7 @@ func digDown_meeseek():
 			#reset la separaci�n de la pared al tocar el suelo
 			once = true
 			en_escalera = false
-			air_time = 0
+			$Timer.stop()
 			if !digging:
 				$Sprite.scale.x = right
 				$AnimationPlayer.play("Walking")
@@ -316,25 +287,19 @@ func digDown_meeseek():
 									digging = false
 						
 	else:
-		motion = Vector2()
-		$AnimationPlayer.play("Death")
+		if is_on_floor() or outOfBounds():
+			motion = Vector2()
+			$AnimationPlayer.play("Death")
 
 func stopper_meeseek():
-	if (
-		self.position.y > map.get_used_rect().end.y * 64
-		or self.position.x < map.get_used_rect().position.x * 64
-		or self.position.x > map.get_used_rect().end.x * 64
-		or self.position.y < map.get_used_rect().position.y * 64
-	):
+	if outOfBounds():
 		alive = false
 	if alive:
 		#bloque meeseek en el aire
 		#si vuela durante m�s de 2 segundos aprox(5 bloques)
-		if air_time * Engine.get_time_scale() > 120:
-			alive = false
 		if !is_on_floor():
 			if !en_escalera:
-				air_time += 1
+				$Timer.start()
 				motion.x = 0
 				motion.y = GRAVITY
 				#para separar el cuerpor de las paredes al caer
@@ -348,26 +313,23 @@ func stopper_meeseek():
 					en_escalera = false
 					motion.y = GRAVITY
 		else:
+			$Timer.stop()
 			motion.x = 0
 			self.set_collision_layer_bit(0, true)
 	else:
-		motion = Vector2()
-		$AnimationPlayer.play("Death")
+		if is_on_floor() or outOfBounds():
+			motion = Vector2()
+			$AnimationPlayer.play("Death")
 
 func umbrella_meeseek():
-	if (
-		self.position.y > map.get_used_rect().end.y * 64
-		or self.position.x < map.get_used_rect().position.x * 64
-		or self.position.x > map.get_used_rect().end.x * 64
-		or self.position.y < map.get_used_rect().position.y * 64
-	):
+	if outOfBounds():
 		alive = false
 	if alive:
 		#bloque meeseek en el aire
 		#si vuela durante m�s de 2 segundos aprox(5 bloques)
 		if !is_on_floor():
 			if !en_escalera:
-				air_time += 1
+				$Timer.stop()
 				motion.x = 0
 				motion.y = GRAVITY/2
 				#para separar el cuerpor de las paredes al caer
@@ -376,12 +338,6 @@ func umbrella_meeseek():
 					once = false
 				$Sprite.scale.x = right
 				$AnimationPlayer.play("Fall")
-			else:
-				once = false
-				if get_slide_count() == 0:
-					en_escalera = false
-					motion.y = GRAVITY
-					once = false
 		#bloque meeseek en el suelo
 		else:
 			#ya ha estado en el aire
@@ -389,7 +345,7 @@ func umbrella_meeseek():
 				self.state = "Basic"
 			#reset la separaci�n de la pared al tocar el suelo
 			once = true
-			air_time = 0
+			$Timer.stop()
 			$Sprite.scale.x = right
 			$AnimationPlayer.play("Walking")
 			motion.x = MAXSPEED * right
@@ -408,16 +364,12 @@ func umbrella_meeseek():
 					):
 						right = -right
 	else:
-		motion = Vector2()
-		$AnimationPlayer.play("Death")
+		if is_on_floor() or outOfBounds():
+			motion = Vector2()
+			$AnimationPlayer.play("Death")
 
 func stair_meeseek():
-	if (
-		self.position.y > map.get_used_rect().end.y * 64
-		or self.position.x < map.get_used_rect().position.x * 64
-		or self.position.x > map.get_used_rect().end.x * 64
-		or self.position.y < map.get_used_rect().position.y * 64
-	):
+	if outOfBounds():
 		alive = false
 	if alive:
 		if building:
@@ -457,10 +409,6 @@ func stair_meeseek():
 					 building_frame += 1
 		else:
 			#bloque meeseek en el aire
-			#si vuela durante m�s de 2 segundos aprox(5 bloques)
-			if air_time * Engine.get_time_scale() > 120:
-				alive = false
-				#la escalera no se detecta como suelo
 			if !is_on_floor():
 				#comprobación de si estamos en una escalera al caer
 				if get_slide_count() != 0:
@@ -469,7 +417,7 @@ func stair_meeseek():
 						if stair_tiles.has(map.get_cellv(map.world_to_map(collision.position - collision.normal))):
 							en_escalera = true;
 				if !en_escalera:
-					air_time += 1
+					$Timer.start()
 					motion.x = 0
 					motion.y = GRAVITY
 					#para separar el cuerpor de las paredes al caer
@@ -484,7 +432,7 @@ func stair_meeseek():
 				#reset la separaci�n de la pared al tocar el suelo
 				once = true
 				en_escalera = false
-				air_time = 0
+				$Timer.stop()
 				$Sprite.scale.x = right
 				$AnimationPlayer.play("Walking")
 				motion.x = MAXSPEED * right
@@ -526,19 +474,18 @@ func stair_meeseek():
 						if collision.normal == Vector2(-right, 0):
 							right = -right
 	else:
-		motion = Vector2()
-		$AnimationPlayer.play("Death")	
+		if is_on_floor() or outOfBounds():
+			motion = Vector2()
+			$AnimationPlayer.play("Death")	
 
 func climb_meeseek():
-	if (
-		self.position.y > map.get_used_rect().end.y * 64
-		or self.position.x < map.get_used_rect().position.x * 64
-		or self.position.x > map.get_used_rect().end.x * 64
-		or self.position.y < map.get_used_rect().position.y * 64
-	):
+	if outOfBounds():
 		alive = false
 	if alive:
 		if climbing:
+			if is_on_ceiling():
+				climbing = false
+				self.state = 'Basic'
 			celda = map.world_to_map(self.position + Vector2(right * 65, 0))
 			if map.get_cellv(celda) == -1:
 				self.state = "Basic"
@@ -548,11 +495,9 @@ func climb_meeseek():
 		else:
 			#bloque meeseek en el aire
 			#si vuela durante m�s de 2 segundos aprox(5 bloques)
-			if air_time * Engine.get_time_scale() > 120:
-				alive = false
 			if !is_on_floor():
 				if !en_escalera:
-					air_time += 1
+					$Timer.start()
 					motion.x = 0
 					motion.y = GRAVITY
 					#para separar el cuerpor de las paredes al caer
@@ -573,7 +518,7 @@ func climb_meeseek():
 			else:
 				#reset la separaci�n de la pared al tocar el suelo
 				once = true
-				air_time = 0
+				$Timer.stop()
 				$Sprite.scale.x = right
 				$AnimationPlayer.play("Walking")
 				motion.x = MAXSPEED * right
@@ -597,18 +542,14 @@ func climb_meeseek():
 							else:
 								right = -right
 	else:
-		motion = Vector2()
-		$AnimationPlayer.play("Death")
-
+		if is_on_floor() or outOfBounds():
+			motion = Vector2()
+			$AnimationPlayer.play("Death")
 
 #a esta funci�n se llama desde la animaci�n Death para que el meeseek muera al terminar la animaci�n
 func death():
 	get_parent().meeseek_deceased()
 	self.queue_free()
-
-
-#dar actitud a un meesek al clickarle
-var mouse_in := false
 
 func _unhandled_input(event):
 	if mouse_in:
@@ -665,3 +606,12 @@ func _on_Meesek_mouse_exited():
 	mouse_in = false
 	Input.set_custom_mouse_cursor(get_parent().arrow,0,Vector2(0,0))
 
+func outOfBounds():
+	return (self.position.y > map.get_used_rect().end.y * 64
+		or self.position.x < map.get_used_rect().position.x * 64
+		or self.position.x > map.get_used_rect().end.x * 64
+		or self.position.y < map.get_used_rect().position.y * 64)
+	
+
+func _on_Timer_timeout():
+	self.alive = false # Replace with function body.

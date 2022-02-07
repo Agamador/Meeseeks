@@ -89,5 +89,10 @@ anims/Walking = SubResource( 3 )
 position = Vector2( -0.513489, 3.18921 )
 shape = SubResource( 4 )
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
 [connection signal="mouse_entered" from="." to="." method="_on_Meesek_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_Meesek_mouse_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
