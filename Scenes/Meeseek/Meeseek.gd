@@ -7,7 +7,7 @@ var right = 1
 var alive = true
 var on_air := false
 var once = true
-var state := "basic"
+var state := "Basic"
 var collision
 #dar actitud a un meesek al clickarle
 var mouse_in := false
@@ -47,10 +47,10 @@ func _physics_process(delta):
 	match state:
 		"Basic":
 			self.set_collision_layer_bit(0, false)
-			normal()
+			normalll()
 		"DigSide":
 			self.set_collision_layer_bit(0, false)
-			digSide_meeseek()
+			digSide()
 		"DigDown":
 			self.set_collision_layer_bit(0, false)
 			digDown_meeseek()
@@ -135,7 +135,7 @@ func normal_meeseek():
 			motion = Vector2()
 			$AnimationPlayer.play("Death")
 
-func normal():
+func normalll():
 	if outOfBounds():
 		alive = false
 	if alive:
@@ -154,13 +154,13 @@ func normal():
 			$AnimationPlayer.play("Fall")
 		#bloque meeseek en el suelo
 		else:
-			$Timer.stop()
 			#reset la separaci�n de la pared al tocar el suelo
 			once = true
 			$Timer.stop()
 			$Sprite.scale.x = right
 			$AnimationPlayer.play("Walking")
 			motion.x = MAXSPEED * right
+			print(motion.x)
 			#comprueba las colisiones durante el movimiento,
 			for i in get_slide_count():
 				collision = get_slide_collision(i)
@@ -176,6 +176,81 @@ func normal():
 			motion = Vector2()
 			$AnimationPlayer.play("Death")
 			
+func digSide():
+	if outOfBounds():
+		alive = false
+	if alive:
+		if digging:
+			motion.x = 0
+			##inicia animaci�n excavar
+			#numero de frames que se excavan 60 = 1 segundo
+			if frames_digging < 30:
+				frames_digging += 1
+				if first_collision == -1:
+					first_collision = map.get_cellv(celda)
+					next_collision = map.get_cellv(celda + Vector2(right, 0))
+					if next_collision == -1 or next_collision < 5 or next_collision > 9:
+						stop_digging = true
+			else:
+				frames_digging = 0
+				#5 a 7 son tiles destrozandose, 8 es el ultimo paso y -1 elimina la casilla
+				if first_collision >= 5 and first_collision <= 8:
+					first_collision += 1
+					if first_collision == 6 :
+						first_collision += 1
+					map.set_cellv(celda, first_collision)
+				elif first_collision == 9:
+					first_collision = -1
+					map.set_cellv(celda, -1)
+					digging = false
+					#a�adir animaci�n de romper bloque
+					if stop_digging == true:
+						self.state = "Basic"
+						stop_digging = false
+		#bloque meeseek en el aire
+		#si vuela durante m�s de 2 segundos aprox(5 bloques)
+		else:
+			if !is_on_floor():
+				#comprobación de si estamos en una escalera al caer
+				motion.x = 0
+				motion.y = GRAVITY
+				#para separar el cuerpor de las paredes al caer
+				if once:
+					self.position.x += right * 13
+					once = false
+					$Timer.start()
+				$Sprite.scale.x = right
+				$AnimationPlayer.play("Fall")
+			#bloque meeseek en el suelo
+			else:
+				#reset la separaci�n de la pared al tocar el suelo
+				once = true
+				$Timer.stop()
+				$Sprite.scale.x = right
+				$AnimationPlayer.play("Walking")
+				motion.x = MAXSPEED * right
+				#comprueba las colisiones durante el movimiento,
+
+				for i in get_slide_count():
+					collision = get_slide_collision(i)
+					if collision.get_collider().get_class() == "StaticBody2D":
+							self.get_parent().meeseek_saved()
+							self.queue_free()  #borrado
+							###sumar meeseek a contador de exito y borrarlo
+						#si la colisi�n es diferente a la colisi�n frente al suelo, y frente a la direcci�n en la que avanzo
+					if collision.normal == Vector2(-right, 0):
+						celda = map.world_to_map(collision.position - collision.normal)
+						print(map.get_cellv(celda))
+							#if first_collision != -1 and map.get_cellv(celda)
+						if map.get_cellv(celda) >= 5 and map.get_cellv(celda) <= 12:
+							digging = true
+						elif map.get_cellv(celda) != -1 or collision.get_collider().get_class() == "KinematicBody2D":
+							right = -right
+	else:
+		if is_on_floor() or outOfBounds():
+			motion = Vector2()
+			$AnimationPlayer.play("Death")
+				
 func digSide_meeseek():
 	if outOfBounds():
 		alive = false
@@ -269,7 +344,7 @@ func digSide_meeseek():
 								#if first_collision != -1 and map.get_cellv(celda)
 								if map.get_cellv(celda) >= 5 and map.get_cellv(celda) <= 12:
 									digging = true
-								else:
+								elif map.get_cellv(celda) != -1:
 									right = -right
 	else:
 		if is_on_floor() or outOfBounds():

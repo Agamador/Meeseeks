@@ -324,7 +324,6 @@ __meta__ = {
 }
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Stairs7"]
-rotation = -3.14159
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stairs7/StaticBody2D"]
 polygon = PoolVector2Array( 32, -32, 25, -32, -33, 32, -25, 32 )
@@ -437,7 +436,6 @@ __meta__ = {
 }
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Stairs14"]
-rotation = -3.14159
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stairs14/StaticBody2D"]
 polygon = PoolVector2Array( -25.0973, -31.8716, -31.9668, -31.9704, 25.4442, 31.9876, 32.4272, 31.988 )

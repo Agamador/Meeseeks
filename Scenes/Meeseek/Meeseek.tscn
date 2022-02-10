@@ -70,8 +70,8 @@ radius = 17.0
 height = 26.0
 
 [node name="Meesek" type="KinematicBody2D"]
-input_pickable = true
 collision_layer = 2
+input_pickable = true
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
