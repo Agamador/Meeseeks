@@ -1,0 +1,146 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Resources/Fuentes/GeneralFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Resources/Fuentes/Kenney Pixel.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Scenes/GameOverScene/GameOver.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Buttons/Scenes/MenuButtons.tscn" type="PackedScene" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+size = 50
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 50
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 50
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 50
+font_data = ExtResource( 3 )
+
+[node name="Control" type="Popup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+popup_exclusive = true
+script = ExtResource( 4 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_left = 72.0
+margin_top = 26.0
+margin_right = 951.0
+margin_bottom = 574.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+margin_right = 879.0
+margin_bottom = 548.0
+custom_constants/margin_right = 40
+custom_constants/margin_top = 40
+custom_constants/margin_left = 40
+custom_constants/margin_bottom = 40
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Filas" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+margin_left = 40.0
+margin_top = 40.0
+margin_right = 839.0
+margin_bottom = 508.0
+custom_constants/separation = 100
+alignment = 1
+
+[node name="FinPartida" type="Label" parent="PanelContainer/MarginContainer/Filas"]
+margin_right = 799.0
+margin_bottom = 90.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 2
+text = "Fin de la partida"
+align = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Datos" type="HBoxContainer" parent="PanelContainer/MarginContainer/Filas"]
+margin_top = 190.0
+margin_right = 799.0
+margin_bottom = 308.0
+size_flags_vertical = 2
+custom_constants/separation = 200
+alignment = 1
+
+[node name="Izquierda" type="VBoxContainer" parent="PanelContainer/MarginContainer/Filas/Datos"]
+margin_left = 51.0
+margin_right = 305.0
+margin_bottom = 118.0
+custom_constants/separation = 40
+
+[node name="VidasTotales" type="Label" parent="PanelContainer/MarginContainer/Filas/Datos/Izquierda"]
+margin_right = 254.0
+margin_bottom = 39.0
+custom_fonts/font = SubResource( 2 )
+text = "Vidas totales:"
+
+[node name="TiempoGastado" type="Label" parent="PanelContainer/MarginContainer/Filas/Datos/Izquierda"]
+margin_top = 79.0
+margin_right = 254.0
+margin_bottom = 118.0
+custom_fonts/font = SubResource( 3 )
+text = "Tiempo gastado: "
+
+[node name="Derecha" type="VBoxContainer" parent="PanelContainer/MarginContainer/Filas/Datos"]
+margin_left = 505.0
+margin_right = 747.0
+margin_bottom = 118.0
+custom_constants/separation = 40
+
+[node name="VidasSalvadas" type="Label" parent="PanelContainer/MarginContainer/Filas/Datos/Derecha"]
+margin_right = 242.0
+margin_bottom = 39.0
+custom_fonts/font = SubResource( 4 )
+text = "Vidas salvadas:"
+
+[node name="VidasPerdidas" type="Label" parent="PanelContainer/MarginContainer/Filas/Datos/Derecha"]
+margin_top = 79.0
+margin_right = 242.0
+margin_bottom = 118.0
+custom_fonts/font = SubResource( 5 )
+text = "Vidas perdidas:"
+
+[node name="Botones" type="HBoxContainer" parent="PanelContainer/MarginContainer/Filas"]
+margin_top = 408.0
+margin_right = 799.0
+margin_bottom = 468.0
+custom_constants/separation = 60
+alignment = 1
+
+[node name="MenuPrincipal" parent="PanelContainer/MarginContainer/Filas/Botones" instance=ExtResource( 5 )]
+margin_right = 239.0
+margin_bottom = 60.0
+text = "Menu Principal"
+
+[node name="Marcadores" parent="PanelContainer/MarginContainer/Filas/Botones" instance=ExtResource( 5 )]
+margin_left = 299.0
+margin_right = 519.0
+margin_bottom = 60.0
+text = "Marcadores"
+
+[node name="Reintentar" parent="PanelContainer/MarginContainer/Filas/Botones" instance=ExtResource( 5 )]
+margin_left = 579.0
+margin_right = 799.0
+margin_bottom = 60.0
+text = "Reintentar"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/Filas/Botones/MenuPrincipal" to="." method="_on_MenuPrincipal_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/Filas/Botones/Marcadores" to="." method="_on_Marcadores_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/Filas/Botones/Reintentar" to="." method="_on_Reintentar_pressed"]

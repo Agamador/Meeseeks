@@ -1,12 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Resources/Tiles.png" type="Texture" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
-
-[sub_resource type="ConvexPolygonShape2D" id=2]
-points = PoolVector2Array( 32, -32, -32, 32, -29, 32 )
 
 [node name="Node2D" type="Node2D"]
 
@@ -327,11 +324,11 @@ __meta__ = {
 }
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Stairs7"]
+rotation = -3.14159
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Stairs7/StaticBody2D"]
-shape = SubResource( 2 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stairs7/StaticBody2D"]
+polygon = PoolVector2Array( 32, -32, 25, -32, -33, 32, -25, 32 )
 one_way_collision = true
-one_way_collision_margin = 0.0
 
 [node name="Stairs8" type="Sprite" parent="."]
 position = Vector2( 1553.83, 0.969679 )
@@ -440,7 +437,8 @@ __meta__ = {
 }
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Stairs14"]
+rotation = -3.14159
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Stairs14/StaticBody2D"]
-polygon = PoolVector2Array( 31.9878, 31.9886, -31.9668, -31.9704, 29.9878, 31.9808 )
+polygon = PoolVector2Array( -25.0973, -31.8716, -31.9668, -31.9704, 25.4442, 31.9876, 32.4272, 31.988 )
 one_way_collision = true

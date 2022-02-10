@@ -47,7 +47,6 @@ func _process(delta):
 		move_vector.y = -1
 	if mouse_pos.y > viewport_size.y - 15 && self.position.y + h_h_times_zoom < self.limit_bottom:
 		move_vector.y = 1
-
 	global_translate(move_vector * delta * 300 * self.zoom.x)
 
 func _update_wiewport():
@@ -121,4 +120,4 @@ func _on_TimeUpButton_pressed():
 	_updateSpeedLabel()
 
 func _updateSpeedLabel():
-	$CanvasLayer/HBoxContainer/Panel/VBoxContainer/SpeedLabel.text = str(Engine.get_time_scale()*50)
+	$CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SpeedLabel.text = str(Engine.get_time_scale()*50)

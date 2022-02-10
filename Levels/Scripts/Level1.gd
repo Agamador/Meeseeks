@@ -1,6 +1,7 @@
 extends Node2D
 
-export var lives := 10
+export var lives := 1
+var total_lives := lives
 var saved_lives := 0
 var lost_lives := 0
 export var objective := 5
@@ -29,9 +30,12 @@ var Climbers := 1
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.set_custom_mouse_cursor(arrow)
+	Engine.set_time_scale(1)
 	time_start = OS.get_unix_time()
 	$Camera2D.position =$Spawn.position;
-	$Camera2D/CanvasLayer/HBoxContainer/Panel/VBoxContainer/SpeedLabel.text = '50'
+	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SpeedLabel.text = '50'
+	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/TotalLives.text = 'Vidas totales: ' + str(lives)
+	updateLabels()
 
 func _process(delta):
 	time_now = OS.get_unix_time()
@@ -39,8 +43,11 @@ func _process(delta):
 	minutes = elapsed / 60
 	seconds = elapsed % 60
 	str_elapsed = "%02d : %02d" % [minutes, seconds]
-	$Camera2D/CanvasLayer/HBoxContainer/Panel/VBoxContainer/TimeLabel.text = str_elapsed
-	
+	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/TimeLabel.text = str_elapsed
+	$ParallaxBackground/ParallaxLayer.motion_offset +=  delta * Vector2(-10,-10)
+	if saved_lives + lost_lives == total_lives:
+		game_ended()
+
 func _spawn_meeseek():
 	if lives>0:
 		lives -= 1
@@ -50,13 +57,20 @@ func _spawn_meeseek():
 		
 func meeseek_saved():
 	saved_lives += 1
-	print('Salvado maradona')
+	updateLabels()
 	if saved_lives == objective:
 		pass
 		#fin
 func meeseek_deceased():
-	lost_lives += 1;
+	lost_lives += 1
+	updateLabels()
 
 func updateButtonsValues():
 	$Camera2D.updateButtonsValues()
 
+func updateLabels():
+	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/SavedLives.text = 'Vidas salvadas: ' + str(saved_lives)
+	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/LostLives.text = 'Vidas perdidas: ' + str(lost_lives)
+
+func game_ended():
+	pass
