@@ -47,10 +47,10 @@ func _physics_process(delta):
 	match state:
 		"Basic":
 			self.set_collision_layer_bit(0, false)
-			normalll()
+			normal_meeseek()
 		"DigSide":
 			self.set_collision_layer_bit(0, false)
-			digSide()
+			digSide_meeseek()
 		"DigDown":
 			self.set_collision_layer_bit(0, false)
 			digDown_meeseek()
@@ -67,75 +67,9 @@ func _physics_process(delta):
 			climb_meeseek()
 		_:
 			normal_meeseek()
-	move_and_slide(motion, Vector2.UP)
+	move_and_slide(motion, Vector2.UP,false,4,1.04)
 
 func normal_meeseek():
-	if outOfBounds():
-		alive = false
-	if alive:
-		#bloque meeseek en el aire
-		#si vuela durante m�s de 2 segundos aprox(5 bloques)
-		if !is_on_floor():
-			#comprobación de si estamos en una escalera al caer
-			if get_slide_count() != 0:
-				for i in get_slide_count():
-					collision = get_slide_collision(i)
-					if stair_tiles.has(map.get_cellv(map.world_to_map(collision.position - collision.normal))):
-						en_escalera = true;
-					if collision.normal == Vector2(-right,0): 
-						right = -right
-						motion.x = right
-						
-			if !en_escalera:
-				motion.x = 0
-				motion.y = GRAVITY
-				#para separar el cuerpor de las paredes al caer
-				if once:
-					self.position.x += right * 13
-					once = false
-					$Timer.start()
-				$Sprite.scale.x = right
-				$AnimationPlayer.play("Fall")
-			else:
-				once = false
-				if get_slide_count() == 0:
-					en_escalera = false
-					motion.y = GRAVITY
-					once = false
-		#bloque meeseek en el suelo
-		else:
-			$Timer.stop()
-			#reset la separaci�n de la pared al tocar el suelo
-			once = true
-			en_escalera = false
-			$Timer.stop()
-			$Sprite.scale.x = right
-			$AnimationPlayer.play("Walking")
-			motion.x = MAXSPEED * right
-			#comprueba las colisiones durante el movimiento,
-			for i in get_slide_count():
-				collision = get_slide_collision(i)
-				if collision.get_collider().get_class() == "StaticBody2D":
-						self.get_parent().meeseek_saved()
-						self.queue_free()  #borrado
-						###sumar meeseek a contador de exito y borrarlo
-					#si la colisi�n es diferente a la colisi�n frente al suelo, y frente a la direcci�n en la que avanzo
-				if collision.normal != Vector2(0,-1):
-					if collision.get_collider().get_class() == "TileMap":
-						celda = map.world_to_map(collision.position - collision.normal)
-						if stair_tiles.has(map.get_cellv(celda)):
-							en_escalera = true
-							motion.y = collision.normal.y
-						else:
-							en_escalera = false
-				if collision.normal == Vector2(-right, 0):
-					right = -right
-	else:
-		if is_on_floor() or outOfBounds():
-			motion = Vector2()
-			$AnimationPlayer.play("Death")
-
-func normalll():
 	if outOfBounds():
 		alive = false
 	if alive:
@@ -147,7 +81,6 @@ func normalll():
 			motion.y = GRAVITY
 			#para separar el cuerpor de las paredes al caer
 			if once:
-				self.position.x += right * 13
 				once = false
 				$Timer.start()
 			$Sprite.scale.x = right
@@ -160,7 +93,6 @@ func normalll():
 			$Sprite.scale.x = right
 			$AnimationPlayer.play("Walking")
 			motion.x = MAXSPEED * right
-			print(motion.x)
 			#comprueba las colisiones durante el movimiento,
 			for i in get_slide_count():
 				collision = get_slide_collision(i)
@@ -169,6 +101,8 @@ func normalll():
 						self.queue_free()  #borrado
 						###sumar meeseek a contador de exito y borrarlo
 					#si la colisi�n es diferente a la colisi�n frente al suelo, y frente a la direcci�n en la que avanzo
+				if abs(collision.normal.y) < 0.8:
+					motion.y = collision.normal.y
 				if collision.normal == Vector2(-right, 0):
 					right = -right
 	else:
@@ -176,7 +110,7 @@ func normalll():
 			motion = Vector2()
 			$AnimationPlayer.play("Death")
 			
-func digSide():
+func digSide_meeseek():
 	if outOfBounds():
 		alive = false
 	if alive:
@@ -216,7 +150,6 @@ func digSide():
 				motion.y = GRAVITY
 				#para separar el cuerpor de las paredes al caer
 				if once:
-					self.position.x += right * 13
 					once = false
 					$Timer.start()
 				$Sprite.scale.x = right
@@ -237,10 +170,11 @@ func digSide():
 							self.get_parent().meeseek_saved()
 							self.queue_free()  #borrado
 							###sumar meeseek a contador de exito y borrarlo
+					if abs(collision.normal.y) < 0.8:
+						motion.y = collision.normal.y
 						#si la colisi�n es diferente a la colisi�n frente al suelo, y frente a la direcci�n en la que avanzo
 					if collision.normal == Vector2(-right, 0):
 						celda = map.world_to_map(collision.position - collision.normal)
-						print(map.get_cellv(celda))
 							#if first_collision != -1 and map.get_cellv(celda)
 						if map.get_cellv(celda) >= 5 and map.get_cellv(celda) <= 12:
 							digging = true
@@ -251,106 +185,6 @@ func digSide():
 			motion = Vector2()
 			$AnimationPlayer.play("Death")
 				
-func digSide_meeseek():
-	if outOfBounds():
-		alive = false
-	if alive:
-		if digging:
-			motion.x = 0
-			##inicia animaci�n excavar
-			#numero de frames que se excavan 60 = 1 segundo
-			if frames_digging < 30:
-				frames_digging += 1
-				if first_collision == -1:
-					first_collision = map.get_cellv(celda)
-					next_collision = map.get_cellv(celda + Vector2(right, 0))
-					if next_collision == -1 or next_collision < 5 or next_collision > 8:
-						stop_digging = true
-			else:
-				frames_digging = 0
-				#5 a 7 son tiles destrozandose, 8 es el ultimo paso y -1 elimina la casilla
-				if first_collision >= 5 and first_collision <= 7:
-					first_collision = first_collision + 1
-					map.set_cellv(celda, first_collision + 1)
-				elif first_collision == 8:
-					first_collision = -1
-					map.set_cellv(celda, -1)
-					# if en_escalera: 
-					# 	position.x += 30
-					# 	position.y -= 15
-					# 	en_escalera = false
-					# 	motion.x = MAXSPEED * right
-					# 	motion.y = GRAVITY
-					#a�adir animaci�n de romper bloque
-					
-					if stop_digging == true:
-						self.state = "Basic"
-						stop_digging = false
-		else:
-			#bloque meeseek en el aire
-			if !is_on_floor():
-				if get_slide_count() != 0:
-					for i in get_slide_count():
-						collision = get_slide_collision(i)
-						if stair_tiles.has(map.get_cellv(map.world_to_map(collision.position - collision.normal))):
-							en_escalera = true;
-						if collision.normal == Vector2(-right,0): 
-							right = -right
-							motion.x = right
-							
-				if !en_escalera:
-					motion.x = 0
-					motion.y = GRAVITY
-					#para separar el cuerpor de las paredes al caer
-					if once:
-						self.position.x += right * 13
-						once = false
-						$Timer.start()
-					$Sprite.scale.x = right
-					$AnimationPlayer.play("Fall")
-				else: 
-					if once:
-						self.position.x += right * 13
-						once = false
-					$Sprite.scale.x = right
-					$AnimationPlayer.play("Fall")
-			#bloque meeseek en el suelo
-			else:
-				#reset la separaci�n de la pared al tocar el suelo
-				once = true
-				$Timer.stop()
-				$Sprite.scale.x = right
-				$AnimationPlayer.play("Walking")
-				motion.x = MAXSPEED * right
-				#comprueba las colisiones durante el movimiento,
-				for i in get_slide_count():
-					collision = get_slide_collision(i)
-					if collision:
-						if collision.get_collider().get_class() == "StaticBody2D":
-							self.get_parent().meeseek_saved()
-							self.queue_free()  #borrado
-							#sumar meeseek a contador de exito y borrarlo
-						#si la colisi�n es diferente a la colisi�n frente al suelo
-						if collision.normal != Vector2(0, -1):
-							celda = map.world_to_map(collision.position - collision.normal)
-							#si la celda es de una escalera
-							if stair_tiles.has(map.get_cellv(celda)):
-								en_escalera = true
-								motion.y = collision.normal.y
-							#si nos chocamos de cara
-							elif collision.normal == Vector2(-right, 0) :
-								celda = map.world_to_map(collision.position - collision.normal)
-								print(map.get_cellv(celda))
-								#if first_collision != -1 and map.get_cellv(celda)
-								if map.get_cellv(celda) >= 5 and map.get_cellv(celda) <= 12:
-									digging = true
-								elif map.get_cellv(celda) != -1:
-									right = -right
-	else:
-		if is_on_floor() or outOfBounds():
-			motion = Vector2()
-			$AnimationPlayer.play("Death")
-
 func digDown_meeseek():
 	if outOfBounds():
 		alive = false
