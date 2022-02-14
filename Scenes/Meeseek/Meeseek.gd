@@ -67,7 +67,7 @@ func _physics_process(delta):
 			climb_meeseek()
 		_:
 			normal_meeseek()
-	move_and_slide(motion, Vector2.UP,false,4,1.04)
+	move_and_slide(motion, Vector2.UP,true,4,2.6)
 
 func normal_meeseek():
 	if outOfBounds():
@@ -103,7 +103,7 @@ func normal_meeseek():
 					#si la colisi�n es diferente a la colisi�n frente al suelo, y frente a la direcci�n en la que avanzo
 				if abs(collision.normal.y) < 0.8:
 					motion.y = collision.normal.y
-				if collision.normal == Vector2(-right, 0):
+				if collision.normal == Vector2(-right, 0) or collision.get_collider().get_class() == "KinematicBody2D":
 					right = -right
 	else:
 		if is_on_floor() or outOfBounds():
@@ -173,7 +173,7 @@ func digSide_meeseek():
 					if abs(collision.normal.y) < 0.8:
 						motion.y = collision.normal.y
 						#si la colisi�n es diferente a la colisi�n frente al suelo, y frente a la direcci�n en la que avanzo
-					if collision.normal == Vector2(-right, 0):
+					if collision.normal == Vector2(-right, 0) or collision.get_collider().get_class() == "KinematicBody2D":
 						celda = map.world_to_map(collision.position - collision.normal)
 							#if first_collision != -1 and map.get_cellv(celda)
 						if map.get_cellv(celda) >= 5 and map.get_cellv(celda) <= 12:
@@ -197,14 +197,12 @@ func digDown_meeseek():
 				motion.y = GRAVITY
 				#para separar el cuerpor de las paredes al caer
 				if once and !digging:
-					self.position.x += right * 13
 					once = false
 					$Timer.start()
 				$Sprite.scale.x = right
 				$AnimationPlayer.play("Fall")
 			else:
 				if once and !digging:
-					self.position.x += right * 13
 					once = false
 				$Sprite.scale.x = right
 				$AnimationPlayer.play("Fall")
@@ -212,7 +210,6 @@ func digDown_meeseek():
 		else:
 			#reset la separaci�n de la pared al tocar el suelo
 			once = true
-			en_escalera = false
 			$Timer.stop()
 			if !digging:
 				$Sprite.scale.x = right
@@ -226,16 +223,10 @@ func digDown_meeseek():
 						self.get_parent().meeseek_saved()
 						self.queue_free()  #borrado
 					if collision.normal != Vector2(0,-1):
-						#print(collision.get_collider().get_class())
-						if collision.get_collider().get_class() == "TileMap":
-							#si la celda es de una escalera
-							if stair_tiles.has(map.get_cellv(celda)):
-								en_escalera = true
-								motion.y = collision.normal.y
-							else:
-								en_escalera = false
-								#numero de frames que se excavan 60 = 1 segundo
-								right = -right
+						if abs(collision.normal.y) < 0.8:
+							motion.y = collision.normal.y
+						if collision.normal == Vector2(-right, 0) or collision.get_collider().get_class() == "KinematicBody2D":
+							right = -right
 						
 					elif map.get_cellv(celda) >=5 and map.get_cellv(celda) <=9: 
 						motion.x = 0
@@ -275,76 +266,70 @@ func stopper_meeseek():
 	if outOfBounds():
 		alive = false
 	if alive:
-		#bloque meeseek en el aire
-		#si vuela durante m�s de 2 segundos aprox(5 bloques)
-		if !is_on_floor():
-			if !en_escalera:
-				motion.x = 0
-				motion.y = GRAVITY
-				#para separar el cuerpor de las paredes al caer
-				if once:
-					self.position.x += right * 13
-					once = false
-					$Timer.start()
-				$Sprite.scale.x = right
-				$AnimationPlayer.play("Fall")
-			else:
-				if get_slide_count() == 0:
-					en_escalera = false
-					motion.y = GRAVITY
-		else:
+		motion.y = GRAVITY
+		if is_on_floor():
 			$Timer.stop()
-			motion.x = 0
+			motion = Vector2.ZERO
 			self.set_collision_layer_bit(0, true)
 	else:
 		if is_on_floor() or outOfBounds():
 			motion = Vector2()
 			$AnimationPlayer.play("Death")
 
+# func umbrella_meeseek():
+# 	if outOfBounds():
+# 		alive = false
+# 	if alive:
+# 		#bloque meeseek en el aire
+# 		#si vuela durante m�s de 2 segundos aprox(5 bloques)
+# 		if !is_on_floor():
+			
+# 			$Timer.stop()
+# 			motion.x = 0
+# 			motion.y = GRAVITY/2
+# 				#para separar el cuerpor de las paredes al caer
+# 			if once:
+# 				once = false
+# 			$Sprite.scale.x = right
+# 			$AnimationPlayer.play("Fall")
+# 		#bloque meeseek en el suelo
+# 		else:
+# 			#ya ha estado en el aire
+# 			#reset la separaci�n de la pared al tocar el suelo
+# 			once = true
+# 			$Timer.stop()
+# 			$Sprite.scale.x = right
+# 			$AnimationPlayer.play("Walking")
+# 			motion.x = MAXSPEED * right
+# 			#comprueba las colisiones durante el movimiento,
+# 			for i in get_slide_count():
+# 				collision =get_slide_collision(i)
+# 				if collision:
+# 					if collision.get_collider().get_class() == "StaticBody2D":
+# 						self.get_parent().meeseek_saved()
+# 						self.queue_free()  #borrado
+# 						#sumar meeseek a contador de exito y borrarlo
+# 					if abs(collision.normal.y) < 0.8:
+# 						motion.y = collision.normal.y
+# 					if collision.normal == Vector2(-right, 0) or collision.get_collider().get_class() == "KinematicBody2D":
+# 						right = -right
+# 					celda = map.world_to_map(collision.position - collision.normal)
+# 	else:
+# 		if is_on_floor() or outOfBounds():
+# 			motion = Vector2()
+# 			$AnimationPlayer.play("Death")
 func umbrella_meeseek():
 	if outOfBounds():
 		alive = false
 	if alive:
-		#bloque meeseek en el aire
-		#si vuela durante m�s de 2 segundos aprox(5 bloques)
 		if !is_on_floor():
-			if !en_escalera:
-				$Timer.stop()
-				motion.x = 0
-				motion.y = GRAVITY/2
-				#para separar el cuerpor de las paredes al caer
-				if once:
-					self.position.x += right * 13
-					once = false
-				$Sprite.scale.x = right
-				$AnimationPlayer.play("Fall")
-		#bloque meeseek en el suelo
-		else:
-			#ya ha estado en el aire
-			if !once:
-				self.state = "Basic"
-			#reset la separaci�n de la pared al tocar el suelo
-			once = true
+			motion.y = GRAVITY/2
+			motion.x = 0
 			$Timer.stop()
-			$Sprite.scale.x = right
-			$AnimationPlayer.play("Walking")
-			motion.x = MAXSPEED * right
-			#comprueba las colisiones durante el movimiento,
-			for i in get_slide_count():
-				collision =get_slide_collision(i)
-				if collision:
-					if collision.get_collider().get_class() == "StaticBody2D":
-						self.get_parent().meeseek_saved()
-						self.queue_free()  #borrado
-						#sumar meeseek a contador de exito y borrarlo
-					#si la colisi�n es diferente a la colisi�n frente al suelo, y frente a la direcci�n en la que avanzo
-					if (
-						collision.normal != Vector2(0, -1)
-						and collision.normal == Vector2(-right, 0)
-					):
-						right = -right
-	else:
-		if is_on_floor() or outOfBounds():
+		else: 
+			self.state = 'Basic'
+	else: 
+		if outOfBounds() or is_on_floor():
 			motion = Vector2()
 			$AnimationPlayer.play("Death")
 
