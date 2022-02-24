@@ -7,27 +7,30 @@ var zoom_dif_h
 var zoom_dif_v
 var w_h_times_zoom
 var h_h_times_zoom
-var TileMapBorder
+var tilemap_border
 
 export var tween_duration := 0.5
 export var max_zoom := 2.0
 export var min_zoom := 0.5
 var zoom_level := 1.0 setget _set_zoom_level
-var _zoom_factor := 0.1
+var zoom_factor := 0.1
 onready var tween: Tween = $Tween
 
 var time_step := 0.25
 var min_speed := 0.5
 var max_speed := 2
 
+var move_vector := Vector2()
+var mouse_pos
+
 func _ready():
-	TileMapBorder = $"../TileMap".get_used_rect()
-	#print(TileMapBorder.position);
-	self.limit_top = TileMapBorder.position.x * 64
-	self.limit_left = TileMapBorder.position.y * 64
-	self.limit_right = TileMapBorder.end.x * 64
-	self.limit_bottom = TileMapBorder.end.y * 64
-	#print(TileMapBorder.position.x);
+	tilemap_border = $"../TileMap".get_used_rect()
+	#print(tilemap_border.position);
+	self.limit_top = tilemap_border.position.x * 64
+	self.limit_left = tilemap_border.position.y * 64
+	self.limit_right = tilemap_border.end.x * 64
+	self.limit_bottom = tilemap_border.end.y * 64
+	#print(tilemap_border.position.x);
 	viewport_size = get_viewport().size
 	width_half = viewport_size.x / 2
 	height_half = viewport_size.y / 2
@@ -36,8 +39,8 @@ func _ready():
 	updateButtonsValues()
 
 func _process(delta):
-	var move_vector = Vector2()
-	var mouse_pos = get_viewport().get_mouse_position()
+	move_vector = Vector2()
+	mouse_pos = get_viewport().get_mouse_position()
 	_update_wiewport()
 	if mouse_pos.x < 30 && self.position.x - w_h_times_zoom > self.limit_left:
 		move_vector.x = -1
@@ -58,9 +61,9 @@ func _update_wiewport():
 
 func _unhandled_input(event):
 	if event.is_action_pressed("zoom_in"):
-		_set_zoom_level(zoom_level - _zoom_factor)
+		_set_zoom_level(zoom_level - zoom_factor)
 	if event.is_action_pressed("zoom_out"):
-		_set_zoom_level(zoom_level + _zoom_factor)
+		_set_zoom_level(zoom_level + zoom_factor)
 
 #el zoom ahora mismo permite ver fuera del mapa.
 func _set_zoom_level(value: float):
