@@ -21,12 +21,12 @@ var seconds
 var str_elapsed
 #botones
 var mouse_pointer := 'Basic'
-var Digsideers := 5
-var Digdowners := 5
-var Stopperers := 5
-var Umbrellaers := 5
-var Stairers := 5
-var Climbers := 1
+export var Digsideers := 5
+export var Digdowners := 5
+export var Stopperers := 5
+export var Umbrellaers := 5
+export var Stairers := 5
+export var Climbers := 1
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.set_custom_mouse_cursor(arrow)
@@ -36,6 +36,7 @@ func _ready():
 	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SpeedLabel.text = '50'
 	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/TotalLives.text = 'Vidas totales: ' + str(lives)
 	updateLabels()
+	Global.lives = total_lives
 
 func _process(delta):
 	time_now = OS.get_unix_time()
@@ -73,4 +74,5 @@ func updateLabels():
 	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/LostLives.text = 'Vidas perdidas: ' + str(lost_lives)
 
 func game_ended():
-	pass
+	Global.savedLives = saved_lives
+	Global.lostLives = lost_lives

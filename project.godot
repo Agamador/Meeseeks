@@ -35,6 +35,10 @@ _global_script_class_icons={
 config/name="Meeseeks"
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://Levels/Global.gd"
+
 [display]
 
 window/size/resizable=false
