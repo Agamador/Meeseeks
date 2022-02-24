@@ -29,13 +29,14 @@ export var Stairers := 5
 export var Climbers := 1
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print(get_tree().get_current_scene().get_name())
 	Input.set_custom_mouse_cursor(arrow)
 	Engine.set_time_scale(1)
 	time_start = OS.get_unix_time()
 	$Camera2D.position =$Spawn.position;
 	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SpeedLabel.text = '50'
 	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/TotalLives.text = 'Vidas totales: ' + str(lives)
-	updateLabels()
+	update_labels()
 	Global.lives = total_lives
 
 func _process(delta):
@@ -52,27 +53,31 @@ func _process(delta):
 func _spawn_meeseek():
 	if lives>0:
 		lives -= 1
-		var newMeeseek = meeseek.instance()
-		newMeeseek.position = $Spawn.position
-		add_child(newMeeseek)
+		var new_meeseek = meeseek.instance()
+		new_meeseek.position = $Spawn.position
+		add_child(new_meeseek)
 		
 func meeseek_saved():
 	saved_lives += 1
-	updateLabels()
-	if saved_lives == objective:
-		pass
-		#fin
+	update_labels()
+
 func meeseek_deceased():
 	lost_lives += 1
-	updateLabels()
+	update_labels()
 
 func updateButtonsValues():
 	$Camera2D.updateButtonsValues()
 
-func updateLabels():
+func update_labels():
 	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/SavedLives.text = 'Vidas salvadas: ' + str(saved_lives)
 	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/LostLives.text = 'Vidas perdidas: ' + str(lost_lives)
 
 func game_ended():
-	Global.savedLives = saved_lives
-	Global.lostLives = lost_lives
+	Global.saved_lives = saved_lives
+	Global.lost_lives = lost_lives
+	#variable para volver al nivel previo  --> last_level
+	Global.last_level = get_tree().get_current_scene().get_name()
+	Global.elapsed_time = str_elapsed 
+	Global.lives = lives
+	get_tree().change_scene( "res://Scenes/GameOverScene/GameOver.tscn")
+

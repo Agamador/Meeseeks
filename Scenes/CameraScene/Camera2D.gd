@@ -12,7 +12,7 @@ var tilemap_border
 export var tween_duration := 0.5
 export var max_zoom := 2.0
 export var min_zoom := 0.5
-var zoom_level := 1.0 setget _set_zoom_level
+var zoom_level := 1.0 setget set_zoom_level
 var zoom_factor := 0.1
 onready var tween: Tween = $Tween
 
@@ -36,12 +36,12 @@ func _ready():
 	height_half = viewport_size.y / 2
 	w_h_times_zoom = width_half * self.zoom.x
 	h_h_times_zoom = height_half * self.zoom.y
-	updateButtonsValues()
+	update_buttons_values()
 
 func _process(delta):
 	move_vector = Vector2()
 	mouse_pos = get_viewport().get_mouse_position()
-	_update_wiewport()
+	update_wiewport()
 	if mouse_pos.x < 30 && self.position.x - w_h_times_zoom > self.limit_left:
 		move_vector.x = -1
 	elif mouse_pos.x > viewport_size.x - 15 && self.position.x + w_h_times_zoom < self.limit_right:
@@ -52,7 +52,7 @@ func _process(delta):
 		move_vector.y = 1
 	global_translate(move_vector * delta * 300 * self.zoom.x)
 
-func _update_wiewport():
+func update_wiewport():
 	viewport_size = get_viewport().size
 	width_half = viewport_size.x / 2
 	height_half = viewport_size.y / 2
@@ -61,12 +61,12 @@ func _update_wiewport():
 
 func _unhandled_input(event):
 	if event.is_action_pressed("zoom_in"):
-		_set_zoom_level(zoom_level - zoom_factor)
+		set_zoom_level(zoom_level - zoom_factor)
 	if event.is_action_pressed("zoom_out"):
-		_set_zoom_level(zoom_level + zoom_factor)
+		set_zoom_level(zoom_level + zoom_factor)
 
 #el zoom ahora mismo permite ver fuera del mapa.
-func _set_zoom_level(value: float):
+func set_zoom_level(value: float):
 	zoom_level = clamp(value, min_zoom, max_zoom)
 	tween.interpolate_property(
 		self,
@@ -79,7 +79,7 @@ func _set_zoom_level(value: float):
 	)
 	tween.start()
 
-func updateButtonsValues():
+func update_buttons_values():
 	$CanvasLayer/HBoxContainer/DiggerSideButton/Label.text = str(get_parent().Digsideers)
 	$CanvasLayer/HBoxContainer/DiggerDownButton/Label.text = str(get_parent().Digdowners)
 	$CanvasLayer/HBoxContainer/StopperButton/Label.text = str(get_parent().Stopperers)
@@ -116,11 +116,11 @@ func _on_RestartButton_pressed():
 
 func _on_TimeDownButton_pressed():
 	Engine.set_time_scale(clamp(Engine.time_scale - time_step, min_speed, max_speed))
-	_updateSpeedLabel()
+	update_speed_label()
 
 func _on_TimeUpButton_pressed():
 	Engine.set_time_scale(clamp(Engine.time_scale + time_step, min_speed, max_speed))
-	_updateSpeedLabel()
+	update_speed_label()
 
-func _updateSpeedLabel():
+func update_speed_label():
 	$CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SpeedLabel.text = str(Engine.get_time_scale()*50)
