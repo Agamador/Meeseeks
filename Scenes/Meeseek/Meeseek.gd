@@ -512,37 +512,37 @@ func _unhandled_input(event):
 						if get_parent().Digsideers >= 1:
 							self.state = get_parent().mouse_pointer
 							get_parent().Digsideers -= 1
-							get_parent().updateButtonsValues()
+							get_parent().update_buttons_values()
 							get_tree().set_input_as_handled()
 					"DigDown":
 						if get_parent().Digdowners >= 1:
 							self.state = get_parent().mouse_pointer
 							get_parent().Digdowners -= 1
-							get_parent().updateButtonsValues()
+							get_parent().update_buttons_values()
 							get_tree().set_input_as_handled()
 					"Stopper":
 						if get_parent().Stopperers >= 1:
 							self.state = get_parent().mouse_pointer
 							get_parent().Stopperers -= 1
-							get_parent().updateButtonsValues()
+							get_parent().update_buttons_values()
 							get_tree().set_input_as_handled()
 					"Umbrella":
 						if get_parent(). Umbrellaers >= 1:
 							self.state = get_parent().mouse_pointer
 							get_parent(). Umbrellaers -= 1
-							get_parent().updateButtonsValues()
+							get_parent().update_buttons_values()
 							get_tree().set_input_as_handled()
 					"Stair":
 						if get_parent().Stairers >= 1:
 							self.state = get_parent().mouse_pointer
 							get_parent().Stairers -= 1
-							get_parent().updateButtonsValues()
+							get_parent().update_buttons_values()
 							get_tree().set_input_as_handled()
 					"Climb":
 						if get_parent().Climbers >= 1:
 							self.state = get_parent().mouse_pointer
 							get_parent().Climbers -= 1
-							get_parent().updateButtonsValues()
+							get_parent().update_buttons_values()
 							get_tree().set_input_as_handled()
 #funciones para controlar el clickar un solo meeseek a la vez (topmost order)
 func _on_Meesek_mouse_entered():

@@ -16,7 +16,6 @@ zoom = Vector2( 1, 1 )
 editor_draw_screen = false
 
 [node name="Spawn" parent="." instance=ExtResource( 1 )]
-visible = false
 position = Vector2( 131.071, 81.3572 )
 
 [node name="Timer" type="Timer" parent="."]
@@ -24,7 +23,6 @@ wait_time = 2.0
 autostart = true
 
 [node name="Goal" parent="." instance=ExtResource( 5 )]
-visible = false
 position = Vector2( 287.91, 75.9987 )
 scale = Vector2( 1.5, 1.5 )
 

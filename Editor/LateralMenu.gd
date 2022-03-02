@@ -71,7 +71,6 @@ func _on_Save_pressed():
 	get_tree().get_current_scene().save_level()
 
 func _on_Control_mouse_entered():
-	print(Global.on_panel)
 	Global.on_panel = true
 
 func _on_Control_mouse_exited():

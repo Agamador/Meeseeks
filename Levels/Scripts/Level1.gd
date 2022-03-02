@@ -65,8 +65,8 @@ func meeseek_deceased():
 	lost_lives += 1
 	update_labels()
 
-func updateButtonsValues():
-	$Camera2D.updateButtonsValues()
+func update_buttons_values():
+	$Camera2D.update_buttons_values()
 
 func update_labels():
 	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/SavedLives.text = 'Vidas salvadas: ' + str(saved_lives)

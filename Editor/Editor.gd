@@ -60,12 +60,14 @@ func remove_goal():
 		
 func save_level():
 	var to_save = PackedScene.new()
-	$TileMap.owner = base_level
-	base_level.add_child($TileMap)
+	var new_map = mapa
+	if new_map.get_parent():
+		new_map.get_parent().remove_child(new_map)
+	new_map.set_owner(base_level)
+	base_level.add_child(new_map)
+	base_level.get_node('TileMap').set_owner(base_level)
 	for _i in base_level.get_children():
 		print(_i)
 	to_save.pack(base_level)
 	ResourceSaver.save("res://Levels/Scenes/prueba.tscn" ,to_save)
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+

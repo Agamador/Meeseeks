@@ -18,6 +18,8 @@ onready var tween: Tween = $Tween
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	self.limit_left = 64
+	self.limit_top = 64
 	viewport_size = get_viewport().size
 	width_half = viewport_size.x / 2
 	height_half = viewport_size.y / 2
