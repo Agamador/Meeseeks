@@ -9,10 +9,18 @@ var mouse_pos
 func _ready():
 	mapa = get_node("TileMap")
 	mapa.visible = true
+	$Camera2D/CanvasLayer/Control/Panel/MarginContainer/VBoxContainer/VBoxContainer/Save.disabled = true
+	$Camera2D/CanvasLayer/Control/Panel/MarginContainer/VBoxContainer/VBoxContainer/Try.disabled = true
 	$Spawn.visible = false
 	$Goal.visible = false
 
 func _process(delta):
+	if $Spawn.visible == true and $Goal.visible == true:
+		$Camera2D/CanvasLayer/Control/Panel/MarginContainer/VBoxContainer/VBoxContainer/Save.disabled = false
+		$Camera2D/CanvasLayer/Control/Panel/MarginContainer/VBoxContainer/VBoxContainer/Try.disabled = false
+	else:
+		$Camera2D/CanvasLayer/Control/Panel/MarginContainer/VBoxContainer/VBoxContainer/Save.disabled = true
+		$Camera2D/CanvasLayer/Control/Panel/MarginContainer/VBoxContainer/VBoxContainer/Try.disabled = true
 	pass
 	
 func _unhandled_input(event):
@@ -60,14 +68,13 @@ func remove_goal():
 		
 func save_level():
 	var to_save = PackedScene.new()
-	var new_map = mapa
+	var new_map = mapa.duplicate()
 	if new_map.get_parent():
 		new_map.get_parent().remove_child(new_map)
-	new_map.set_owner(base_level)
 	base_level.add_child(new_map)
 	base_level.get_node('TileMap').set_owner(base_level)
-	for _i in base_level.get_children():
-		print(_i)
 	to_save.pack(base_level)
 	ResourceSaver.save("res://Levels/Scenes/prueba.tscn" ,to_save)
 
+func try_level():
+	get_tree().change_scene("res://Levels/Scenes/prueba.tscn")

@@ -1,7 +1,7 @@
 extends Node2D
 
-export var lives := 1
-var total_lives := lives
+var lives = Global.lives
+var total_lives = lives
 var saved_lives := 0
 var lost_lives := 0
 export var objective := 5
@@ -21,12 +21,12 @@ var seconds
 var str_elapsed
 #botones
 var mouse_pointer := 'Basic'
-export var Digsideers := 5
-export var Digdowners := 5
-export var Stopperers := 5
-export var Umbrellaers := 5
-export var Stairers := 5
-export var Climbers := 1
+var Digsideers = Global.Digsideers 
+var Digdowners = Global.Digdowners 
+var Stopperers = Global.Stopperers 
+var Umbrellaers = Global.Umbrellaers 
+var Stairers = Global.Stairers 
+var Climbers = Global.Climbers 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print(get_tree().get_current_scene().get_name())

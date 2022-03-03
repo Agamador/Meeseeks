@@ -65,8 +65,8 @@ func _on_climber_plus_pressed():
 	$Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer3/VBoxContainer2/Label.text = str(Climbers)
 
 func _on_Try_pressed():
-	pass # Replace with function body.
-
+	get_tree().get_current_scene().try_level()
+	
 func _on_Save_pressed():
 	get_tree().get_current_scene().save_level()
 

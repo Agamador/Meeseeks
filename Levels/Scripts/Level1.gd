@@ -21,19 +21,19 @@ var seconds
 var str_elapsed
 #botones
 var mouse_pointer := 'Basic'
-export var Digsideers := 5
-export var Digdowners := 5
-export var Stopperers := 5
-export var Umbrellaers := 5
-export var Stairers := 5
-export var Climbers := 1
+var Digsideers = Global.Digsideers 
+var Digdowners = Global.Digdowners 
+var Stopperers = Global.Stopperers 
+var Umbrellaers = Global.Umbrellaers 
+var Stairers = Global.Stairers 
+var Climbers = Global.Climbers 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print(get_tree().get_current_scene().get_name())
 	Input.set_custom_mouse_cursor(arrow)
 	Engine.set_time_scale(1)
 	time_start = OS.get_unix_time()
-	$Camera2D.position =$Spawn.position;
+	$Camera2D.position = $Spawn.position;
 	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SpeedLabel.text = '50'
 	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/TotalLives.text = 'Vidas totales: ' + str(lives)
 	update_labels()
@@ -79,5 +79,5 @@ func game_ended():
 	Global.last_level = get_tree().get_current_scene().get_name()
 	Global.elapsed_time = str_elapsed 
 	Global.lives = lives
-	get_tree().change_scene( "res://Scenes/GameOverScene/GameOver.tscn")
+	get_tree().change_scene("res://Scenes/GameOverScene/GameOver.tscn")
 

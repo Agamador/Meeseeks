@@ -10,3 +10,11 @@ var elapsed_time
 #panel lateral a menú editor
 var tile_mouse = ''
 var on_panel = false
+
+#habilidades
+var Digsideers 
+var Digdowners 
+var Stopperers 
+var Umbrellaers 
+var Stairers 
+var Climbers 

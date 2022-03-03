@@ -556,8 +556,7 @@ func _on_Meesek_mouse_exited():
 func out_of_bounds():
 	return (self.position.y > map.get_used_rect().end.y * 64
 		or self.position.x < map.get_used_rect().position.x * 64
-		or self.position.x > map.get_used_rect().end.x * 64
-		or self.position.y < map.get_used_rect().position.y * 64)
+		or self.position.x > map.get_used_rect().end.x * 64)
 	
 func _on_Timer_timeout():
 	self.alive = false # Replace with function body.
