@@ -10,7 +10,6 @@
 [node name="Level1" type="Node2D"]
 z_as_relative = false
 script = ExtResource( 4 )
-Climbers = 5
 
 [node name="Camera2D" parent="." instance=ExtResource( 2 )]
 zoom = Vector2( 1, 1 )
