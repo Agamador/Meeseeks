@@ -82,3 +82,7 @@ func save_level():
 
 func try_level():
 	get_tree().change_scene('')
+
+
+func _on_BackButton_pressed():
+	get_tree().change_scene("res://Menu/MainMenu.tscn")
