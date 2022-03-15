@@ -50,18 +50,18 @@ texture = ExtResource( 2 )
 centered = false
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-margin_left = 110.596
-margin_top = 438.103
-margin_right = 330.597
-margin_bottom = 708.103
+margin_left = 110.0
+margin_top = 452.0
+margin_right = 331.0
+margin_bottom = 652.0
 __meta__ = {
-"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-margin_right = 220.0
-margin_bottom = 270.0
+margin_left = 1.0
+margin_right = 221.0
+margin_bottom = 200.0
 size_flags_horizontal = 12
 size_flags_vertical = 12
 custom_constants/separation = 10
@@ -77,39 +77,13 @@ margin_right = 220.0
 margin_bottom = 130.0
 text = "Editor"
 
-[node name="comunidad" parent="MarginContainer/VBoxContainer" instance=ExtResource( 4 )]
+[node name="salir" parent="MarginContainer/VBoxContainer" instance=ExtResource( 4 )]
 margin_top = 140.0
 margin_right = 220.0
 margin_bottom = 200.0
-text = "Comunidad"
-
-[node name="salir" parent="MarginContainer/VBoxContainer" instance=ExtResource( 4 )]
-margin_top = 210.0
-margin_right = 220.0
-margin_bottom = 270.0
 text = "Salir"
 
-[node name="LoginButton" type="Button" parent="."]
-anchor_left = 0.96
-anchor_top = 0.035
-anchor_right = 0.96
-anchor_bottom = 0.04
-margin_left = -145.0
-margin_top = 15.0
-margin_bottom = 32.0
-custom_styles/hover = ExtResource( 5 )
-custom_styles/pressed = ExtResource( 5 )
-custom_styles/focus = ExtResource( 5 )
-custom_styles/disabled = ExtResource( 5 )
-custom_styles/normal = ExtResource( 5 )
-custom_fonts/font = ExtResource( 6 )
-text = "Iniciar sesión"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Popup" type="Popup" parent="."]
-visible = true
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -467,13 +441,72 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="LogoutButton" type="Button" parent="."]
+visible = false
+anchor_left = 0.96
+anchor_top = 0.035
+anchor_right = 0.96
+anchor_bottom = 0.04
+margin_left = -145.0
+margin_top = 15.0
+margin_right = 6.0
+margin_bottom = 43.4
+custom_styles/hover = ExtResource( 5 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = ExtResource( 5 )
+custom_styles/disabled = ExtResource( 5 )
+custom_styles/normal = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
+text = "Cerrar sesión"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoginButton" type="Button" parent="."]
+anchor_left = 0.96
+anchor_top = 0.035
+anchor_right = 0.96
+anchor_bottom = 0.04
+margin_left = -145.0
+margin_top = 15.0
+margin_bottom = 43.4
+custom_styles/hover = ExtResource( 5 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = ExtResource( 5 )
+custom_styles/disabled = ExtResource( 5 )
+custom_styles/normal = ExtResource( 5 )
+custom_fonts/font = ExtResource( 6 )
+text = "Iniciar sesión"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.911
+anchor_top = 0.067
+anchor_right = 0.911
+anchor_bottom = 0.067
+margin_left = -255.88
+margin_top = -8.24
+margin_right = -95.88
+margin_bottom = 21.76
+custom_fonts/font = ExtResource( 6 )
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/editor" to="." method="_on_editor_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/comunidad" to="." method="_on_comunidad_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/salir" to="." method="_on_salir_pressed"]
-[connection signal="pressed" from="LoginButton" to="." method="_on_LoginButton_pressed"]
 [connection signal="pressed" from="Popup/Panel/close" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="Popup/Panel/HBoxContainer2/Register" to="." method="_on_Register_pressed"]
 [connection signal="pressed" from="Popup/Panel/HBoxContainer2/Login" to="." method="_on_Login_pressed"]
 [connection signal="pressed" from="RegisterPopup/Panel/close2" to="." method="_on_close2_pressed"]
 [connection signal="pressed" from="RegisterPopup/Panel/CreateUser" to="." method="_on_CreateUser_pressed"]
+[connection signal="pressed" from="LogoutButton" to="." method="_on_LogoutButton_pressed"]
+[connection signal="pressed" from="LoginButton" to="." method="_on_LoginButton_pressed"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]

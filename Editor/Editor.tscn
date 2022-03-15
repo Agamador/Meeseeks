@@ -20,6 +20,12 @@ script = ExtResource( 2 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
 
+[node name="BackButton" parent="Camera2D/CanvasLayer" instance=ExtResource( 7 )]
+margin_left = 64.0
+margin_top = 64.0
+margin_right = 132.0
+margin_bottom = 97.0
+
 [node name="Control" parent="Camera2D/CanvasLayer" instance=ExtResource( 1 )]
 anchor_left = 0.806
 anchor_top = 0.228
@@ -42,10 +48,4 @@ position = Vector2( 174.906, 285.905 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 6 )
 
-[node name="BackButton" parent="." instance=ExtResource( 7 )]
-margin_left = 64.0
-margin_top = 64.0
-margin_right = 132.0
-margin_bottom = 97.0
-
-[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/BackButton" to="." method="_on_BackButton_pressed"]

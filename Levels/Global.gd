@@ -1,10 +1,11 @@
 extends Node
 
-#base de datos
-const SQLite = preload("res://addons/godot-sqlite/bin/gdsqlite.gdns")
-var db_name = "res://Data/database"
-#var db_name = "http://localhost/Meeseeks/database"
-	
+#api
+var apiurl = 'http://127.0.0.1:8000/api'
+#usuario
+var username
+var user_id
+var logged := false
 #juego a pantalla fin de juego
 var lives := 0
 var last_level
