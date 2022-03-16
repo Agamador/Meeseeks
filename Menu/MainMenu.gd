@@ -52,6 +52,7 @@ func _on_close_pressed():
 func _on_Login_pressed():
 	$Popup/Panel/NoUser.visible = false
 	$Popup/Panel/Wrongpassword.visible = false
+	$Popup/Panel/HttpError.visible = false
 	var params = {"name" : $Popup/Panel/HBoxContainer/VBoxContainer2/usename.text, 
 				  "password": $Popup/Panel/HBoxContainer/VBoxContainer2/password.text}
 	var headers = ["Content-Type: application/json"]
@@ -99,7 +100,7 @@ func save_login():
 	Global.user_id = user_id
 	Global.username = username
 	var file := File.new()
-	file.open(user_data_path,File.READ_WRITE)
+	file.open(user_data_path,File.WRITE)
 	file.store_line(str(token))
 	file.close()
 	
@@ -119,8 +120,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 			'register':
 				register_http_response(json)
 	else:
-		print('error http')
-		#mensaje para el usuario o retry
+		$Popup/Panel/HttpError.visible = true
 
 func login_http_response(json):
 	print(json.result['error'])
@@ -152,6 +152,7 @@ func register_http_response(json):
 		'none':
 			token = json.result['token']
 			username = $RegisterPopup/Panel/HBoxContainer/VBoxContainer2/usename.text
+			printt(username, $RegisterPopup/Panel/HBoxContainer/VBoxContainer2/usename.text)
 			user_id = json.result['id']
 			save_login()
 			set_user()
