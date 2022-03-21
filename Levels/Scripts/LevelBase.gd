@@ -4,7 +4,6 @@ var lives = Global.lives
 var total_lives = lives
 var saved_lives := 0
 var lost_lives := 0
-export var objective := 5
 #considerando si poner tiempo límite o solo indicar el mínimo para superar el nivel
 #cortamos un nivel cuando no se puede superar? En un principio no
 export var total_time := 5.0
@@ -13,8 +12,8 @@ var meeseek = preload("res://Scenes/Meeseek/Meeseek.tscn");
 var arrow = load("res://Resources/Mouses/Mouse.png");
 var selector = load("res://Resources/Mouses/MouseHover.png")
 #tiempo
-var time_start := 0
-var time_now := 0
+onready var time_start := 0
+onready var time_now := 0
 var elapsed
 var minutes
 var seconds
@@ -29,13 +28,22 @@ var Stairers = Global.Stairers
 var Climbers = Global.Climbers 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print(get_tree().get_current_scene().get_name())
 	Input.set_custom_mouse_cursor(arrow)
 	Engine.set_time_scale(1)
 	time_start = OS.get_unix_time()
 	$Camera2D.position =$Spawn.position;
 	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SpeedLabel.text = '50'
 	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/TotalLives.text = 'Vidas totales: ' + str(lives)
+	Digsideers = Global.Digsideers 
+	Digdowners = Global.Digdowners 
+	Stopperers = Global.Stopperers 
+	Umbrellaers = Global.Umbrellaers 
+	Stairers = Global.Stairers 
+	Climbers = Global.Climbers 
+	lives = Global.lives
+	total_lives = lives
+	saved_lives = 0
+	lost_lives = 0
 	update_labels()
 	Global.lives = total_lives
 
@@ -75,9 +83,7 @@ func update_labels():
 func game_ended():
 	Global.saved_lives = saved_lives
 	Global.lost_lives = lost_lives
-	#variable para volver al nivel previo  --> last_level
-	Global.last_level = get_tree().get_current_scene().get_name()
 	Global.elapsed_time = str_elapsed 
-	Global.lives = lives
+	Global.prev_escene = get_tree().get_current_scene().filename
 	get_tree().change_scene( "res://Scenes/GameOverScene/GameOver.tscn")
 

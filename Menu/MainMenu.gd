@@ -32,6 +32,7 @@ func _on_play_pressed():
 	##
 	## Mensaje de que no se guardan los scores si no inicia sesión si no esta loggeado
 	##
+	Global.editing = false
 	get_tree().change_scene("res://Menu/LevelsMenu.tscn")
 
 func _on_editor_pressed():
@@ -78,7 +79,6 @@ func _on_CreateUser_pressed():
 		$HTTPRequest.request(Global.apiurl + '/register',headers,true,HTTPClient.METHOD_POST,JSON.print(params))
 
 func _on_LogoutButton_pressed():
-	print('cerrando sesión')
 	var dir = Directory.new()
 	dir.remove(user_data_path)
 	$LoginButton.visible = true
@@ -91,7 +91,6 @@ func check_logged():
 		file.open(user_data_path,File.READ)
 		var user_data = file.get_as_text()
 		file.close()
-		print(user_data)
 		query = 'check'
 		var params = {"token" : user_data}
 		$HTTPRequest.request(Global.apiurl + '/checktoken', headers,true,HTTPClient.METHOD_POST,JSON.print(params))
@@ -123,7 +122,6 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		$Popup/Panel/HttpError.visible = true
 
 func login_http_response(json):
-	print(json.result['error'])
 	match str(json.result['error']):
 		'noname':
 			$Popup/Panel/NoUser.visible = true
@@ -138,14 +136,12 @@ func login_http_response(json):
 			set_user()
 
 func check_http_response(json):
-	printt(str(json.result))
 	if json.result['status'] == 1:
 		Global.logged = true
 		username = json.result['username']
 		set_user()
 
 func register_http_response(json):
-	print(str(json.result['error']))
 	match str(json.result['error']):
 		'nametaken':
 			$RegisterPopup/Panel/UsernameTaken.visible = true

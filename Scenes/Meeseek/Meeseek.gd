@@ -413,7 +413,6 @@ func stair_meeseek():
 									building = true
 									motion = Vector2(0,0)
 							else :
-								#printt(building_cell, self.position.x, building_cell.x *64,self.position.x - building_cell.x * 64 )
 								if abs(self.position.x - (building_cell.x * 64 + 64)) < 20:
 									building = true
 									motion = Vector2(0,0)

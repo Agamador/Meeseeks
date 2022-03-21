@@ -3,6 +3,7 @@
 [ext_resource path="res://Resources/Fuentes/Kenney Pixel.ttf" type="DynamicFontData" id=1]
 
 [resource]
+resource_local_to_scene = true
 size = 28
 extra_spacing_char = 1
 font_data = ExtResource( 1 )

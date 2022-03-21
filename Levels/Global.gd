@@ -2,13 +2,17 @@ extends Node
 
 #api
 var apiurl = 'http://127.0.0.1:8000/api'
+
 #usuario
 var username
 var user_id
 var logged := false
+
+#navegación
+var prev_escene := "res://Menu/MainMenu.tscn"
+
 #juego a pantalla fin de juego
-var lives := 0
-var last_level
+var lives
 var saved_lives
 var lost_lives
 var elapsed_time
@@ -17,10 +21,17 @@ var elapsed_time
 var tile_mouse = ''
 var on_panel = false
 
+#Editor
+var map_path = "user://editormap.txt"
+var goal_path = "user://goalmap.txt"
+var spawn_path = "user://spawnmap.txt"
+var skills_path = "user://skillsmap.txt"
+var editing = false
+
 #habilidades
-var Digsideers 
-var Digdowners 
-var Stopperers 
-var Umbrellaers 
-var Stairers 
-var Climbers 
+var Digsideers = 0 
+var Digdowners = 0
+var Stopperers = 0
+var Umbrellaers = 0
+var Stairers = 0
+var Climbers = 0
