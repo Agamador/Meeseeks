@@ -1,6 +1,5 @@
 extends Control
 
-var db
 var username
 var password
 var user_id
@@ -13,7 +12,6 @@ var query
 func _ready():
 	if !Global.logged:
 		check_logged()
-	pass
 	
 func _process(delta):
 	$ParallaxBackground/ParallaxLayer.motion_offset +=  delta * Vector2(10,10)
@@ -27,11 +25,14 @@ func _process(delta):
 			$RegisterPopup/Panel/CreateUser.disabled = false
 	else: 
 		$RegisterPopup/Panel/CreateUser.disabled = true
+	if !Global.logged:
+		$MarginContainer/VBoxContainer/play.disabled = true
+		$MarginContainer/VBoxContainer/editor.disabled = true
+	else:
+		$MarginContainer/VBoxContainer/play.disabled = false
+		$MarginContainer/VBoxContainer/editor.disabled = false
 
 func _on_play_pressed():
-	##
-	## Mensaje de que no se guardan los scores si no inicia sesión si no esta loggeado
-	##
 	Global.editing = false
 	get_tree().change_scene("res://Menu/LevelsMenu.tscn")
 
@@ -81,6 +82,7 @@ func _on_CreateUser_pressed():
 func _on_LogoutButton_pressed():
 	var dir = Directory.new()
 	dir.remove(user_data_path)
+	Global.logged = false
 	$LoginButton.visible = true
 	$Label.visible = false
 	$LogoutButton.visible = false
@@ -93,7 +95,7 @@ func check_logged():
 		file.close()
 		query = 'check'
 		var params = {"token" : user_data}
-		$HTTPRequest.request(Global.apiurl + '/checktoken', headers,true,HTTPClient.METHOD_POST,JSON.print(params))
+		$HTTPRequest.request(Global.apiurl + '/check-token', headers,true,HTTPClient.METHOD_POST,JSON.print(params))
 
 func save_login():
 	Global.user_id = user_id
@@ -132,6 +134,7 @@ func login_http_response(json):
 			user_id =  json.result['id']
 			token = json.result['token']
 			username = $Popup/Panel/HBoxContainer/VBoxContainer2/usename.text
+			Global.logged = true
 			save_login()
 			set_user()
 
@@ -139,6 +142,8 @@ func check_http_response(json):
 	if json.result['status'] == 1:
 		Global.logged = true
 		username = json.result['username']
+		user_id = json.result['id']
+		Global.user_id = user_id
 		set_user()
 
 func register_http_response(json):
@@ -148,7 +153,6 @@ func register_http_response(json):
 		'none':
 			token = json.result['token']
 			username = $RegisterPopup/Panel/HBoxContainer/VBoxContainer2/usename.text
-			printt(username, $RegisterPopup/Panel/HBoxContainer/VBoxContainer2/usename.text)
 			user_id = json.result['id']
 			save_login()
 			set_user()

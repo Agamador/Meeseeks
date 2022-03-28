@@ -69,6 +69,7 @@ custom_constants/separation = 10
 [node name="play" parent="MarginContainer/VBoxContainer" instance=ExtResource( 4 )]
 margin_right = 220.0
 margin_bottom = 60.0
+hint_tooltip = "Necesitas iniciar sesión para poder jugar."
 text = "Jugar"
 
 [node name="editor" parent="MarginContainer/VBoxContainer" instance=ExtResource( 4 )]

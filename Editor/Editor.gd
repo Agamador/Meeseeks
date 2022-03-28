@@ -92,9 +92,6 @@ func try_level():
 	base_level.add_child(new_map)
 	base_level.get_node('TileMap').set_owner(base_level)
 	to_save.pack(base_level)
-	var level_str = var2str(to_save)
-	var lvl_scene = str2var(level_str)
-	var scene = lvl_scene.instance()
 	save_map()
 	Global.editing = true
 	ResourceSaver.save("res://Levels/Scenes/prueba.tscn" ,to_save)

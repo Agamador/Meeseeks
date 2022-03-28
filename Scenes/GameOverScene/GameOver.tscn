@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Resources/SpaceBackground.png" type="Texture" id=1]
 [ext_resource path="res://Resources/Themes/ButtonTheme.tres" type="StyleBox" id=2]
@@ -37,6 +37,9 @@ font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=9]
 size = 31
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=10]
 font_data = ExtResource( 3 )
 
 [node name="Control" type="Control"]
@@ -183,7 +186,6 @@ text = "Publicar"
 scroll_ignore_camera_zoom = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
 motion_scale = Vector2( 0.1, 0.1 )
 motion_mirroring = Vector2( 1920, 1080 )
 
@@ -199,11 +201,15 @@ __meta__ = {
 visible = true
 margin_right = 384.0
 margin_bottom = 126.0
+popup_exclusive = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Panel" type="Panel" parent="Popup"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = 2.0
+margin_bottom = 26.0
 custom_styles/panel = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -211,9 +217,9 @@ __meta__ = {
 
 [node name="Yes" type="Button" parent="Popup/Panel"]
 margin_left = 200.0
-margin_top = 88.0
+margin_top = 104.0
 margin_right = 327.0
-margin_bottom = 122.0
+margin_bottom = 138.0
 custom_styles/hover = ExtResource( 2 )
 custom_styles/pressed = ExtResource( 2 )
 custom_styles/focus = ExtResource( 2 )
@@ -221,12 +227,15 @@ custom_styles/disabled = ExtResource( 2 )
 custom_styles/normal = ExtResource( 2 )
 custom_fonts/font = SubResource( 8 )
 text = "Publicar"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="No" type="Button" parent="Popup/Panel"]
 margin_left = 56.0
-margin_top = 88.0
+margin_top = 104.0
 margin_right = 184.0
-margin_bottom = 122.0
+margin_bottom = 138.0
 custom_styles/hover = ExtResource( 2 )
 custom_styles/pressed = ExtResource( 2 )
 custom_styles/focus = ExtResource( 2 )
@@ -234,16 +243,23 @@ custom_styles/disabled = ExtResource( 2 )
 custom_styles/normal = ExtResource( 2 )
 custom_fonts/font = SubResource( 8 )
 text = "Cancelar"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TextEdit" type="LineEdit" parent="Popup/Panel"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -152.0
-margin_top = 40.0
+margin_top = 48.0
 margin_right = 152.0
-margin_bottom = 80.0
+margin_bottom = 88.0
 custom_styles/normal = ExtResource( 2 )
 custom_fonts/font = SubResource( 9 )
+max_length = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="Popup/Panel"]
 anchor_left = 0.5
@@ -256,8 +272,27 @@ text = "Dale un nombre a tu nivel"
 align = 1
 valign = 1
 
+[node name="error" type="Label" parent="Popup/Panel"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -80.0
+margin_top = -42.0
+margin_right = 76.0
+margin_bottom = -28.0
+custom_fonts/font = SubResource( 10 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "Algo salió mal, prueba otra vez"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
 [connection signal="pressed" from="PanelContainer/MarginContainer/Filas/Botones/MenuPrincipal" to="." method="_on_MenuPrincipal_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Filas/Botones/Marcadores" to="." method="_on_Marcadores_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Filas/Botones/Reintentar" to="." method="_on_Reintentar_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Filas/Botones2/Editor" to="." method="_on_Editor_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/Filas/Botones2/Publicar" to="." method="_on_Publicar_pressed"]
+[connection signal="pressed" from="Popup/Panel/Yes" to="." method="_on_Yes_pressed"]
+[connection signal="pressed" from="Popup/Panel/No" to="." method="_on_No_pressed"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
