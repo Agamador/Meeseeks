@@ -85,5 +85,6 @@ func game_ended():
 	Global.lost_lives = lost_lives
 	Global.elapsed_time = str_elapsed 
 	Global.prev_escene = get_tree().get_current_scene().filename
+	Global.elapsed_seconds = elapsed
 	get_tree().change_scene( "res://Scenes/GameOverScene/GameOver.tscn")
 

@@ -8,10 +8,10 @@ var user_data_path = "user://data.txt"
 var user_data
 var headers = ["Content-Type: application/json"]
 var query
+var tries := 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if !Global.logged:
-		check_logged()
+	check_logged()
 	
 func _process(delta):
 	$ParallaxBackground/ParallaxLayer.motion_offset +=  delta * Vector2(10,10)
@@ -38,9 +38,6 @@ func _on_play_pressed():
 
 func _on_editor_pressed():
 	get_tree().change_scene("res://Editor/Editor.tscn")
-
-func _on_comunidad_pressed():
-	pass # Replace with function body.
 
 func _on_salir_pressed():
 	get_tree().quit()
@@ -111,17 +108,26 @@ func set_user():
 	$Label.text = str(username)
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
-	if response_code == 200:
-		var json = JSON.parse(body.get_string_from_utf8())
-		match query:
-			'login':
+	var json = JSON.parse(body.get_string_from_utf8())
+	match query:
+		'login':
+			if response_code == 200:
 				login_http_response(json)
-			'check':
+			else:
+				_on_Login_pressed()
+		'check':
+			if response_code == 200:
 				check_http_response(json)
-			'register':
-				register_http_response(json)
-	else:
-		$Popup/Panel/HttpError.visible = true
+			else: 
+				print(tries)
+				if tries < 5:
+					check_logged()
+					tries += 1
+				else:
+					$Popup/Panel/HttpError.visible = true
+					tries = 0
+		'register':
+			register_http_response(json)
 
 func login_http_response(json):
 	match str(json.result['error']):

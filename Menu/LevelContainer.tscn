@@ -67,7 +67,7 @@ __meta__ = {
 }
 
 [node name="percentage" type="Label" parent="Margin/Panel/Button"]
-margin_left = 763.0
+margin_left = 699.0
 margin_top = 11.0
 margin_right = 817.0
 margin_bottom = 47.0
@@ -78,7 +78,7 @@ __meta__ = {
 }
 
 [node name="highscore" type="Label" parent="Margin/Panel/Button"]
-margin_left = 683.0
+margin_left = 547.0
 margin_top = 43.0
 margin_right = 815.0
 margin_bottom = 79.0

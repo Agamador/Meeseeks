@@ -16,7 +16,8 @@ var lives
 var saved_lives
 var lost_lives
 var elapsed_time
-
+var level_id 
+var elapsed_seconds
 #panel lateral a menú editor
 var tile_mouse = ''
 var on_panel = false

@@ -4,18 +4,20 @@ extends Control
 
 export var move_speed := Vector2(-15,-15)
 var headers = ["Content-Type: application/json"]
+var query
 var created_level = preload("res://Levels/Scenes/prueba.tscn").instance()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_data()
 	if Global.editing == true:
 		$PanelContainer/MarginContainer/Filas/Botones2.visible = true
+		if Global.saved_lives < 1:
+			$PanelContainer/MarginContainer/Filas/Botones2/Publicar.disabled = true
 	else:
 		$PanelContainer/MarginContainer/Filas/Botones2.visible = false
-	if Global.saved_lives < 1:
-		$PanelContainer/MarginContainer/Filas/Botones2/Publicar.disabled = true
-		
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+		submit_score()
+
 func _process(delta):
 	$ParallaxBackground/ParallaxLayer.motion_offset +=  delta * Vector2(-10,-10)
 	if $Popup/Panel/TextEdit.text == '':
@@ -53,7 +55,7 @@ func _on_No_pressed():
 func _on_Yes_pressed():
 	$Popup/Panel/error.visible = false
 	var level_name = $Popup/Panel/TextEdit.text
-	var file_name = level_name.replace(' ', '_')
+	var file_name = make_file_name(level_name)
 	file_name += '.tscn'
 	#creamos un packed scene, en la que cargamos el nivel creado, 
 	#pasamos la packedscene como cadena al servidor para después poder generar la escena de nuevo desde la cadena
@@ -72,12 +74,50 @@ func _on_Yes_pressed():
 		'climbers': Global.Climbers,
 		'scene': scene_text
 	}
+	query = 'publish'
 	$HTTPRequest.request(Global.apiurl + '/post-level',headers,true,HTTPClient.METHOD_POST,JSON.print(params))
-
+	erase_files()
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
-	print(response_code)
-	if response_code == 0:
-		get_tree().change_scene("res://Menu/MainMenu.tscn")
-	else:
-		$Popup/Panel/error.visible = true
+	match query:
+		'score':
+			if response_code != 0:
+				submit_score()
+		'publish':
+			if response_code == 0:
+				get_tree().change_scene("res://Menu/MainMenu.tscn")
+			else:
+				$Popup/Panel/error.visible = true
+				
+func make_file_name(file_name):
+	file_name = file_name.replace(' ', '_')
+	file_name = file_name.replace(':', '')
+	file_name = file_name.replace(' ', '_')
+	file_name = file_name.replace('/', '')
+	file_name = file_name.replace( '"\"', '')
+	file_name = file_name.replace('?', '')
+	file_name = file_name.replace('*', '')
+	file_name = file_name.replace('"', '')
+	file_name = file_name.replace('|', '')
+	file_name = file_name.replace('%', '')
+	file_name = file_name.replace('<', '')
+	file_name = file_name.replace('>', '')
+	return file_name
+
+func erase_files():
+	var dir = Directory.new()
+	dir.remove("user://editormap.txt")
+	dir.remove("user://goalmap.txt")
+	dir.remove("user://spawnmap.txt")
+	dir.remove("user://skillsmap.txt")
+
+func submit_score():
+	query = 'score'
+	var params = {
+		'saves': Global.saved_lives,
+		'losses': Global.lost_lives,
+		'time': Global.elapsed_seconds,
+		'lives': Global.lives,
+		'level_id': Global.level_id,
+		'user_id': Global.user_id}
+	$HTTPRequest.request(Global.apiurl + '/store-score', headers,true, HTTPClient.METHOD_POST, JSON.print(params));
