@@ -1,0 +1,112 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Resources/Themes/ButtonTheme.tres" type="StyleBox" id=1]
+[ext_resource path="res://Resources/Fuentes/Kenney Pixel.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scenes/PauseScene/PausePopup.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 62
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 31
+font_data = ExtResource( 2 )
+
+[node name="Popup" type="Popup"]
+margin_right = 280.0
+margin_bottom = 200.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 13
+size_flags_vertical = 13
+custom_styles/panel = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.019
+anchor_right = 0.5
+anchor_bottom = 0.019
+margin_left = -59.0
+margin_right = 59.0
+margin_bottom = 47.0
+size_flags_horizontal = 4
+custom_fonts/font = SubResource( 1 )
+text = "Pausa"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exit" type="Button" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.889
+anchor_right = 0.5
+anchor_bottom = 0.889
+margin_left = -59.0
+margin_top = -34.0
+margin_right = 59.0
+size_flags_horizontal = 4
+custom_styles/hover = ExtResource( 1 )
+custom_styles/pressed = ExtResource( 1 )
+custom_styles/focus = ExtResource( 1 )
+custom_styles/disabled = ExtResource( 1 )
+custom_styles/normal = ExtResource( 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Salir"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Continue" type="Button" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.395
+anchor_right = 0.5
+anchor_bottom = 0.395
+margin_left = -59.0
+margin_top = -17.0
+margin_right = 59.0
+margin_bottom = 17.0
+size_flags_horizontal = 4
+custom_styles/hover = ExtResource( 1 )
+custom_styles/pressed = ExtResource( 1 )
+custom_styles/focus = ExtResource( 1 )
+custom_styles/disabled = ExtResource( 1 )
+custom_styles/normal = ExtResource( 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Continuar"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Restart" type="Button" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.598
+anchor_right = 0.5
+anchor_bottom = 0.598
+margin_left = -59.0
+margin_top = -17.0
+margin_right = 59.0
+margin_bottom = 17.0
+size_flags_horizontal = 4
+custom_styles/hover = ExtResource( 1 )
+custom_styles/pressed = ExtResource( 1 )
+custom_styles/focus = ExtResource( 1 )
+custom_styles/disabled = ExtResource( 1 )
+custom_styles/normal = ExtResource( 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Reintentar"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Panel/Exit" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="Panel/Continue" to="." method="_on_Continue_pressed"]
+[connection signal="pressed" from="Panel/Restart" to="." method="_on_Restart_pressed"]

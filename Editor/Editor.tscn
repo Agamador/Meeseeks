@@ -50,6 +50,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 2
 
 [node name="Popup" type="Popup" parent="Camera2D/CanvasLayer"]
+visible = true
 margin_right = 270.0
 margin_bottom = 166.0
 __meta__ = {
@@ -68,7 +69,8 @@ margin_right = 264.0
 margin_bottom = 71.0
 custom_fonts/font = SubResource( 2 )
 text = "Seguro que quieres volver?
-Tu progreso se perderá"
+Tu progreso se perderá
+si no has probado el nivel"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -76,9 +78,9 @@ __meta__ = {
 
 [node name="Yes" type="Button" parent="Camera2D/CanvasLayer/Popup/Panel"]
 margin_left = 64.0
-margin_top = 96.0
+margin_top = 112.0
 margin_right = 95.0
-margin_bottom = 128.0
+margin_bottom = 144.0
 custom_styles/hover = ExtResource( 8 )
 custom_styles/pressed = ExtResource( 8 )
 custom_styles/focus = ExtResource( 8 )
@@ -86,12 +88,15 @@ custom_styles/disabled = ExtResource( 8 )
 custom_styles/normal = ExtResource( 8 )
 custom_fonts/font = SubResource( 2 )
 text = "Sí"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="No" type="Button" parent="Camera2D/CanvasLayer/Popup/Panel"]
 margin_left = 176.0
-margin_top = 96.0
+margin_top = 112.0
 margin_right = 208.0
-margin_bottom = 128.0
+margin_bottom = 144.0
 custom_styles/hover = ExtResource( 8 )
 custom_styles/pressed = ExtResource( 8 )
 custom_styles/focus = ExtResource( 8 )
@@ -105,6 +110,8 @@ tile_set = ExtResource( 4 )
 format = 1
 
 [node name="Goal" type="Sprite" parent="."]
+position = Vector2( 390.576, 188.988 )
+scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 5 )
 
 [node name="Spawn" type="Sprite" parent="."]

@@ -165,6 +165,7 @@ func update_skills():
 	Global.Umbrellaers = Umbrellaers
 	Global.Stairers = Stairers
 	Global.Stopperers = Stopperers
+	Global.Climbers = Climbers
 	Global.lives = Lives
 	
 func _on_BackButton_pressed():
