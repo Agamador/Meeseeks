@@ -54,7 +54,6 @@ func _on_Login_pressed():
 	$Popup/Panel/HttpError.visible = false
 	var params = {"name" : $Popup/Panel/HBoxContainer/VBoxContainer2/usename.text, 
 				  "password": $Popup/Panel/HBoxContainer/VBoxContainer2/password.text}
-	var headers = ["Content-Type: application/json"]
 	query = 'login'
 	$HTTPRequest.request(Global.apiurl + '/login',headers,true, HTTPClient.METHOD_POST, JSON.print(params));
 	
@@ -87,8 +86,9 @@ func _on_LogoutButton_pressed():
 func check_logged():
 	var file := File.new()
 	if file.file_exists(user_data_path):
+		$Loading.popup_centered()
 		file.open(user_data_path,File.READ)
-		var user_data = file.get_as_text()
+		user_data = file.get_as_text()
 		file.close()
 		query = 'check'
 		var params = {"token" : user_data}
@@ -107,7 +107,7 @@ func set_user():
 	$LogoutButton.visible = true
 	$Label.text = str(username)
 
-func _on_HTTPRequest_request_completed(result, response_code, headers, body):
+func _on_HTTPRequest_request_completed(_result, response_code, _headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	match query:
 		'login':
@@ -146,6 +146,7 @@ func login_http_response(json):
 
 func check_http_response(json):
 	if json.result['status'] == 1:
+		$Loading.visible = false
 		Global.logged = true
 		username = json.result['username']
 		user_id = json.result['id']

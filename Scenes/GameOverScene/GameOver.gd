@@ -38,7 +38,7 @@ func _on_Reintentar_pressed():
 	get_tree().change_scene(Global.prev_escene)
 
 func _on_Marcadores_pressed():
-	pass # Replace with function body.
+	get_tree().change_scene("res://Scenes/ScoresScene/ScoresScene.tscn")
 
 func _on_MenuPrincipal_pressed():
 	get_tree().change_scene("res://Menu/MainMenu.tscn")

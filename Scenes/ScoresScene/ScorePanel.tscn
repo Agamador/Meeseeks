@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Resources/Themes/ButtonTheme.tres" type="StyleBox" id=1]
+[ext_resource path="res://Resources/Fuentes/Kenney Pixel.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 47
+font_data = ExtResource( 2 )
+
+[node name="Panel" type="Panel"]
+margin_right = 385.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 285, 50 )
+custom_styles/panel = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Place" type="Label" parent="."]
+margin_left = 8.0
+margin_right = 40.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 1 )
+text = "4"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="."]
+margin_left = 32.0
+margin_top = 8.0
+margin_right = 179.0
+margin_bottom = 40.0
+text = "Manolo pies de"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HI" type="Label" parent="."]
+margin_left = 184.0
+margin_top = 8.0
+margin_right = 288.0
+margin_bottom = 38.0
+text = "HI: 403932"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

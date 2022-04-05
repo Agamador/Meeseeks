@@ -33,10 +33,10 @@ script = ExtResource( 2 )
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
 
 [node name="BackButton" parent="Camera2D/CanvasLayer" instance=ExtResource( 7 )]
-margin_left = 64.0
-margin_top = 64.0
-margin_right = 132.0
-margin_bottom = 97.0
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 84.0
+margin_bottom = 49.0
 custom_fonts/font = SubResource( 1 )
 
 [node name="Control" parent="Camera2D/CanvasLayer" instance=ExtResource( 1 )]
@@ -50,7 +50,6 @@ mouse_filter = 0
 mouse_default_cursor_shape = 2
 
 [node name="Popup" type="Popup" parent="Camera2D/CanvasLayer"]
-visible = true
 margin_right = 270.0
 margin_bottom = 166.0
 __meta__ = {

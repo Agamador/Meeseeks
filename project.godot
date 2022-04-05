@@ -30,6 +30,10 @@ window/stretch/aspect="keep"
 
 windo=false
 
+[gui]
+
+theme/custom_font="res://Resources/Fuentes/GeneralFont.tres"
+
 [input]
 
 zoom_in={
