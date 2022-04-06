@@ -23,12 +23,16 @@ Global="*res://Levels/Global.gd"
 window/size/width=1080
 window/size/height=720
 window/size/resizable=false
+mouse_cursor/custom_image="res://Resources/Mouses/Mouse.png"
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
 [global]
 
 windo=false
+mouse=false
+cur=false
+cursor=false
 
 [gui]
 

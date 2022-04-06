@@ -15,6 +15,7 @@ func _ready():
 	
 func _process(delta):
 	$ParallaxBackground/ParallaxLayer.motion_offset +=  delta * Vector2(10,10)
+	$ParallaxBackground/ParallaxLayer2.motion_offset += delta * Vector2(50,50)
 	if $Popup/Panel/HBoxContainer/VBoxContainer2/usename.text != '' and $Popup/Panel/HBoxContainer/VBoxContainer2/password.text != '':
 		$Popup/Panel/HBoxContainer2/Login.disabled = false
 	else:
@@ -106,6 +107,8 @@ func set_user():
 	$LoginButton.visible = false
 	$LogoutButton.visible = true
 	$Label.text = str(username)
+	$Label.visible = true
+	Global.logged = true
 
 func _on_HTTPRequest_request_completed(_result, response_code, _headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
@@ -127,8 +130,8 @@ func _on_HTTPRequest_request_completed(_result, response_code, _headers, body):
 					$Popup/Panel/HttpError.visible = true
 					tries = 0
 		'register':
-			register_http_response(json)
-
+				register_http_response(json)
+				
 func login_http_response(json):
 	match str(json.result['error']):
 		'noname':
@@ -136,10 +139,11 @@ func login_http_response(json):
 		'badpass':
 			$Popup/Panel/Wrongpassword.visible = true
 		'none':
-			$Popup.visible = false
 			user_id =  json.result['id']
 			token = json.result['token']
 			username = $Popup/Panel/HBoxContainer/VBoxContainer2/usename.text
+			print(username)
+			$Popup.visible = false
 			Global.logged = true
 			save_login()
 			set_user()
@@ -164,4 +168,3 @@ func register_http_response(json):
 			save_login()
 			set_user()
 			$RegisterPopup.visible = false
-		

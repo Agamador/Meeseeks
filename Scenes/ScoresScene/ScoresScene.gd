@@ -7,10 +7,10 @@ func _ready():
 	
 func _process(delta):
 	$ParallaxBackground/ParallaxLayer.motion_offset +=  delta * Vector2(10,10)
-
+	$ParallaxBackground/ParallaxLayer2.motion_offset += delta * Vector2(50,50)
+	
 func get_scores():
-	$HTTPRequest.request(Global.apiurl + '/get-scores/' + str(1))
-#	$HTTPRequest.request(Global.apiurl + '/get-scores/' + str(Global.level_id))
+	$HTTPRequest.request(Global.apiurl + '/get-scores/' + str(Global.level_id))
 
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):

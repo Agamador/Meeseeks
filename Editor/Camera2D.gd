@@ -25,6 +25,7 @@ func _ready():
 	height_half = viewport_size.y / 2
 	w_h_times_zoom = width_half * self.zoom.x
 	h_h_times_zoom = height_half * self.zoom.y
+	
 func _process(delta):
 	move_vector = Vector2()
 	mouse_pos = get_viewport().get_mouse_position()
@@ -36,7 +37,7 @@ func _process(delta):
 		move_vector.y = -1
 	if mouse_pos.y > viewport_size.y - 15 && self.position.y + h_h_times_zoom < self.limit_bottom:
 		move_vector.y = 1
-	global_translate(move_vector * delta * 300 * self.zoom.x)
+	global_translate(move_vector * delta * 200 * self.zoom.x)
 
 
 func _unhandled_input(event):
@@ -58,7 +59,3 @@ func set_zoom_level(value: float):
 		Tween.EASE_OUT
 	)
 	tween.start()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

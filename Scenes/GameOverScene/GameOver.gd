@@ -20,6 +20,7 @@ func _ready():
 
 func _process(delta):
 	$ParallaxBackground/ParallaxLayer.motion_offset +=  delta * Vector2(-10,-10)
+	$ParallaxBackground/ParallaxLayer2.motion_offset += delta * Vector2(-50,-50)
 	if $Popup/Panel/TextEdit.text == '':
 		$Popup/Panel/Yes.disabled = true
 	else: 

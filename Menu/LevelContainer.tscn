@@ -156,3 +156,9 @@ custom_fonts/font = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Autor" type="Label" parent="Margin/Panel/Button"]
+margin_left = 12.0
+margin_top = 43.0
+margin_right = 489.0
+margin_bottom = 79.0

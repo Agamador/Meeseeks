@@ -9,7 +9,7 @@ func _ready():
 	
 func _process(delta):
 	$ParallaxBackground/ParallaxLayer.motion_offset +=  delta * Vector2(10,10)
-
+	$ParallaxBackground/ParallaxLayer2.motion_offset += delta * Vector2(50,50)
 func _on_BackButton_pressed():
 	get_tree().change_scene("res://Menu/MainMenu.tscn")
 
@@ -76,7 +76,8 @@ func list_levels_http_response(niveles):
 			level.get_node("Margin/Panel/Button/HBoxContainer/silverpoints").text = str(niveles[i].top_2.score) + ' ' + niveles[i].top_2.name
 		if niveles[i].has('top_3') :
 			level.get_node("Margin/Panel/Button/HBoxContainer/bronzepoints").text = str(niveles[i].top_3.score) + ' ' + niveles[i].top_3.name
-		
+		if niveles[i].has('user_name'):
+			level.get_node("Margin/Panel/Button/Autor").text = 'Autor: ' + str(niveles[i].user_name)
 		level.get_node("Margin/Panel/Button").connect("pressed",self,'on_level_pressed',[i])
 		$MarginContainer/Panel/MarginContainer/ScrollContainer/VBoxContainer.add_child(level)
 

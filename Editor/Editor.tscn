@@ -24,13 +24,37 @@ font_data = ExtResource( 9 )
 script = ExtResource( 3 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
 current = true
 script = ExtResource( 2 )
 
 [node name="Tween" type="Tween" parent="Camera2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
+
+[node name="Casillas" type="Label" parent="Camera2D/CanvasLayer"]
+margin_left = 776.0
+margin_top = 16.0
+margin_right = 1070.0
+margin_bottom = 46.0
+text = "Casillas colocadas: 0"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Warning" type="Label" parent="Camera2D/CanvasLayer"]
+visible = false
+margin_left = 760.0
+margin_top = 48.0
+margin_right = 1070.0
+margin_bottom = 70.0
+custom_colors/font_color = Color( 1, 0.109804, 0.109804, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "¡Máximo de casillas alcanzado!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="BackButton" parent="Camera2D/CanvasLayer" instance=ExtResource( 7 )]
 margin_left = 16.0
@@ -109,12 +133,12 @@ tile_set = ExtResource( 4 )
 format = 1
 
 [node name="Goal" type="Sprite" parent="."]
-position = Vector2( 390.576, 188.988 )
+position = Vector2( 816.39, 242.382 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 5 )
 
 [node name="Spawn" type="Sprite" parent="."]
-position = Vector2( 174.906, 285.905 )
+position = Vector2( 180.245, 287.24 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 6 )
 

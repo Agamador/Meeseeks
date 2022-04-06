@@ -21,7 +21,7 @@
 [sub_resource type="StyleBoxEmpty" id=1]
 
 [sub_resource type="DynamicFont" id=2]
-size = 20
+size = 27
 font_data = ExtResource( 17 )
 
 [sub_resource type="DynamicFont" id=3]
@@ -90,14 +90,14 @@ margin_right = 200.0
 margin_bottom = 555.0
 rect_min_size = Vector2( 0, 500 )
 size_flags_vertical = 3
-custom_constants/separation = 10
+custom_constants/separation = 11
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TabContainer" type="TabContainer" parent="Panel/MarginContainer/VBoxContainer"]
 margin_right = 190.0
-margin_bottom = 457.0
+margin_bottom = 450.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/tab_fg = ExtResource( 16 )
@@ -116,7 +116,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
-margin_top = 31.0
+margin_top = 36.0
 margin_right = -5.0
 margin_bottom = -5.0
 size_flags_vertical = 2
@@ -259,20 +259,21 @@ anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -74.0
+margin_top = 4.0
 margin_right = 74.0
-custom_constants/separation = 25
+custom_constants/separation = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer"]
 margin_right = 148.0
-margin_bottom = 122.0
+margin_bottom = 128.0
 custom_constants/separation = 20
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer"]
 margin_right = 64.0
-margin_bottom = 122.0
+margin_bottom = 128.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 5
@@ -299,13 +300,13 @@ align = 1
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 96.0
 margin_right = 64.0
-margin_bottom = 122.0
+margin_bottom = 128.0
 alignment = 1
 
 [node name="-" type="Button" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
 margin_left = 4.0
 margin_right = 30.0
-margin_bottom = 26.0
+margin_bottom = 32.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_styles/hover = ExtResource( 16 )
@@ -318,7 +319,7 @@ icon = ExtResource( 13 )
 [node name="+" type="Button" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
 margin_left = 34.0
 margin_right = 60.0
-margin_bottom = 26.0
+margin_bottom = 32.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_styles/hover = ExtResource( 16 )
@@ -331,7 +332,7 @@ icon = ExtResource( 12 )
 [node name="VBoxContainer3" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer"]
 margin_left = 84.0
 margin_right = 148.0
-margin_bottom = 122.0
+margin_bottom = 128.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 5
@@ -358,13 +359,13 @@ align = 1
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer/VBoxContainer3"]
 margin_top = 96.0
 margin_right = 64.0
-margin_bottom = 122.0
+margin_bottom = 128.0
 alignment = 1
 
 [node name="-" type="Button" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer/VBoxContainer3/HBoxContainer"]
 margin_left = 4.0
 margin_right = 30.0
-margin_bottom = 26.0
+margin_bottom = 32.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_styles/hover = ExtResource( 16 )
@@ -377,7 +378,7 @@ icon = ExtResource( 13 )
 [node name="+" type="Button" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer/VBoxContainer3/HBoxContainer"]
 margin_left = 34.0
 margin_right = 60.0
-margin_bottom = 26.0
+margin_bottom = 32.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_styles/hover = ExtResource( 16 )
@@ -388,14 +389,14 @@ custom_styles/normal = ExtResource( 16 )
 icon = ExtResource( 12 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer"]
-margin_top = 147.0
+margin_top = 138.0
 margin_right = 148.0
-margin_bottom = 269.0
+margin_bottom = 266.0
 custom_constants/separation = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer2"]
 margin_right = 64.0
-margin_bottom = 122.0
+margin_bottom = 128.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 5
@@ -422,13 +423,13 @@ align = 1
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer2/VBoxContainer"]
 margin_top = 96.0
 margin_right = 64.0
-margin_bottom = 122.0
+margin_bottom = 128.0
 alignment = 1
 
 [node name="-" type="Button" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
 margin_left = 4.0
 margin_right = 30.0
-margin_bottom = 26.0
+margin_bottom = 32.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_styles/hover = ExtResource( 16 )
@@ -441,7 +442,7 @@ icon = ExtResource( 13 )
 [node name="+" type="Button" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
 margin_left = 34.0
 margin_right = 60.0
-margin_bottom = 26.0
+margin_bottom = 32.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_styles/hover = ExtResource( 16 )
@@ -454,7 +455,7 @@ icon = ExtResource( 12 )
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer2"]
 margin_left = 84.0
 margin_right = 148.0
-margin_bottom = 122.0
+margin_bottom = 128.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 5
@@ -481,13 +482,13 @@ align = 1
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer2/VBoxContainer2"]
 margin_top = 96.0
 margin_right = 64.0
-margin_bottom = 122.0
+margin_bottom = 128.0
 alignment = 1
 
 [node name="-" type="Button" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer2/VBoxContainer2/HBoxContainer"]
 margin_left = 4.0
 margin_right = 30.0
-margin_bottom = 26.0
+margin_bottom = 32.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_styles/hover = ExtResource( 16 )
@@ -500,7 +501,7 @@ icon = ExtResource( 13 )
 [node name="+" type="Button" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer2/VBoxContainer2/HBoxContainer"]
 margin_left = 34.0
 margin_right = 60.0
-margin_bottom = 26.0
+margin_bottom = 32.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_styles/hover = ExtResource( 16 )
@@ -511,14 +512,14 @@ custom_styles/normal = ExtResource( 16 )
 icon = ExtResource( 12 )
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer"]
-margin_top = 294.0
+margin_top = 276.0
 margin_right = 148.0
-margin_bottom = 416.0
+margin_bottom = 404.0
 custom_constants/separation = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer3"]
 margin_right = 64.0
-margin_bottom = 122.0
+margin_bottom = 128.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 5
@@ -545,13 +546,13 @@ align = 1
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer3/VBoxContainer"]
 margin_top = 96.0
 margin_right = 64.0
-margin_bottom = 122.0
+margin_bottom = 128.0
 alignment = 1
 
 [node name="-" type="Button" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
 margin_left = 4.0
 margin_right = 30.0
-margin_bottom = 26.0
+margin_bottom = 32.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_styles/hover = ExtResource( 16 )
@@ -564,7 +565,7 @@ icon = ExtResource( 13 )
 [node name="+" type="Button" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
 margin_left = 34.0
 margin_right = 60.0
-margin_bottom = 26.0
+margin_bottom = 32.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_styles/hover = ExtResource( 16 )
@@ -577,7 +578,7 @@ icon = ExtResource( 12 )
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer3"]
 margin_left = 84.0
 margin_right = 148.0
-margin_bottom = 122.0
+margin_bottom = 128.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 custom_constants/separation = 5
@@ -604,13 +605,13 @@ align = 1
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer3/VBoxContainer2"]
 margin_top = 96.0
 margin_right = 64.0
-margin_bottom = 122.0
+margin_bottom = 128.0
 alignment = 1
 
 [node name="-" type="Button" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer3/VBoxContainer2/HBoxContainer"]
 margin_left = 4.0
 margin_right = 30.0
-margin_bottom = 26.0
+margin_bottom = 32.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_styles/hover = ExtResource( 16 )
@@ -623,7 +624,7 @@ icon = ExtResource( 13 )
 [node name="+" type="Button" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Habilidades/VBoxContainer/HBoxContainer3/VBoxContainer2/HBoxContainer"]
 margin_left = 34.0
 margin_right = 60.0
-margin_bottom = 26.0
+margin_bottom = 32.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_styles/hover = ExtResource( 16 )
@@ -634,7 +635,7 @@ custom_styles/normal = ExtResource( 16 )
 icon = ExtResource( 12 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
-margin_top = 467.0
+margin_top = 461.0
 margin_right = 190.0
 margin_bottom = 545.0
 custom_constants/separation = 10
@@ -642,31 +643,36 @@ alignment = 2
 
 [node name="Panel" type="Panel" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer"]
 margin_right = 190.0
-margin_bottom = 34.0
-rect_min_size = Vector2( 190, 34 )
+margin_bottom = 40.0
+rect_min_size = Vector2( 190, 40 )
 custom_styles/panel = ExtResource( 16 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 4.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -95.0
+margin_top = -16.0
+margin_right = 95.0
+margin_bottom = 16.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label2" type="Label" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
-margin_left = 33.0
-margin_top = 3.0
-margin_right = 93.0
-margin_bottom = 27.0
+margin_left = 29.0
+margin_top = 4.0
+margin_right = 89.0
+margin_bottom = 28.0
 custom_fonts/font = SubResource( 4 )
 text = "Vidas: "
 
 [node name="-" type="Button" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
-margin_left = 97.0
-margin_right = 123.0
-margin_bottom = 26.0
+margin_left = 93.0
+margin_right = 119.0
+margin_bottom = 32.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_styles/hover = ExtResource( 16 )
@@ -677,16 +683,17 @@ custom_styles/normal = ExtResource( 16 )
 icon = ExtResource( 13 )
 
 [node name="vidas" type="Label" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
-margin_left = 127.0
-margin_top = 3.0
-margin_right = 127.0
-margin_bottom = 27.0
+margin_left = 123.0
+margin_top = 4.0
+margin_right = 131.0
+margin_bottom = 28.0
 custom_fonts/font = SubResource( 5 )
+text = "1"
 
 [node name="+" type="Button" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer/Panel/HBoxContainer"]
-margin_left = 131.0
-margin_right = 157.0
-margin_bottom = 26.0
+margin_left = 135.0
+margin_right = 161.0
+margin_bottom = 32.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 custom_styles/hover = ExtResource( 16 )
@@ -697,12 +704,14 @@ custom_styles/normal = ExtResource( 16 )
 icon = ExtResource( 12 )
 
 [node name="Try" type="Button" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer"]
-margin_top = 44.0
+margin_top = 50.0
 margin_right = 190.0
-margin_bottom = 78.0
+margin_bottom = 84.0
+hint_tooltip = "Necesitas colocar la caja, el portal, y añadir al menos una habilidad para probar el nivel."
 custom_styles/hover = ExtResource( 16 )
 custom_styles/pressed = ExtResource( 16 )
 custom_styles/focus = ExtResource( 16 )
+custom_styles/disabled = ExtResource( 16 )
 custom_styles/normal = ExtResource( 16 )
 custom_fonts/font = SubResource( 7 )
 text = "Probar nivel"

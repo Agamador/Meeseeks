@@ -14,6 +14,7 @@ var Umbrellaers  := 0
 var Stairers := 0
 var Climbers := 0
 var Lives := 1
+var max_cells := 10000
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	mapa = get_node("TileMap")
@@ -24,7 +25,6 @@ func _ready():
 	load_map()
 	mapa.visible = true
 	$Camera2D/CanvasLayer/Control/Panel/MarginContainer/VBoxContainer/VBoxContainer/Try.disabled = true
-
 	$Camera2D/CanvasLayer/Popup/Panel/Yes.connect("pressed",self,'_on_YesButton_pressed')
 	$Camera2D/CanvasLayer/Popup/Panel/No.connect("pressed",self,'_on_NoButton_pressed')
 
@@ -42,7 +42,11 @@ func _unhandled_input(event):
 	if Input.is_mouse_button_pressed(BUTTON_LEFT) and !Global.on_panel:
 		if Global.tile_mouse != '':
 			if Global.tile_mouse != 'Spawn' and Global.tile_mouse != 'Goal':
-				place_tile()
+				if mapa.get_used_cells().size() < max_cells:
+					place_tile()
+					max_tiles_warning(false)
+				else: 
+					max_tiles_warning(true)
 			elif Global.tile_mouse == 'Spawn':
 				place_spawn()
 			elif Global.tile_mouse == 'Goal':
@@ -55,6 +59,7 @@ func _unhandled_input(event):
 func place_tile():
 	celda = mapa.world_to_map(get_global_mouse_position())
 	mapa.set_cellv(celda, int(Global.tile_mouse))
+	update_placed_cells()
 	
 func place_spawn():
 	base_level.get_node("Spawn").position = get_global_mouse_position()
@@ -69,6 +74,9 @@ func place_goal():
 func remove_tile():
 	celda = mapa.world_to_map(get_global_mouse_position())
 	mapa.set_cellv(celda, -1)
+	update_placed_cells()
+	if mapa.get_used_cells().size() < max_cells:
+		max_tiles_warning(false)
 
 func remove_spawn():
 	mouse_pos = get_global_mouse_position()
@@ -78,7 +86,7 @@ func remove_spawn():
 
 func remove_goal():
 	mouse_pos = get_global_mouse_position()
-	if mouse_pos.x > $Goal.position.x - 32 and mouse_pos.x < $Goal.position.x + 32 and mouse_pos.y > $Goal.position.y -32 and mouse_pos.y < $Spawn.position.y + 32:
+	if mouse_pos.x > $Goal.position.x - 32 and mouse_pos.x < $Goal.position.x + 32 and mouse_pos.y > $Goal.position.y -32 and mouse_pos.y < $Goal.position.y + 32:
 		$Goal.position = Vector2(0,0)
 		$Goal.visible = false
 
@@ -158,6 +166,7 @@ func load_map():
 		Climbers = skills_text['Climbers']
 		Lives = skills_text['Lives']
 		$Camera2D/CanvasLayer/Control.start_values()
+	update_placed_cells()
 
 func update_skills():
 	Global.Digsideers = Digsideers
@@ -176,3 +185,9 @@ func _on_YesButton_pressed():
 
 func _on_NoButton_pressed():
 	$Camera2D/CanvasLayer/Popup.visible = false
+
+func update_placed_cells():
+	$Camera2D/CanvasLayer/Casillas.text = 'Casillas colocadas: ' + str(mapa.get_used_cells().size())
+
+func max_tiles_warning(value):
+	$Camera2D/CanvasLayer/Warning.visible = value

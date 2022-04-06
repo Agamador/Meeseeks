@@ -3,13 +3,7 @@
 [ext_resource path="res://Scenes/CameraScene/Camera2D.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Buttons/Scenes/BehaviourButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Resources/Fuentes/Kenney Pixel.ttf" type="DynamicFontData" id=3]
-
-[sub_resource type="StyleBoxFlat" id=1]
-content_margin_left = 20.0
-content_margin_right = 10.0
-content_margin_top = 10.0
-content_margin_bottom = 10.0
-bg_color = Color( 0.247059, 0.239216, 0.278431, 1 )
+[ext_resource path="res://Resources/Themes/ButtonTheme.tres" type="StyleBox" id=4]
 
 [sub_resource type="DynamicFont" id=2]
 size = 24
@@ -35,63 +29,108 @@ __meta__ = {
 }
 
 [node name="DiggerSideButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_right = 80.0
+margin_right = 115.0
 margin_bottom = 87.0
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/focus = ExtResource( 4 )
+custom_styles/disabled = ExtResource( 4 )
+custom_styles/normal = ExtResource( 4 )
 
 [node name="DiggerDownButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 84.0
-margin_right = 173.0
+margin_left = 119.0
+margin_right = 244.0
 margin_bottom = 87.0
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/focus = ExtResource( 4 )
+custom_styles/disabled = ExtResource( 4 )
+custom_styles/normal = ExtResource( 4 )
 text = "DiggerDown"
 
 [node name="StopperButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 177.0
-margin_right = 238.0
+margin_left = 248.0
+margin_right = 339.0
 margin_bottom = 87.0
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/focus = ExtResource( 4 )
+custom_styles/disabled = ExtResource( 4 )
+custom_styles/normal = ExtResource( 4 )
 text = "Stopper"
 
 [node name="UmbrellaButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 242.0
-margin_right = 313.0
+margin_left = 343.0
+margin_right = 447.0
 margin_bottom = 87.0
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/focus = ExtResource( 4 )
+custom_styles/disabled = ExtResource( 4 )
+custom_styles/normal = ExtResource( 4 )
 text = "Umbrella"
 
 [node name="StairButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 317.0
-margin_right = 357.0
+margin_left = 451.0
+margin_right = 511.0
 margin_bottom = 87.0
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/focus = ExtResource( 4 )
+custom_styles/disabled = ExtResource( 4 )
+custom_styles/normal = ExtResource( 4 )
 text = "Stair"
 
 [node name="ClimbButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 361.0
-margin_right = 410.0
+margin_left = 515.0
+margin_right = 578.0
 margin_bottom = 87.0
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/focus = ExtResource( 4 )
+custom_styles/disabled = ExtResource( 4 )
+custom_styles/normal = ExtResource( 4 )
 text = "Climb"
 
 [node name="RestartButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 414.0
-margin_right = 471.0
+margin_left = 582.0
+margin_right = 671.0
 margin_bottom = 87.0
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/focus = ExtResource( 4 )
+custom_styles/disabled = ExtResource( 4 )
+custom_styles/normal = ExtResource( 4 )
 text = "Restart"
 
 [node name="TimeDownButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 475.0
-margin_right = 516.0
+margin_left = 675.0
+margin_right = 733.0
 margin_bottom = 87.0
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/focus = ExtResource( 4 )
+custom_styles/disabled = ExtResource( 4 )
+custom_styles/normal = ExtResource( 4 )
 text = "Slow"
 
 [node name="TimeUpButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 520.0
-margin_right = 558.0
+margin_left = 737.0
+margin_right = 792.0
 margin_bottom = 87.0
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/focus = ExtResource( 4 )
+custom_styles/disabled = ExtResource( 4 )
+custom_styles/normal = ExtResource( 4 )
 text = "Fast"
 
 [node name="Panel" type="Panel" parent="CanvasLayer/HBoxContainer"]
-margin_left = 562.0
+margin_left = 796.0
 margin_right = 1024.0
 margin_bottom = 87.0
 size_flags_horizontal = 11
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = ExtResource( 4 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HBoxContainer/Panel"]
 anchor_right = 1.0
@@ -107,7 +146,7 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer/Panel/HBoxContainer"]
 margin_right = 3.0
-margin_bottom = 91.0
+margin_bottom = 87.0
 custom_constants/separation = 5
 __meta__ = {
 "_edit_use_anchors_": false
@@ -142,13 +181,13 @@ __meta__ = {
 [node name="VSeparator" type="VSeparator" parent="CanvasLayer/HBoxContainer/Panel/HBoxContainer"]
 margin_left = 6.0
 margin_right = 10.0
-margin_bottom = 91.0
+margin_bottom = 87.0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/HBoxContainer/Panel/HBoxContainer"]
 margin_left = 13.0
 margin_right = 16.0
-margin_bottom = 91.0
-custom_constants/separation = 5
+margin_bottom = 87.0
+custom_constants/separation = 2
 
 [node name="TotalLives" type="Label" parent="CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer2"]
 margin_right = 3.0
@@ -159,31 +198,31 @@ __meta__ = {
 }
 
 [node name="HSeparator3" type="HSeparator" parent="CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer2"]
-margin_top = 23.0
+margin_top = 20.0
 margin_right = 3.0
-margin_bottom = 27.0
+margin_bottom = 24.0
 
 [node name="SavedLives" type="Label" parent="CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer2"]
-margin_top = 32.0
+margin_top = 26.0
 margin_right = 3.0
-margin_bottom = 50.0
+margin_bottom = 44.0
 custom_fonts/font = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HSeparator4" type="HSeparator" parent="CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer2"]
-margin_top = 55.0
+margin_top = 46.0
 margin_right = 3.0
-margin_bottom = 59.0
+margin_bottom = 50.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="LostLives" type="Label" parent="CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer2"]
-margin_top = 64.0
+margin_top = 52.0
 margin_right = 3.0
-margin_bottom = 82.0
+margin_bottom = 70.0
 custom_fonts/font = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
