@@ -1,11 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scenes/CameraScene/Camera2D.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Buttons/Scenes/BehaviourButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Resources/Fuentes/Kenney Pixel.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Resources/Themes/ButtonTheme.tres" type="StyleBox" id=4]
+[ext_resource path="res://Resources/SkillsIcons/piolet.png" type="Texture" id=5]
+[ext_resource path="res://Resources/SkillsIcons/Pickaxe.png" type="Texture" id=6]
+[ext_resource path="res://Resources/SkillsIcons/drill.png" type="Texture" id=7]
+[ext_resource path="res://Resources/SkillsIcons/stop.png" type="Texture" id=8]
+[ext_resource path="res://Resources/SkillsIcons/umbrella.png" type="Texture" id=9]
+[ext_resource path="res://Resources/SkillsIcons/stairs.png" type="Texture" id=10]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 size = 24
 font_data = ExtResource( 3 )
 
@@ -22,80 +28,94 @@ script = ExtResource( 1 )
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -87.0
-margin_right = 1024.0
+margin_right = 837.0
+margin_bottom = 3.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="DiggerSideButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_right = 115.0
-margin_bottom = 87.0
+margin_right = 60.0
+rect_min_size = Vector2( 60, 90 )
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/disabled = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
+text = ""
+icon = ExtResource( 6 )
+expand_icon = true
 
 [node name="DiggerDownButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 119.0
-margin_right = 244.0
-margin_bottom = 87.0
+margin_left = 64.0
+margin_right = 124.0
+rect_min_size = Vector2( 60, 90 )
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/disabled = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
-text = "DiggerDown"
+text = ""
+icon = ExtResource( 7 )
+expand_icon = true
 
 [node name="StopperButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 248.0
-margin_right = 339.0
-margin_bottom = 87.0
+margin_left = 128.0
+margin_right = 188.0
+rect_min_size = Vector2( 60, 90 )
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/disabled = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
-text = "Stopper"
+text = ""
+icon = ExtResource( 8 )
+expand_icon = true
 
 [node name="UmbrellaButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 343.0
-margin_right = 447.0
-margin_bottom = 87.0
+margin_left = 192.0
+margin_right = 252.0
+rect_min_size = Vector2( 60, 90 )
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/disabled = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
-text = "Umbrella"
+text = ""
+icon = ExtResource( 9 )
+expand_icon = true
 
 [node name="StairButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 451.0
-margin_right = 511.0
-margin_bottom = 87.0
+margin_left = 256.0
+margin_right = 316.0
+rect_min_size = Vector2( 60, 90 )
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/disabled = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
-text = "Stair"
+text = ""
+icon = ExtResource( 10 )
+expand_icon = true
 
 [node name="ClimbButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 515.0
-margin_right = 578.0
-margin_bottom = 87.0
+margin_left = 320.0
+margin_right = 380.0
+rect_min_size = Vector2( 60, 90 )
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/disabled = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
-text = "Climb"
+text = ""
+icon = ExtResource( 5 )
+expand_icon = true
 
 [node name="RestartButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 582.0
-margin_right = 671.0
-margin_bottom = 87.0
+margin_left = 384.0
+margin_right = 473.0
+rect_min_size = Vector2( 0, 90 )
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
@@ -104,9 +124,9 @@ custom_styles/normal = ExtResource( 4 )
 text = "Restart"
 
 [node name="TimeDownButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 675.0
-margin_right = 733.0
-margin_bottom = 87.0
+margin_left = 477.0
+margin_right = 535.0
+rect_min_size = Vector2( 0, 90 )
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
@@ -115,9 +135,9 @@ custom_styles/normal = ExtResource( 4 )
 text = "Slow"
 
 [node name="TimeUpButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 737.0
-margin_right = 792.0
-margin_bottom = 87.0
+margin_left = 539.0
+margin_right = 594.0
+rect_min_size = Vector2( 0, 90 )
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
@@ -126,10 +146,11 @@ custom_styles/normal = ExtResource( 4 )
 text = "Fast"
 
 [node name="Panel" type="Panel" parent="CanvasLayer/HBoxContainer"]
-margin_left = 796.0
-margin_right = 1024.0
-margin_bottom = 87.0
-size_flags_horizontal = 11
+margin_left = 598.0
+margin_right = 837.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 0, 90 )
+size_flags_horizontal = 3
 custom_styles/panel = ExtResource( 4 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HBoxContainer/Panel"]
@@ -146,7 +167,7 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer/Panel/HBoxContainer"]
 margin_right = 3.0
-margin_bottom = 87.0
+margin_bottom = 90.0
 custom_constants/separation = 5
 __meta__ = {
 "_edit_use_anchors_": false
@@ -155,7 +176,7 @@ __meta__ = {
 [node name="TimeLabel" type="Label" parent="CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer"]
 margin_right = 3.0
 margin_bottom = 18.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -173,7 +194,7 @@ __meta__ = {
 margin_top = 32.0
 margin_right = 3.0
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -181,18 +202,18 @@ __meta__ = {
 [node name="VSeparator" type="VSeparator" parent="CanvasLayer/HBoxContainer/Panel/HBoxContainer"]
 margin_left = 6.0
 margin_right = 10.0
-margin_bottom = 87.0
+margin_bottom = 90.0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/HBoxContainer/Panel/HBoxContainer"]
 margin_left = 13.0
 margin_right = 16.0
-margin_bottom = 87.0
+margin_bottom = 90.0
 custom_constants/separation = 2
 
 [node name="TotalLives" type="Label" parent="CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer2"]
 margin_right = 3.0
 margin_bottom = 18.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -206,7 +227,7 @@ margin_bottom = 24.0
 margin_top = 26.0
 margin_right = 3.0
 margin_bottom = 44.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -223,7 +244,7 @@ __meta__ = {
 margin_top = 52.0
 margin_right = 3.0
 margin_bottom = 70.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

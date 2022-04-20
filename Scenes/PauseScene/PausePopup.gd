@@ -7,6 +7,7 @@ func _unhandled_input(event):
 		self.paused = !paused
 		
 func set_paused(value):
+	print(value)
 	paused = value
 	get_tree().paused = paused
 	if paused:
