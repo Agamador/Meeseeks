@@ -1,7 +1,7 @@
 extends Node
 
 #api
-var apiurl = 'http://127.0.0.1:8000/api'
+var apiurl = 'https://meeseeks-api-3eivo.ondigitalocean.app/api'
 
 #usuario
 var username

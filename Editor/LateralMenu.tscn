@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Editor/Objects/TextureRect.gd" type="Script" id=1]
 [ext_resource path="res://Editor/Objects/6.png" type="Texture" id=2]
@@ -13,10 +13,15 @@
 [ext_resource path="res://Editor/Objects/Spawn.png" type="Texture" id=11]
 [ext_resource path="res://Editor/Objects/+.png" type="Texture" id=12]
 [ext_resource path="res://Editor/Objects/-.png" type="Texture" id=13]
-[ext_resource path="res://Resources/Lock.png" type="Texture" id=14]
+[ext_resource path="res://Resources/SkillsIcons/side-drill.png" type="Texture" id=14]
 [ext_resource path="res://Editor/LateralMenu.gd" type="Script" id=15]
 [ext_resource path="res://Resources/Themes/ButtonTheme.tres" type="StyleBox" id=16]
 [ext_resource path="res://Resources/Fuentes/Kenney Pixel.ttf" type="DynamicFontData" id=17]
+[ext_resource path="res://Resources/SkillsIcons/stop.png" type="Texture" id=18]
+[ext_resource path="res://Resources/SkillsIcons/piolet.png" type="Texture" id=19]
+[ext_resource path="res://Resources/SkillsIcons/umbrella.png" type="Texture" id=20]
+[ext_resource path="res://Resources/SkillsIcons/drill.png" type="Texture" id=21]
+[ext_resource path="res://Resources/SkillsIcons/stairs.png" type="Texture" id=22]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -248,7 +253,7 @@ script = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
-margin_top = 31.0
+margin_top = 36.0
 margin_right = -5.0
 margin_bottom = -5.0
 size_flags_horizontal = 3
@@ -344,7 +349,7 @@ margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource( 14 )
+texture = ExtResource( 21 )
 expand = true
 stretch_mode = 1
 
@@ -408,7 +413,7 @@ margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource( 14 )
+texture = ExtResource( 18 )
 expand = true
 stretch_mode = 1
 
@@ -467,7 +472,7 @@ margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource( 14 )
+texture = ExtResource( 20 )
 expand = true
 stretch_mode = 1
 
@@ -531,7 +536,7 @@ margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource( 14 )
+texture = ExtResource( 22 )
 expand = true
 stretch_mode = 1
 
@@ -590,7 +595,7 @@ margin_bottom = 64.0
 rect_min_size = Vector2( 64, 64 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource( 14 )
+texture = ExtResource( 19 )
 expand = true
 stretch_mode = 1
 

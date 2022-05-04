@@ -11,6 +11,7 @@ var meeseek = preload("res://Scenes/Meeseek/Meeseek.tscn");
 #Mouse icons
 var arrow = load("res://Resources/Mouses/Mouse.png");
 var selector = load("res://Resources/Mouses/MouseHover.png")
+
 #tiempo
 onready var time_start := 0
 onready var time_now := 0
@@ -46,6 +47,7 @@ func _ready():
 	lost_lives = 0
 	update_labels()
 	Global.lives = total_lives
+	$AudioStreamPlayer.play()
 
 func _process(delta):
 	time_now = OS.get_unix_time()
@@ -57,6 +59,8 @@ func _process(delta):
 	$ParallaxBackground/ParallaxLayer.motion_offset +=  delta * Vector2(-10,-10)
 	if saved_lives + lost_lives == total_lives:
 		game_ended()
+	if $AudioStreamPlayer.playing == false:
+		$AudioStreamPlayer.play()
 
 func _spawn_meeseek():
 	if lives>0:

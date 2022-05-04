@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Spawn.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/CameraScene/Camera2D.tscn" type="PackedScene" id=2]
@@ -6,13 +6,13 @@
 [ext_resource path="res://Scenes/PauseScene/PausePopup.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Goal.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Resources/SpaceBackground.png" type="Texture" id=6]
+[ext_resource path="res://Resources/Audios/game_theme.mp3" type="AudioStream" id=7]
 
 [node name="Level" type="Node2D"]
 z_as_relative = false
 script = ExtResource( 3 )
 
 [node name="Popup" parent="." instance=ExtResource( 4 )]
-pause_mode = 2
 
 [node name="Camera2D" parent="." instance=ExtResource( 2 )]
 zoom = Vector2( 1, 1 )
@@ -42,5 +42,9 @@ centered = false
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -42.467
 
 [connection signal="timeout" from="Timer" to="." method="_spawn_meeseek"]

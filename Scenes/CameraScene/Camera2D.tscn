@@ -1,15 +1,16 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/CameraScene/Camera2D.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Buttons/Scenes/BehaviourButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Resources/Fuentes/Kenney Pixel.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Resources/Themes/ButtonTheme.tres" type="StyleBox" id=4]
 [ext_resource path="res://Resources/SkillsIcons/piolet.png" type="Texture" id=5]
-[ext_resource path="res://Resources/SkillsIcons/Pickaxe.png" type="Texture" id=6]
+[ext_resource path="res://Resources/SkillsIcons/side-drill.png" type="Texture" id=6]
 [ext_resource path="res://Resources/SkillsIcons/drill.png" type="Texture" id=7]
 [ext_resource path="res://Resources/SkillsIcons/stop.png" type="Texture" id=8]
 [ext_resource path="res://Resources/SkillsIcons/umbrella.png" type="Texture" id=9]
 [ext_resource path="res://Resources/SkillsIcons/stairs.png" type="Texture" id=10]
+[ext_resource path="res://Resources/Themes/ButtonPressedTheme.tres" type="StyleBox" id=11]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
@@ -39,8 +40,8 @@ __meta__ = {
 margin_right = 60.0
 rect_min_size = Vector2( 60, 90 )
 custom_styles/hover = ExtResource( 4 )
-custom_styles/pressed = ExtResource( 4 )
-custom_styles/focus = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 11 )
+custom_styles/focus = ExtResource( 11 )
 custom_styles/disabled = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
 text = ""
@@ -52,8 +53,8 @@ margin_left = 64.0
 margin_right = 124.0
 rect_min_size = Vector2( 60, 90 )
 custom_styles/hover = ExtResource( 4 )
-custom_styles/pressed = ExtResource( 4 )
-custom_styles/focus = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 11 )
+custom_styles/focus = ExtResource( 11 )
 custom_styles/disabled = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
 text = ""
@@ -65,8 +66,8 @@ margin_left = 128.0
 margin_right = 188.0
 rect_min_size = Vector2( 60, 90 )
 custom_styles/hover = ExtResource( 4 )
-custom_styles/pressed = ExtResource( 4 )
-custom_styles/focus = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 11 )
+custom_styles/focus = ExtResource( 11 )
 custom_styles/disabled = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
 text = ""
@@ -78,8 +79,8 @@ margin_left = 192.0
 margin_right = 252.0
 rect_min_size = Vector2( 60, 90 )
 custom_styles/hover = ExtResource( 4 )
-custom_styles/pressed = ExtResource( 4 )
-custom_styles/focus = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 11 )
+custom_styles/focus = ExtResource( 11 )
 custom_styles/disabled = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
 text = ""
@@ -91,8 +92,8 @@ margin_left = 256.0
 margin_right = 316.0
 rect_min_size = Vector2( 60, 90 )
 custom_styles/hover = ExtResource( 4 )
-custom_styles/pressed = ExtResource( 4 )
-custom_styles/focus = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 11 )
+custom_styles/focus = ExtResource( 11 )
 custom_styles/disabled = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
 text = ""
@@ -104,8 +105,8 @@ margin_left = 320.0
 margin_right = 380.0
 rect_min_size = Vector2( 60, 90 )
 custom_styles/hover = ExtResource( 4 )
-custom_styles/pressed = ExtResource( 4 )
-custom_styles/focus = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 11 )
+custom_styles/focus = ExtResource( 11 )
 custom_styles/disabled = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
 text = ""

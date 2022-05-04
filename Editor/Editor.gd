@@ -191,3 +191,7 @@ func update_placed_cells():
 
 func max_tiles_warning(value):
 	$Camera2D/CanvasLayer/Warning.visible = value
+
+
+func _on_help_pressed():
+	$Camera2D/CanvasLayer/Help.visible = !$Camera2D/CanvasLayer/Help.visible

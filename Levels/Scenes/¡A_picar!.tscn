@@ -13,7 +13,6 @@ z_as_relative = false
 script = ExtResource( 3 )
 
 [node name="Popup" parent="." instance=ExtResource( 5 )]
-pause_mode = 2
 
 [node name="Camera2D" parent="." instance=ExtResource( 6 )]
 editor_draw_screen = false
