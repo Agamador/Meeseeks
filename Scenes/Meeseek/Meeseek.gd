@@ -60,6 +60,9 @@ func _physics_process(delta):
 			stair_meeseek()
 		"Climb":
 			climb_meeseek()
+		"Nuked":
+			motion = Vector2()
+			$AnimationPlayer.play("Death")
 		_:
 			normal_meeseek()
 	if state != "Stopper":
@@ -115,6 +118,8 @@ func digSide_meeseek():
 		alive = false
 	if alive:
 		if digging:
+			$Sprite.scale.x = right
+			$AnimationPlayer.play("Side drill")
 			motion.x = 0
 			##inicia animaci�n excavar
 			#numero de frames que se excavan 60 = 1 segundo
@@ -231,7 +236,8 @@ func digDown_meeseek():
 						if !digging:
 							self.position.x += 15 *right
 						digging = true;
-						$AnimationPlayer.stop()
+						$Sprite.scale.x = right
+						$AnimationPlayer.play("Down drill")
 						if frames_digging <= 30:
 							frames_digging += 1
 							if first_collision == -1:
@@ -271,7 +277,8 @@ func stopper_meeseek():
 				original_position = self.position
 			self.position = original_position
 			self.set_collision_layer_bit(0, true)
-			$AnimationPlayer.stop()
+			$Sprite.scale.x = right
+			$AnimationPlayer.play("stopper")
 			motion = Vector2.ZERO
 			$Timer.stop()
 	else:
@@ -289,6 +296,8 @@ func umbrella_meeseek():
 		if !is_on_floor():
 			air_time += 1
 			$Timer.stop()
+			$Sprite.scale.x = right
+			$AnimationPlayer.play("Umbrella fall")
 			motion.y = GRAVITY/3
 			motion.x = 0
 			if air_time >= 20:
@@ -323,6 +332,8 @@ func stair_meeseek():
 		alive = false
 	if alive:
 		if building:
+			$Sprite.scale.x = right
+			$AnimationPlayer.play("Stairer")
 			if right > 0:
 				if building_block == 0:
 					building_block = 12
@@ -437,6 +448,8 @@ func climb_meeseek():
 		alive = false
 	if alive:
 		if climbing:
+			$Sprite.scale.x = right
+			$AnimationPlayer.play("climb")
 			$Timer.stop()
 			if is_on_ceiling():
 				climbing = false
@@ -493,6 +506,8 @@ func climb_meeseek():
 			motion = Vector2()
 			$AnimationPlayer.play("Death")
 
+func get_nuked():
+	self.state = 'Nuked'
 #a esta funci�n se llama desde la animaci�n Death para que el meeseek muera al terminar la animaci�n
 func death():
 	get_parent().meeseek_deceased()

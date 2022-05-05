@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Simple drill.mp3-4efc6a70596d59e62a15cdb652670151.mp3str"
+
+[deps]
+
+source_file="res://Resources/Audios/Simple drill.mp3"
+dest_files=[ "res://.import/Simple drill.mp3-4efc6a70596d59e62a15cdb652670151.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

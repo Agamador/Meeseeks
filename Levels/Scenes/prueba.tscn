@@ -1,41 +1,41 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Resources/SpaceBackground.png" type="Texture" id=1]
-[ext_resource path="res://Scenes/Spawn.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/PauseScene/PausePopup.gd" type="Script" id=3]
-[ext_resource path="res://Levels/Scripts/LevelBase.gd" type="Script" id=4]
-[ext_resource path="res://Scenes/CameraScene/Camera2D.gd" type="Script" id=5]
-[ext_resource path="res://Scenes/PauseScene/PausePopup.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scenes/CameraScene/Camera2D.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scenes/Goal.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Resources/Tiles/TileSet.tres" type="TileSet" id=9]
-[ext_resource path="res://Resources/Audios/game_theme.mp3" type="AudioStream" id=10]
+[ext_resource path="res://Scenes/CameraScene/Camera2D.gd" type="Script" id=1]
+[ext_resource path="res://Resources/Tiles/TileSet.tres" type="TileSet" id=2]
+[ext_resource path="res://Levels/Scripts/LevelBase.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/PauseScene/PausePopup.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Spawn.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/CameraScene/Camera2D.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Goal.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/PauseScene/PausePopup.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Resources/Audios/game_theme.mp3" type="AudioStream" id=9]
+[ext_resource path="res://Resources/SpaceBackground.png" type="Texture" id=10]
 
 [node name="Level" type="Node2D"]
 z_as_relative = false
-script = ExtResource( 4 )
+script = ExtResource( 3 )
 total_time = 5.0
 
-[node name="Popup" type="Popup" parent="." instance=ExtResource( 6 )]
+[node name="Popup" type="Popup" parent="." instance=ExtResource( 8 )]
 pause_mode = 2
 margin_right = 280.0
 margin_bottom = 200.0
 input_pass_on_modal_close_click = false
 popup_exclusive = true
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Camera2D" type="Camera2D" parent="." instance=ExtResource( 7 )]
+[node name="Camera2D" type="Camera2D" parent="." instance=ExtResource( 6 )]
 current = true
 editor_draw_screen = false
-script = ExtResource( 5 )
+script = ExtResource( 1 )
 tween_duration = 0.5
 max_zoom = 2.0
 min_zoom = 0.5
 
-[node name="Spawn" type="Node2D" parent="." instance=ExtResource( 2 )]
+[node name="Spawn" type="Node2D" parent="." instance=ExtResource( 5 )]
 position = Vector2( 257.2, 394 )
 z_index = 3
 
@@ -43,7 +43,7 @@ z_index = 3
 wait_time = 2.0
 autostart = true
 
-[node name="Goal" type="Node2D" parent="." instance=ExtResource( 8 )]
+[node name="Goal" type="Node2D" parent="." instance=ExtResource( 7 )]
 position = Vector2( 1039.6, 706 )
 scale = Vector2( 1.5, 1.5 )
 
@@ -55,19 +55,19 @@ motion_scale = Vector2( 0.1, 0.1 )
 motion_mirroring = Vector2( 1920, 1080 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-texture = ExtResource( 1 )
+texture = ExtResource( 10 )
 centered = false
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 10 )
+stream = ExtResource( 9 )
 volume_db = -42.467
 
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource( 9 )
+tile_set = ExtResource( 2 )
 format = 1
-tile_data = PoolIntArray( 196609, 5, 0, 196610, 5, 0, 196611, 5, 0, 196612, 5, 0, 196613, 5, 0, 196614, 5, 0, 196615, 5, 0, 196616, 5, 0, 196617, 5, 0, 196618, 5, 0, 196619, 5, 0, 196620, 5, 0, 196621, 5, 0, 196622, 5, 0, 196623, 5, 0, 196624, 5, 0, 196625, 5, 0, 262145, 5, 0, 262146, 5, 0, 262147, 5, 0, 262148, 5, 0, 262149, 5, 0, 262150, 5, 0, 262151, 5, 0, 262152, 5, 0, 262153, 5, 0, 262154, 5, 0, 262155, 5, 0, 262156, 5, 0, 262157, 5, 0, 262158, 5, 0, 262159, 5, 0, 262160, 5, 0, 262161, 5, 0, 327681, 5, 0, 327682, 5, 0, 327692, 5, 0, 327693, 5, 0, 327694, 5, 0, 327695, 5, 0, 327696, 5, 0, 327697, 5, 0, 393217, 5, 0, 393218, 5, 0, 393228, 5, 0, 393229, 5, 0, 393230, 5, 0, 393231, 5, 0, 393232, 5, 0, 393233, 5, 0, 458753, 5, 0, 458754, 5, 0, 458764, 5, 0, 458765, 5, 0, 458766, 5, 0, 458767, 5, 0, 458768, 5, 0, 458769, 5, 0, 524289, 5, 0, 524290, 5, 0, 524291, 6, 0, 524292, 6, 0, 524300, 5, 0, 524301, 5, 0, 524302, 5, 0, 524303, 5, 0, 524304, 5, 0, 524305, 5, 0, 589825, 5, 0, 589826, 5, 0, 589827, 5, 0, 589828, 5, 0, 589829, 6, 0, 589836, 5, 0, 589837, 5, 0, 589838, 5, 0, 589839, 5, 0, 589840, 5, 0, 589841, 5, 0, 655361, 5, 0, 655362, 5, 0, 655363, 5, 0, 655364, 5, 0, 655365, 5, 0, 655366, 6, 0, 655372, 5, 0, 655373, 5, 0, 655377, 5, 0, 720897, 5, 0, 720898, 5, 0, 720899, 5, 0, 720900, 5, 0, 720901, 5, 0, 720902, 5, 0, 720903, 6, 0, 720908, 5, 0, 720909, 5, 0, 720913, 5, 0, 786433, 5, 0, 786434, 5, 0, 786435, 5, 0, 786436, 5, 0, 786437, 5, 0, 786438, 5, 0, 786439, 5, 0, 786440, 6, 0, 786441, 6, 0, 786442, 6, 0, 786443, 6, 0, 786444, 6, 0, 786445, 6, 0, 786446, 6, 0, 786447, 6, 0, 786448, 6, 0, 786449, 5, 0, 851969, 5, 0, 851970, 5, 0, 851971, 5, 0, 851972, 5, 0, 851973, 5, 0, 851974, 5, 0, 851975, 5, 0, 851976, 5, 0, 851977, 5, 0, 851978, 5, 0, 851979, 5, 0, 851980, 5, 0, 851981, 5, 0, 851982, 5, 0, 851983, 5, 0, 851984, 5, 0, 851985, 5, 0 )
+tile_data = PoolIntArray( 196609, 5, 0, 196610, 5, 0, 196611, 5, 0, 196612, 5, 0, 196613, 5, 0, 196614, 5, 0, 196615, 5, 0, 196616, 5, 0, 196617, 5, 0, 196618, 5, 0, 196619, 5, 0, 196620, 5, 0, 196621, 5, 0, 196622, 5, 0, 196623, 5, 0, 196624, 5, 0, 196625, 5, 0, 262145, 5, 0, 262146, 5, 0, 262147, 5, 0, 262148, 5, 0, 262149, 5, 0, 262150, 5, 0, 262151, 5, 0, 262152, 5, 0, 262153, 5, 0, 262154, 5, 0, 262155, 5, 0, 262156, 5, 0, 262157, 5, 0, 262158, 5, 0, 262159, 5, 0, 262160, 5, 0, 262161, 5, 0, 327681, 5, 0, 327682, 5, 0, 327693, 5, 0, 327694, 5, 0, 327695, 5, 0, 327696, 5, 0, 327697, 5, 0, 393217, 5, 0, 393218, 5, 0, 393229, 5, 0, 393230, 5, 0, 393231, 5, 0, 393232, 5, 0, 393233, 5, 0, 458753, 5, 0, 458754, 5, 0, 458765, 5, 0, 458766, 5, 0, 458767, 5, 0, 458768, 5, 0, 458769, 5, 0, 524289, 5, 0, 524290, 5, 0, 524291, 6, 0, 524292, 6, 0, 524301, 5, 0, 524302, 5, 0, 524303, 5, 0, 524304, 5, 0, 524305, 5, 0, 589825, 5, 0, 589826, 5, 0, 589827, 5, 0, 589828, 5, 0, 589829, 6, 0, 589837, 5, 0, 589838, 5, 0, 589839, 5, 0, 589840, 5, 0, 589841, 5, 0, 655361, 5, 0, 655362, 5, 0, 655363, 5, 0, 655364, 5, 0, 655365, 5, 0, 655366, 6, 0, 655373, 5, 0, 655377, 5, 0, 720897, 5, 0, 720898, 5, 0, 720899, 5, 0, 720900, 5, 0, 720901, 5, 0, 720902, 5, 0, 720903, 6, 0, 720909, 5, 0, 720913, 5, 0, 786433, 5, 0, 786434, 5, 0, 786435, 5, 0, 786436, 5, 0, 786437, 5, 0, 786438, 5, 0, 786439, 5, 0, 786440, 6, 0, 786441, 6, 0, 786442, 6, 0, 786443, 6, 0, 786444, 6, 0, 786445, 6, 0, 786446, 6, 0, 786447, 6, 0, 786448, 6, 0, 786449, 5, 0, 851969, 5, 0, 851970, 5, 0, 851971, 5, 0, 851972, 5, 0, 851973, 5, 0, 851974, 5, 0, 851975, 5, 0, 851976, 5, 0, 851977, 5, 0, 851978, 5, 0, 851979, 5, 0, 851980, 5, 0, 851981, 5, 0, 851982, 5, 0, 851983, 5, 0, 851984, 5, 0, 851985, 5, 0 )
 
 [connection signal="timeout" from="Timer" to="." method="_spawn_meeseek"]

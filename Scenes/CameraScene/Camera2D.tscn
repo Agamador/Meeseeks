@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scenes/CameraScene/Camera2D.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Buttons/Scenes/BehaviourButton.tscn" type="PackedScene" id=2]
@@ -11,6 +11,10 @@
 [ext_resource path="res://Resources/SkillsIcons/umbrella.png" type="Texture" id=9]
 [ext_resource path="res://Resources/SkillsIcons/stairs.png" type="Texture" id=10]
 [ext_resource path="res://Resources/Themes/ButtonPressedTheme.tres" type="StyleBox" id=11]
+[ext_resource path="res://Resources/fast-forward.png" type="Texture" id=12]
+[ext_resource path="res://Resources/fast-reverse.png" type="Texture" id=13]
+[ext_resource path="res://Resources/nuk.png" type="Texture" id=14]
+[ext_resource path="res://Resources/restart.png" type="Texture" id=15]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
@@ -115,39 +119,54 @@ expand_icon = true
 
 [node name="RestartButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
 margin_left = 384.0
-margin_right = 473.0
+margin_right = 426.0
 rect_min_size = Vector2( 0, 90 )
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/disabled = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
-text = "Restart"
+text = ""
+icon = ExtResource( 15 )
 
 [node name="TimeDownButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 477.0
-margin_right = 535.0
+margin_left = 430.0
+margin_right = 472.0
 rect_min_size = Vector2( 0, 90 )
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/disabled = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
-text = "Slow"
+text = ""
+icon = ExtResource( 13 )
 
 [node name="TimeUpButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
-margin_left = 539.0
-margin_right = 594.0
+margin_left = 476.0
+margin_right = 518.0
 rect_min_size = Vector2( 0, 90 )
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 4 )
 custom_styles/focus = ExtResource( 4 )
 custom_styles/disabled = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
-text = "Fast"
+text = ""
+icon = ExtResource( 12 )
+
+[node name="NukeButton" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 2 )]
+margin_left = 522.0
+margin_right = 564.0
+rect_min_size = Vector2( 0, 90 )
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/focus = ExtResource( 4 )
+custom_styles/disabled = ExtResource( 4 )
+custom_styles/normal = ExtResource( 4 )
+text = ""
+icon = ExtResource( 14 )
 
 [node name="Panel" type="Panel" parent="CanvasLayer/HBoxContainer"]
-margin_left = 598.0
+margin_left = 568.0
 margin_right = 837.0
 margin_bottom = 90.0
 rect_min_size = Vector2( 0, 90 )
@@ -259,3 +278,4 @@ __meta__ = {
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/TimeDownButton" to="." method="_on_TimeDownButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/TimeUpButton" to="." method="_on_TimeUpButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/NukeButton" to="." method="_on_NukeButton_pressed"]

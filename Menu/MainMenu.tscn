@@ -12,6 +12,7 @@
 [ext_resource path="res://Resources/Title.png" type="Texture" id=10]
 
 [sub_resource type="InputEventKey" id=1]
+pressed = true
 scancode = 16777221
 
 [sub_resource type="ShortCut" id=2]
@@ -354,7 +355,6 @@ custom_styles/disabled = ExtResource( 5 )
 custom_styles/normal = ExtResource( 5 )
 custom_fonts/font = ExtResource( 6 )
 disabled = true
-shortcut = SubResource( 2 )
 text = "Crear usuario"
 __meta__ = {
 "_edit_use_anchors_": false

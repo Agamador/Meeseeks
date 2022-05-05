@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/RoadDrill.mp3-20bf9cdbe393536c7fe1be97381683a8.mp3str"
+
+[deps]
+
+source_file="res://Resources/Audios/RoadDrill.mp3"
+dest_files=[ "res://.import/RoadDrill.mp3-20bf9cdbe393536c7fe1be97381683a8.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

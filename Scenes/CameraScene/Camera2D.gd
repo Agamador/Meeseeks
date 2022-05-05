@@ -122,3 +122,9 @@ func _on_TimeUpButton_pressed():
 
 func update_speed_label():
 	$CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SpeedLabel.text = str(Engine.get_time_scale()*50)
+
+
+func _on_NukeButton_pressed():
+	for meeseek in get_parent().get_children():
+		if meeseek is KinematicBody2D:
+			meeseek.get_nuked()
