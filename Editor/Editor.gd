@@ -102,9 +102,9 @@ func try_level():
 	to_save.pack(base_level)
 	save_map()
 	Global.editing = true
-	ResourceSaver.save("res://Levels/Scenes/prueba.tscn" ,to_save)
+	ResourceSaver.save("user://prueba.tscn" ,to_save)
 	Global.prev_escene = "res://Editor/Editor.tscn" 
-	get_tree().change_scene("res://Levels/Scenes/prueba.tscn")
+	get_tree().change_scene("user://prueba.tscn")
 
 func save_map():
 	var file = File.new()

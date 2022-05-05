@@ -63,6 +63,7 @@ func _on_Yes_pressed():
 	var scene = PackedScene.new()
 	scene.pack(created_level)
 	var scene_text = var2str(scene)
+	print(Global.user_id)
 	var params = {'user_id': Global.user_id,
 		'file_name': file_name,
 		'name': level_name,
@@ -85,7 +86,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 			if response_code != 0:
 				submit_score()
 		'publish':
-			if response_code == 0:
+			if response_code == 200:
 				get_tree().change_scene("res://Menu/MainMenu.tscn")
 			else:
 				$Popup/Panel/error.visible = true

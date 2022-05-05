@@ -90,7 +90,7 @@ func level_http_response(json):
 	Global.Umbrellaers = json['umbrellaers']
 	Global.lives = json['lives']
 	var scene = str2var(json['scene'])
-	ResourceSaver.save('res://Levels/Scenes/' + json['file_name'],scene)
-	get_tree().change_scene('res://Levels/Scenes/'+ json['file_name'])
+	ResourceSaver.save('user://' + json['file_name'],scene)
+	get_tree().change_scene('user://'+ json['file_name'])
 	
 	
