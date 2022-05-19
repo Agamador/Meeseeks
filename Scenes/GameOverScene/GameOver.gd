@@ -5,7 +5,7 @@ extends Control
 export var move_speed := Vector2(-15,-15)
 var headers = ["Content-Type: application/json"]
 var query
-var created_level = preload("res://Levels/Scenes/prueba.tscn").instance()
+var created_level = preload("user://prueba.tscn").instance()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -63,7 +63,6 @@ func _on_Yes_pressed():
 	var scene = PackedScene.new()
 	scene.pack(created_level)
 	var scene_text = var2str(scene)
-	print(Global.user_id)
 	var params = {'user_id': Global.user_id,
 		'file_name': file_name,
 		'name': level_name,

@@ -58,8 +58,9 @@ func _unhandled_input(event):
 
 func place_tile():
 	celda = mapa.world_to_map(get_global_mouse_position())
-	mapa.set_cellv(celda, int(Global.tile_mouse))
-	update_placed_cells()
+	if celda.x >= 0 and celda.y >= 0: 
+		mapa.set_cellv(celda, int(Global.tile_mouse))
+		update_placed_cells()
 	
 func place_spawn():
 	base_level.get_node("Spawn").position = get_global_mouse_position()

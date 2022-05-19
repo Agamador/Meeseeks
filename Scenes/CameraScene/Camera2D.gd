@@ -25,10 +25,10 @@ var mouse_pos
 
 func _ready():
 	tilemap_border = $"../TileMap".get_used_rect()
-	self.limit_top = tilemap_border.position.x * 64
-	self.limit_left = tilemap_border.position.y * 64
-	self.limit_right = tilemap_border.end.x * 64
-	self.limit_bottom = tilemap_border.end.y * 64
+	self.limit_top = tilemap_border.position.x * 64 + 100
+	self.limit_left = tilemap_border.position.y * 64 + 100
+	self.limit_right = tilemap_border.end.x * 64 + 100
+	self.limit_bottom = tilemap_border.end.y * 64 + 100
 	viewport_size = get_viewport().size
 	width_half = viewport_size.x / 2
 	height_half = viewport_size.y / 2
