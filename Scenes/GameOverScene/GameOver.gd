@@ -12,6 +12,7 @@ func _ready():
 	get_data()
 	if Global.editing == true:
 		$PanelContainer/MarginContainer/Filas/Botones2.visible = true
+		$PanelContainer/MarginContainer/Filas/Botones/Marcadores.disabled = true
 		if Global.saved_lives < 1:
 			$PanelContainer/MarginContainer/Filas/Botones2/Publicar.disabled = true
 	else:
