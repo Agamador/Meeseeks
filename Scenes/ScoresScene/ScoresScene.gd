@@ -1,7 +1,10 @@
 extends Control
 
+# Contenedor para una puntuación
 var score_container = preload("res://Scenes/ScoresScene/ScorePanel.tscn")
+# Fila de puntuaciones
 var new_hbox
+
 func _ready():
 	get_scores()
 	
@@ -9,6 +12,7 @@ func _process(delta):
 	$ParallaxBackground/ParallaxLayer.motion_offset +=  delta * Vector2(10,10)
 	$ParallaxBackground/ParallaxLayer2.motion_offset += delta * Vector2(50,50)
 	
+# Realiza la petición HTTP para obtener todas las puntuaciones de un nivel.
 func get_scores():
 	$HTTPRequest.request(Global.apiurl + '/get-scores/' + str(Global.level_id))
 

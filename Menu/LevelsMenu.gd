@@ -1,7 +1,10 @@
 extends Control
 
+# Almacena el nombre de la petición que se va a realizar
 var query
+# Recuadro en el que representa un nivel
 var level_container = preload("res://Menu/LevelContainer.tscn")
+# Almacena si los niveles que aparecen son los originales o de comunidad.
 var main := true
 
 func _ready():
@@ -23,19 +26,23 @@ func _on_Comunity_pressed():
 		$Comunity.text = 'Comunidad'
 	main = !main
 		
+# Realiza la petición HTTP para obtener el nivel seleccionado.
 func on_level_pressed(id):
 	query = 'level'
 	Global.level_id = id;
 	$HTTPRequest.request(Global.apiurl + '/get-level/' + str(id))
 
+# Realiza la petición HTTP para obtener los niveles originales.
 func get_main_levels():
 	query = 'main'
 	$HTTPRequest.request(Global.apiurl + '/main-levels/' + str(Global.user_id));
 
+# Realiza la petición HTTP para obtener los niveles de la comunidad.
 func get_community_levels():
 	query = 'community'
 	$HTTPRequest.request(Global.apiurl + '/community-levels/' + str(Global.user_id))
 
+# Borra de la interfaz todos los niveles que se encuentran listados.
 func erase_levels():
 	for n in $MarginContainer/Panel/MarginContainer/ScrollContainer/VBoxContainer.get_children():
 		$MarginContainer/Panel/MarginContainer/ScrollContainer/VBoxContainer.remove_child(n)
@@ -60,7 +67,7 @@ func _on_HTTPRequest_request_completed(_result, response_code, _headers, body):
 			else:
 				on_level_pressed(Global.level_id)
 
-
+# Muestra en la interfaz la lista de niveles obtenidos desde la API.
 func list_levels_http_response(niveles):
 	for i in niveles: 
 		var level = level_container.instance()
@@ -81,6 +88,7 @@ func list_levels_http_response(niveles):
 		level.get_node("Margin/Panel/Button").connect("pressed",self,'on_level_pressed',[i])
 		$MarginContainer/Panel/MarginContainer/ScrollContainer/VBoxContainer.add_child(level)
 
+# Recoge los valores enviados por la API para jugar un nivel y lo lanza.
 func level_http_response(json):
 	Global.Digsideers = json['digsideers']
 	Global.Digdowners = json['digdowners']

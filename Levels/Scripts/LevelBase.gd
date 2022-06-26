@@ -1,32 +1,34 @@
 extends Node2D
 
+# Número de vidas para el nivel.
 var lives = Global.lives
 var total_lives = lives
+# Número de vidas salvadas.
 var saved_lives := 0
+# Número de vidas perdidas.
 var lost_lives := 0
-#considerando si poner tiempo límite o solo indicar el mínimo para superar el nivel
-#cortamos un nivel cuando no se puede superar? En un principio no
-export var total_time := 5.0
+# Precarga de la escena que contiene los meeseeks.
 var meeseek = preload("res://Scenes/Meeseek/Meeseek.tscn");
-#Mouse icons
+# Iconos del cursor.
 var arrow = load("res://Resources/Mouses/Mouse.png");
 var selector = load("res://Resources/Mouses/MouseHover.png")
-
-#tiempo
+# Variables usadas para controlar el tiempo utilizado en el nivel.
 onready var time_start := 0
 onready var time_now := 0
 var elapsed
 var minutes
 var seconds
 var str_elapsed
-#botones
+# Valor de la última habilidad seleccionada.
 var mouse_pointer := 'Basic'
+# Número de habilidades disponibles.
 var Digsideers = Global.Digsideers 
 var Digdowners = Global.Digdowners 
 var Stopperers = Global.Stopperers 
 var Umbrellaers = Global.Umbrellaers 
 var Stairers = Global.Stairers 
 var Climbers = Global.Climbers 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.set_custom_mouse_cursor(arrow)
@@ -69,21 +71,27 @@ func _spawn_meeseek():
 		new_meeseek.position = $Spawn.position
 		add_child(new_meeseek)
 		
+# Función llamada cuando un meeseek llega a la meta del nivel.
 func meeseek_saved():
 	saved_lives += 1
 	update_labels()
 
+# Función llamada cuando un meeseek muere en el nivel, en concreto se llama desde la animación de muerte de estos.
 func meeseek_deceased():
 	lost_lives += 1
 	update_labels()
 
+# Función utilizada para actualizar los valores de los botones de la interfaz del nivel.
 func update_buttons_values():
 	$Camera2D.update_buttons_values()
 
+# Función que actualiza los valores de las vidas salvadas y perdidas de la interfaz del nivel.
 func update_labels():
 	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/SavedLives.text = 'Vidas salvadas: ' + str(saved_lives)
 	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer2/LostLives.text = 'Vidas perdidas: ' + str(lost_lives)
 
+# Función llamada cuando la suma de las vidas salvadas y perdidas coincide con el número total de vidas del nivel.
+# Almacena todos los valores necesarios para mostrar la pantalla de final de partida y navega a esta.
 func game_ended():
 	Global.saved_lives = saved_lives
 	Global.lost_lives = lost_lives

@@ -1,42 +1,91 @@
 extends KinematicBody2D
-#las velocidades van en píxeles por segundo, 1 segundo = 60 frames
+# Velocidad máxima de movimiento horizontal, está en píxeles por segundo (1s = 64px).
 const MAXSPEED = 64
+
+# Velocidad de movimento hacia el suelo.
 const GRAVITY = 150
+
+# Dirección en la que el meeseek se mueve (+1 = derecha, -1 izquierda).
 var right = 1
+
+# Indica si el meeseek sigue vivo.
 var alive = true
+
+# Indica si el meeseek ha estado en contacto con el suelo en el frame anterior.
 var once = true
+
+# Estado del meeseek, este indica que habilidad tiene que realizar un meeseek en cada momento.
 var state := "Basic"
+
+# Contiene los datos de la última collision de meeseek contra algo que no sea el suelo.
 var collision
-#dar actitud a un meesek al clickarle
+
+# Indica si el meeseek tiene el cursor encima o no.
 var mouse_in := false
 
-#stopper
+# Stopper
+# Almacena la posición en la que el meeseek se queda quieto.
 var original_position := Vector2.ZERO
-#escalera
-#stair step = 8,10
+
+# Escalera
+# Indica si el meeseek se encuentra pisando una escalera.
 var en_escalera := false
+
+#Escalera
+# Almacena el id de los tiles que representan la escalera.
 var stair_tiles := [19, 18, 17, 16, 15, 14, 13, 20, 21, 22, 23 ,24 ,25 ,26]
-#mapa
+
+# Mapa
+# Indica la posición de una celda en el mapa.
 var celda
+
+# Nodo que contiene el mapa del nivel.
 var map
-#digger
+
+# Diggers
+# Almacena el id del primer bloque diferente al suelo con el que colisiona el meeseek.
 var first_collision := -1
+
+# Diggers
+# Almacena el número de frames que lleva excavando o taladrando un meeseek.
 var frames_digging := 0
+
+# Id del siguiente bloque con el que collisionará un meeseek.
 var next_collision := 0
+
+# Indica si el meeseek tiene que dejar de excavar el siguiente bloque.
 var stop_digging := false
-#vertical digger
+
+# Vertical digger
+# Indica si el meeseek esta excavando.
 var digging := false
-#Umbrella
+
+# Umbrella
+# Indica si el meeseek tiene que dejar de utilizar el paraguas.
 var stop_umbrella := false
+
+# Número de frames que lleva el meeseek en el aire.
 var air_time := 0
-#Stair
+
+# Stair
+# Indica si el meeseek esta actualmente construyendo una escalera.
 var building := false
+
+# Almacena el id del tile que esta construyendo actualmente el meeseek.
 var building_block := 0
+
+# Indica en que celda esta construyendo el meeseek actualmente.
 var building_cell 
+
+# Indica cuantos frames lleva el meeseek construyendo.
 var building_frame := 0
-#Climber
+
+# Climber
+# Indica si el meeseek se encuentra escalando. 
 var climbing := false
-#Se inicia el movimiento del misik en caida
+
+# Velocidad del meeseek en cada frame.
+# Se inicia el movimiento del meeseek en caida.
 var motion = Vector2(0, GRAVITY)
 
 func _ready():
@@ -70,6 +119,7 @@ func _physics_process(delta):
 		original_position = Vector2.ZERO
 	move_and_slide(motion, Vector2.UP,true,4,2.6, false)
 
+# Gestiona el comportamiento del meeseek si este no tiene ninguna habilidad asignada.
 func normal_meeseek():
 	if out_of_bounds():
 		alive = false
@@ -113,6 +163,8 @@ func normal_meeseek():
 			motion = Vector2()
 			$AnimationPlayer.play("Death")
 			
+
+# Gestiona el comportamiento del meeseek si este tiene la habilidad taladro asignada.
 func digSide_meeseek():
 	if out_of_bounds():
 		alive = false
@@ -192,6 +244,7 @@ func digSide_meeseek():
 			motion = Vector2()
 			$AnimationPlayer.play("Death")
 				
+# Gestiona el comportamiento del meeseeks si este tiene la habilidad excavadora asignada.
 func digDown_meeseek():
 	if out_of_bounds():
 		alive = false
@@ -268,6 +321,7 @@ func digDown_meeseek():
 			motion = Vector2()
 			$AnimationPlayer.play("Death")
 
+# Gestiona el comportamiento del meeseek si este tiene la habilidad parar asignada.
 func stopper_meeseek():
 	if out_of_bounds():
 		alive = false
@@ -286,6 +340,7 @@ func stopper_meeseek():
 			motion = Vector2()
 			$AnimationPlayer.play("Death")
 
+# Gestiona el comportamiento del meeseek si este tiene la habilidad paraguas asignada.
 func umbrella_meeseek():
 	if !once:
 		alive = true
@@ -327,6 +382,7 @@ func umbrella_meeseek():
 			motion = Vector2()
 			$AnimationPlayer.play("Death")
 
+# Gestiona el comportamiento del meeseek si este tiene la habilidad escaleras asignada.
 func stair_meeseek():
 	if out_of_bounds():
 		alive = false
@@ -443,6 +499,7 @@ func stair_meeseek():
 			motion = Vector2()
 			$AnimationPlayer.play("Death")	
 
+# Gestiona el comportamiento del meeseek si este tiene la habilidad escalar asignada.
 func climb_meeseek():
 	if out_of_bounds():
 		alive = false
@@ -506,9 +563,12 @@ func climb_meeseek():
 			motion = Vector2()
 			$AnimationPlayer.play("Death")
 
+# Elimina al meeseek lanzando la animación de muerte.
 func get_nuked():
 	self.state = 'Nuked'
-#a esta funci�n se llama desde la animaci�n Death para que el meeseek muera al terminar la animaci�n
+
+# Gestiona la muerte del meeseek.
+# A esta funci�ón se llama desde la animaci�n Death para que el meeseek muera al terminar la animació�n.
 func death():
 	get_parent().meeseek_deceased()
 	self.queue_free()
@@ -567,6 +627,7 @@ func _on_Meesek_mouse_exited():
 	mouse_in = false
 	Input.set_custom_mouse_cursor(get_parent().arrow,0,Vector2(0,0))
 
+# Comprueba si el meeseek se encuentra dentro de los límites del mapa.
 func out_of_bounds():
 	return (self.position.y > map.get_used_rect().end.y * 64
 		or self.position.x < map.get_used_rect().position.x * 64

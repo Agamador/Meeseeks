@@ -1,10 +1,13 @@
 extends Control
 
 
-
+# Velocidad de movimiento del ParallaxBackground
 export var move_speed := Vector2(-15,-15)
+# Cabeceras para las peticiones HTTP.
 var headers = ["Content-Type: application/json"]
+# Nombre de la petición que se va realizar.
 var query
+# Nivel generado previamente en el editor.
 var created_level = preload("user://prueba.tscn").instance()
 
 # Called when the node enters the scene tree for the first time.
@@ -27,6 +30,7 @@ func _process(delta):
 	else: 
 		$Popup/Panel/Yes.disabled = false
 	
+# Recupera los resultados obtenidos en el nivel y los muestra en la interfaz.
 func get_data():
 	$PanelContainer/MarginContainer/Filas/Datos/Izquierda/VidasTotales.text = 'Vidas Totales: ' + str(Global.lives)
 	$PanelContainer/MarginContainer/Filas/Datos/Izquierda/TiempoGastado.text = 'Tiempo gastado: ' + Global.elapsed_time
@@ -91,6 +95,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 			else:
 				$Popup/Panel/error.visible = true
 				
+# Modifica el nombre del nivel introducido por el usuario eliminando los carácteres prohibidos para poder nombrar el archivo del mismo.
 func make_file_name(file_name):
 	file_name = file_name.replace(' ', '_')
 	file_name = file_name.replace(':', '')
@@ -106,6 +111,7 @@ func make_file_name(file_name):
 	file_name = file_name.replace('>', '')
 	return file_name
 
+# Borra los archivos del nivel generado para que la proxima vez que se inicie el editor este esté vacío.
 func erase_files():
 	var dir = Directory.new()
 	dir.remove("user://editormap.txt")
@@ -113,6 +119,7 @@ func erase_files():
 	dir.remove("user://spawnmap.txt")
 	dir.remove("user://skillsmap.txt")
 
+# Lanza la petición HTTP para publicar la puntuación obtenida.
 func submit_score():
 	query = 'score'
 	var params = {

@@ -1,26 +1,38 @@
 extends Camera2D
 
+# Tamaño de la pantalla.
 var viewport_size
+#Tamaño de la mitad del ancho de la pantalla.
 var width_half
+# Tamaño de la mitad de la altura de la pantalla.
 var height_half
-var zoom_dif_h
-var zoom_dif_v
+# Tamaño de la mitad del ancho de la pantalla con zoom aplicado.
 var w_h_times_zoom
+# Tamaño de la mitad de la altura de la pantalla con zoom aplicado.
 var h_h_times_zoom
+# Tamaño ocupado por el nivel, todos los niveles empiezan en el pixel [0,0] y acaban en [tilemap_border.x, tilemap_border.y].
 var tilemap_border
-
+# Duración de la animación del zoom.
 export var tween_duration := 0.5
+# Zoom máximo de la cámara.
 export var max_zoom := 2.0
+# Zoom mínimo de la cámara.
 export var min_zoom := 0.5
+# Zoom inicial de la cámara.
 var zoom_level := 1.0 setget set_zoom_level
+# Escala de cambio del zoom de la cámara.
 var zoom_factor := 0.1
+# Nodo para animación del zoom.
 onready var tween: Tween = $Tween
-
+# Escala de cambio de la velocidad del nivel.
 var time_step := 0.25
+# Mínima velocidad para el nivel.
 var min_speed := 0.5
+# Máxima velocidad para el nivel.
 var max_speed := 2
-
+# Desplazamiento de la cámara sobre su posición original.
 var move_vector := Vector2()
+# Posición del ratón en la pantalla.
 var mouse_pos
 
 func _ready():
@@ -50,6 +62,7 @@ func _process(delta):
 		move_vector.y = 1
 	global_translate(move_vector * delta * 300 * self.zoom.x)
 
+# Actualiza los valores de la pantalla.
 func update_wiewport():
 	viewport_size = get_viewport().size
 	width_half = viewport_size.x / 2
@@ -63,7 +76,7 @@ func _unhandled_input(event):
 	if event.is_action_pressed("zoom_out"):
 		set_zoom_level(zoom_level + zoom_factor)
 
-#el zoom ahora mismo permite ver fuera del mapa.
+# Aplica el zoom a la cámara respetando los límites establecidos y aplicando la animación seleccionada.
 func set_zoom_level(value: float):
 	zoom_level = clamp(value, min_zoom, max_zoom)
 	tween.interpolate_property(
@@ -77,6 +90,7 @@ func set_zoom_level(value: float):
 	)
 	tween.start()
 
+# Actualiza el número de habilidades disponibles que aparece en los botones de la interfaz del nivel.
 func update_buttons_values():
 	$CanvasLayer/HBoxContainer/DiggerSideButton/Label.text = str(get_parent().Digsideers)
 	$CanvasLayer/HBoxContainer/DiggerDownButton/Label.text = str(get_parent().Digdowners)
@@ -120,6 +134,7 @@ func _on_TimeUpButton_pressed():
 	Engine.set_time_scale(clamp(Engine.time_scale + time_step, min_speed, max_speed))
 	update_speed_label()
 
+# Actualiza la velocidad a la que está el nivel en la interfaz.
 func update_speed_label():
 	$CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/SpeedLabel.text = str(Engine.get_time_scale()*50)
 

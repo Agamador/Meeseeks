@@ -1,20 +1,34 @@
 extends Node2D
 
-
+#Precarga el nodo base para un nuevo nivel.
 var base_level = preload("res://Levels/Scenes/LevelBase.tscn").instance()
+# Vector2 que indica la posición de una celda del mapa.
 var celda
+# Nodo que contiene el mapa para el nivel.
 var mapa 
+# Nodo que contiene la meta del nivel.
 var goal
+# Nodo que contiene la base del nivel.
 var spawn
+# Vector2 con la posición del ratón en pantalla.
 var mouse_pos
+# Numero de meeseeks disponibles para excavar horizontalmente en el nivel.
 var Digsideers  := 0
+# Numero de meeseeks disponibles para excavar verticalmente en el nivel.
 var Digdowners  := 0
+# Numero de meeseeks disponibles para parar a los demás meeseeks en el nivel.
 var Stopperers  := 0
+# Numero de meeseeks disponibles para usar el paraguas en el nivel.
 var Umbrellaers  := 0
+# Numero de meeseeks disponibles para crear escaleras en el nivel.
 var Stairers := 0
+# Numero de meeseeks disponibles para escalar paredes en el nivel.
 var Climbers := 0
+# Numero de meeseeks disponibles en el nivel.
 var Lives := 1
+# Numero máximo de celdas que puede tener un nivel. Utilizado para impedir que un nivel desborde el campo reservado en la base de datos.
 var max_cells := 10000
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	mapa = get_node("TileMap")
@@ -34,7 +48,8 @@ func _process(delta):
 		$Camera2D/CanvasLayer/Control/Panel/MarginContainer/VBoxContainer/VBoxContainer/Try.disabled = false
 	else:
 		$Camera2D/CanvasLayer/Control/Panel/MarginContainer/VBoxContainer/VBoxContainer/Try.disabled = true
-	
+
+# Comprueba que se haya añadido al menos una habilidad al nivel.
 func check_values():
 	return Digsideers + Digdowners + Stopperers + Umbrellaers + Stairers + Climbers > 0
 	
@@ -56,22 +71,26 @@ func _unhandled_input(event):
 		remove_goal()
 		remove_tile()
 
+# Obtiene la posición x e y de una celda a partir de la posición del ratón en la pantalla, y coloca la casilla seleccionada en la variable global tile_mouse en la celda.
 func place_tile():
 	celda = mapa.world_to_map(get_global_mouse_position())
 	if celda.x >= 0 and celda.y >= 0: 
 		mapa.set_cellv(celda, int(Global.tile_mouse))
 		update_placed_cells()
-	
+
+# Hace visible la base del nivel y mueve esta a la posición del ratón.
 func place_spawn():
 	base_level.get_node("Spawn").position = get_global_mouse_position()
 	$Spawn.position = get_global_mouse_position()
 	$Spawn.visible = true
-	
+
+# Hace visible la meta del nivel y mueve esta a la posición del ratón.
 func place_goal():
 	base_level.get_node('Goal').position = get_global_mouse_position()
 	$Goal.position = get_global_mouse_position()
 	$Goal.visible = true
 	
+# Obtiene la posición x e y de una celda a partir de la posición del ratón en la pantalla, y elimina la casilla que ésta contenga.
 func remove_tile():
 	celda = mapa.world_to_map(get_global_mouse_position())
 	mapa.set_cellv(celda, -1)
@@ -79,18 +98,21 @@ func remove_tile():
 	if mapa.get_used_cells().size() < max_cells:
 		max_tiles_warning(false)
 
+# Comprueba si la posición del ratón coincide con el área de la base y la oculta.
 func remove_spawn():
 	mouse_pos = get_global_mouse_position()
 	if mouse_pos.x > $Spawn.position.x - 32 and mouse_pos.x < $Spawn.position.x + 32 and mouse_pos.y > $Spawn.position.y -32 and mouse_pos.y < $Spawn.position.y + 32:
 		$Spawn.position = Vector2(0,0)
 		$Spawn.visible = false
 
+# Comprueba si la posición del ratón coincide con el área de la meta y la oculta.
 func remove_goal():
 	mouse_pos = get_global_mouse_position()
 	if mouse_pos.x > $Goal.position.x - 32 and mouse_pos.x < $Goal.position.x + 32 and mouse_pos.y > $Goal.position.y -32 and mouse_pos.y < $Goal.position.y + 32:
 		$Goal.position = Vector2(0,0)
 		$Goal.visible = false
 
+# Genera el nivel creado en el editor. Almacena el número de habilidades disponibles en las variables globales correspondientes, prepara la escena del nuevo nivel y lo lanza a continuación para probarlo.
 func try_level():
 	update_skills()
 	var to_save = PackedScene.new()
@@ -107,6 +129,8 @@ func try_level():
 	Global.prev_escene = "res://Editor/Editor.tscn" 
 	get_tree().change_scene("user://prueba.tscn")
 
+# Genera y almacena todos los archivos necesarios para permitir que el usuario pueda volver a editar el nivel por donde lo dejó.
+# Almacena un archivo para el mapa, un archivo para la meta, un archivo para la base, y otro archivo con las habilidades.
 func save_map():
 	var file = File.new()
 	file.open(Global.map_path,File.WRITE)
@@ -130,7 +154,8 @@ func save_map():
 	file.open(Global.skills_path, File.WRITE)
 	file.store_line(to_json(skills))
 	file.close()
-	
+
+# Carga los archivos necesarios para que el usuario pueda continuar con la edición de un nivel sin publicar.
 func load_map():
 	var file = File.new()
 	if file.file_exists(Global.map_path):
@@ -169,6 +194,7 @@ func load_map():
 		$Camera2D/CanvasLayer/Control.start_values()
 	update_placed_cells()
 
+# Actualiza las variables globales con el número de habilidades disponibles para cada una de ellas.
 func update_skills():
 	Global.Digsideers = Digsideers
 	Global.Digdowners = Digdowners
@@ -187,9 +213,11 @@ func _on_YesButton_pressed():
 func _on_NoButton_pressed():
 	$Camera2D/CanvasLayer/Popup.visible = false
 
+# Actualiza el número de casillas colocadas en el nivel.
 func update_placed_cells():
 	$Camera2D/CanvasLayer/Casillas.text = 'Casillas colocadas: ' + str(mapa.get_used_cells().size())
 
+#Muestra el mensaje de error si el número de casillas alcanza el límite.
 func max_tiles_warning(value):
 	$Camera2D/CanvasLayer/Warning.visible = value
 

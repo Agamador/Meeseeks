@@ -1,0 +1,3421 @@
+{
+  "name": "Meeseeks",
+  "description": "",
+  "version": "n/a",
+  "classes": [
+    {
+      "name": "Collector.gd",
+      "path": "res://Collector.gd",
+      "extends_class": [
+        "SceneTree"
+      ],
+      "extends_file": "",
+      "icon": "",
+      "signature": "class Collector.gd",
+      "description": "",
+      "sub_classes": [
+
+      ],
+      "constants": [
+
+      ],
+      "members": [
+
+      ],
+      "signals": [
+
+      ],
+      "methods": [
+        {
+          "name": "find_files",
+          "return_type": "PoolStringArray",
+          "rpc_mode": 0,
+          "signature": "func find_files(dirpath: String = \"\", patterns: PoolStringArray = [], is_recursive: bool = false, do_skip_hidden: bool = true) -> PoolStringArray",
+          "description": " Returns a list of file paths found in the directory.\n\n **Arguments**\n\n - dirpath: path to the directory from which to search files.\n - patterns: an array of string match patterns, where \"*\" matches zero or more\n   arbitrary characters and \"?\" matches any single character except a period\n   (\".\"). You can use it to find files by extensions. To find only GDScript\n   files, [\"*.gd\"]\n - is_recursive: if `true`, walks over subdirectories recursively, returning all\n   files in the tree.\n",
+          "arguments": [
+            {
+              "name": "dirpath",
+              "type": "String",
+              "default_value": ""
+            },
+            {
+              "name": "patterns",
+              "type": "PoolStringArray",
+              "default_value": [
+
+              ]
+            },
+            {
+              "name": "is_recursive",
+              "type": "bool",
+              "default_value": false
+            },
+            {
+              "name": "do_skip_hidden",
+              "type": "bool",
+              "default_value": true
+            }
+          ]
+        },
+        {
+          "name": "save_text",
+          "return_type": "null",
+          "rpc_mode": 0,
+          "signature": "func save_text(path: String = \"\", content: String = \"\") -> null",
+          "description": " Saves text to a file.\n",
+          "arguments": [
+            {
+              "name": "path",
+              "type": "String",
+              "default_value": ""
+            },
+            {
+              "name": "content",
+              "type": "String",
+              "default_value": ""
+            }
+          ]
+        },
+        {
+          "name": "get_reference",
+          "return_type": "Dictionary",
+          "rpc_mode": 0,
+          "signature": "func get_reference(files: PoolStringArray = [], refresh_cache: bool = false) -> Dictionary",
+          "description": " Parses a list of GDScript files and returns a list of dictionaries with the\n code reference data.\n\n If `refresh_cache` is true, will refresh Godot's cache and get fresh symbols.\n",
+          "arguments": [
+            {
+              "name": "files",
+              "type": "PoolStringArray",
+              "default_value": [
+
+              ]
+            },
+            {
+              "name": "refresh_cache",
+              "type": "bool",
+              "default_value": false
+            }
+          ]
+        },
+        {
+          "name": "print_pretty_json",
+          "return_type": "String",
+          "rpc_mode": 0,
+          "signature": "func print_pretty_json(reference: Dictionary) -> String",
+          "description": "",
+          "arguments": [
+            {
+              "name": "reference",
+              "type": "Dictionary"
+            }
+          ]
+        }
+      ],
+      "static_functions": [
+
+      ]
+    },
+    {
+      "name": "Editor.gd",
+      "path": "res://Editor/Editor.gd",
+      "extends_class": [
+        "Node2D"
+      ],
+      "extends_file": "",
+      "icon": "",
+      "signature": "class Editor.gd",
+      "description": "",
+      "sub_classes": [
+
+      ],
+      "constants": [
+
+      ],
+      "members": [
+        {
+          "name": "base_level",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var base_level",
+          "description": "Precarga el nodo base para un nuevo nivel.\n"
+        },
+        {
+          "name": "celda",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var celda",
+          "description": "Precarga el nodo base para un nuevo nivel.\n Vector2 que indica la posición de una celda del mapa.\n"
+        },
+        {
+          "name": "mapa",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var mapa",
+          "description": "Precarga el nodo base para un nuevo nivel.\n Vector2 que indica la posición de una celda del mapa.\n Nodo que contiene el mapa para el nivel.\n"
+        },
+        {
+          "name": "goal",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var goal",
+          "description": "Precarga el nodo base para un nuevo nivel.\n Vector2 que indica la posición de una celda del mapa.\n Nodo que contiene el mapa para el nivel.\n Nodo que contiene la meta del nivel.\n"
+        },
+        {
+          "name": "spawn",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var spawn",
+          "description": "Precarga el nodo base para un nuevo nivel.\n Vector2 que indica la posición de una celda del mapa.\n Nodo que contiene el mapa para el nivel.\n Nodo que contiene la meta del nivel.\n Nodo que contiene la base del nivel.\n"
+        },
+        {
+          "name": "mouse_pos",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var mouse_pos",
+          "description": "Precarga el nodo base para un nuevo nivel.\n Vector2 que indica la posición de una celda del mapa.\n Nodo que contiene el mapa para el nivel.\n Nodo que contiene la meta del nivel.\n Nodo que contiene la base del nivel.\n Vector2 con la posición del ratón en pantalla.\n"
+        },
+        {
+          "name": "Digsideers",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Digsideers: int",
+          "description": "Precarga el nodo base para un nuevo nivel.\n Vector2 que indica la posición de una celda del mapa.\n Nodo que contiene el mapa para el nivel.\n Nodo que contiene la meta del nivel.\n Nodo que contiene la base del nivel.\n Vector2 con la posición del ratón en pantalla.\n Numero de meeseeks disponibles para excavar horizontalmente en el nivel.\n"
+        },
+        {
+          "name": "Digdowners",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Digdowners: int",
+          "description": "Precarga el nodo base para un nuevo nivel.\n Vector2 que indica la posición de una celda del mapa.\n Nodo que contiene el mapa para el nivel.\n Nodo que contiene la meta del nivel.\n Nodo que contiene la base del nivel.\n Vector2 con la posición del ratón en pantalla.\n Numero de meeseeks disponibles para excavar horizontalmente en el nivel.\n Numero de meeseeks disponibles para excavar verticalmente en el nivel.\n"
+        },
+        {
+          "name": "Stopperers",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Stopperers: int",
+          "description": "Precarga el nodo base para un nuevo nivel.\n Vector2 que indica la posición de una celda del mapa.\n Nodo que contiene el mapa para el nivel.\n Nodo que contiene la meta del nivel.\n Nodo que contiene la base del nivel.\n Vector2 con la posición del ratón en pantalla.\n Numero de meeseeks disponibles para excavar horizontalmente en el nivel.\n Numero de meeseeks disponibles para excavar verticalmente en el nivel.\n Numero de meeseeks disponibles para parar a los demás meeseeks en el nivel.\n"
+        },
+        {
+          "name": "Umbrellaers",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Umbrellaers: int",
+          "description": "Precarga el nodo base para un nuevo nivel.\n Vector2 que indica la posición de una celda del mapa.\n Nodo que contiene el mapa para el nivel.\n Nodo que contiene la meta del nivel.\n Nodo que contiene la base del nivel.\n Vector2 con la posición del ratón en pantalla.\n Numero de meeseeks disponibles para excavar horizontalmente en el nivel.\n Numero de meeseeks disponibles para excavar verticalmente en el nivel.\n Numero de meeseeks disponibles para parar a los demás meeseeks en el nivel.\n Numero de meeseeks disponibles para usar el paraguas en el nivel.\n"
+        },
+        {
+          "name": "Stairers",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Stairers: int",
+          "description": "Precarga el nodo base para un nuevo nivel.\n Vector2 que indica la posición de una celda del mapa.\n Nodo que contiene el mapa para el nivel.\n Nodo que contiene la meta del nivel.\n Nodo que contiene la base del nivel.\n Vector2 con la posición del ratón en pantalla.\n Numero de meeseeks disponibles para excavar horizontalmente en el nivel.\n Numero de meeseeks disponibles para excavar verticalmente en el nivel.\n Numero de meeseeks disponibles para parar a los demás meeseeks en el nivel.\n Numero de meeseeks disponibles para usar el paraguas en el nivel.\n Numero de meeseeks disponibles para crear escaleras en el nivel.\n"
+        },
+        {
+          "name": "Climbers",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Climbers: int",
+          "description": "Precarga el nodo base para un nuevo nivel.\n Vector2 que indica la posición de una celda del mapa.\n Nodo que contiene el mapa para el nivel.\n Nodo que contiene la meta del nivel.\n Nodo que contiene la base del nivel.\n Vector2 con la posición del ratón en pantalla.\n Numero de meeseeks disponibles para excavar horizontalmente en el nivel.\n Numero de meeseeks disponibles para excavar verticalmente en el nivel.\n Numero de meeseeks disponibles para parar a los demás meeseeks en el nivel.\n Numero de meeseeks disponibles para usar el paraguas en el nivel.\n Numero de meeseeks disponibles para crear escaleras en el nivel.\n Numero de meeseeks disponibles para escalar paredes en el nivel.\n"
+        },
+        {
+          "name": "Lives",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Lives: int",
+          "description": "Precarga el nodo base para un nuevo nivel.\n Vector2 que indica la posición de una celda del mapa.\n Nodo que contiene el mapa para el nivel.\n Nodo que contiene la meta del nivel.\n Nodo que contiene la base del nivel.\n Vector2 con la posición del ratón en pantalla.\n Numero de meeseeks disponibles para excavar horizontalmente en el nivel.\n Numero de meeseeks disponibles para excavar verticalmente en el nivel.\n Numero de meeseeks disponibles para parar a los demás meeseeks en el nivel.\n Numero de meeseeks disponibles para usar el paraguas en el nivel.\n Numero de meeseeks disponibles para crear escaleras en el nivel.\n Numero de meeseeks disponibles para escalar paredes en el nivel.\n Numero de meeseeks disponibles en el nivel.\n"
+        },
+        {
+          "name": "max_cells",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var max_cells: int",
+          "description": "Precarga el nodo base para un nuevo nivel.\n Vector2 que indica la posición de una celda del mapa.\n Nodo que contiene el mapa para el nivel.\n Nodo que contiene la meta del nivel.\n Nodo que contiene la base del nivel.\n Vector2 con la posición del ratón en pantalla.\n Numero de meeseeks disponibles para excavar horizontalmente en el nivel.\n Numero de meeseeks disponibles para excavar verticalmente en el nivel.\n Numero de meeseeks disponibles para parar a los demás meeseeks en el nivel.\n Numero de meeseeks disponibles para usar el paraguas en el nivel.\n Numero de meeseeks disponibles para crear escaleras en el nivel.\n Numero de meeseeks disponibles para escalar paredes en el nivel.\n Numero de meeseeks disponibles en el nivel.\n Numero máximo de celdas que puede tener un nivel. Utilizado para impedir que un nivel desborde el campo reservado en la base de datos.\n"
+        }
+      ],
+      "signals": [
+
+      ],
+      "methods": [
+        {
+          "name": "_ready",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _ready()",
+          "description": " Called when the node enters the scene tree for the first time.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_process",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _process(delta)",
+          "description": "",
+          "arguments": [
+            {
+              "name": "delta",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "check_values",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func check_values()",
+          "description": " Comprueba que se haya añadido al menos una habilidad al nivel.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_unhandled_input",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _unhandled_input(event)",
+          "description": "",
+          "arguments": [
+            {
+              "name": "event",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "place_tile",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func place_tile()",
+          "description": " Obtiene la posición x e y de una celda a partir de la posición del ratón en la pantalla, y coloca la casilla seleccionada en la variable global tile_mouse en la celda.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "place_spawn",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func place_spawn()",
+          "description": " Hace visible la base del nivel y mueve esta a la posición del ratón.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "place_goal",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func place_goal()",
+          "description": " Hace visible la meta del nivel y mueve esta a la posición del ratón.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "remove_tile",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func remove_tile()",
+          "description": " Obtiene la posición x e y de una celda a partir de la posición del ratón en la pantalla, y elimina la casilla que ésta contenga.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "remove_spawn",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func remove_spawn()",
+          "description": " Comprueba si la posición del ratón coincide con el área de la base y la oculta.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "remove_goal",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func remove_goal()",
+          "description": " Comprueba si la posición del ratón coincide con el área de la meta y la oculta.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "try_level",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func try_level()",
+          "description": " Genera el nivel creado en el editor. Almacena el número de habilidades disponibles en las variables globales correspondientes, prepara la escena del nuevo nivel y lo lanza a continuación para probarlo.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "save_map",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func save_map()",
+          "description": " Genera y almacena todos los archivos necesarios para permitir que el usuario pueda volver a editar el nivel por donde lo dejó.\n Almacena un archivo para el mapa, un archivo para la meta, un archivo para la base, y otro archivo con las habilidades.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "load_map",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func load_map()",
+          "description": " Carga los archivos necesarios para que el usuario pueda continuar con la edición de un nivel sin publicar.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "update_skills",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func update_skills()",
+          "description": " Actualiza las variables globales con el número de habilidades disponibles para cada una de ellas.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_BackButton_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_BackButton_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_YesButton_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_YesButton_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_NoButton_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_NoButton_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "update_placed_cells",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func update_placed_cells()",
+          "description": " Actualiza el número de casillas colocadas en el nivel.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "max_tiles_warning",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func max_tiles_warning(value)",
+          "description": "Muestra el mensaje de error si el número de casillas alcanza el límite.\n",
+          "arguments": [
+            {
+              "name": "value",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "_on_help_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_help_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        }
+      ],
+      "static_functions": [
+
+      ]
+    },
+    {
+      "name": "EditorCamera2D.gd",
+      "path": "res://Editor/EditorCamera2D.gd",
+      "extends_class": [
+        "Camera2D"
+      ],
+      "extends_file": "",
+      "icon": "",
+      "signature": "class EditorCamera2D.gd",
+      "description": "",
+      "sub_classes": [
+
+      ],
+      "constants": [
+
+      ],
+      "members": [
+        {
+          "name": "move_vector",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var move_vector",
+          "description": " Desplazamiento de la cámara sobre su posición original.\n"
+        },
+        {
+          "name": "mouse_pos",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var mouse_pos",
+          "description": " Desplazamiento de la cámara sobre su posición original.\n Posición del ratón en la pantalla.\n"
+        },
+        {
+          "name": "viewport_size",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var viewport_size",
+          "description": " Desplazamiento de la cámara sobre su posición original.\n Posición del ratón en la pantalla.\n Tamaño de la pantalla.\n"
+        },
+        {
+          "name": "width_half",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var width_half",
+          "description": " Desplazamiento de la cámara sobre su posición original.\n Posición del ratón en la pantalla.\n Tamaño de la pantalla.\n Tamaño de la mitad del ancho de la pantalla.\n"
+        },
+        {
+          "name": "height_half",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var height_half",
+          "description": " Desplazamiento de la cámara sobre su posición original.\n Posición del ratón en la pantalla.\n Tamaño de la pantalla.\n Tamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n"
+        },
+        {
+          "name": "w_h_times_zoom",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var w_h_times_zoom",
+          "description": " Desplazamiento de la cámara sobre su posición original.\n Posición del ratón en la pantalla.\n Tamaño de la pantalla.\n Tamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n"
+        },
+        {
+          "name": "h_h_times_zoom",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var h_h_times_zoom",
+          "description": " Desplazamiento de la cámara sobre su posición original.\n Posición del ratón en la pantalla.\n Tamaño de la pantalla.\n Tamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n"
+        },
+        {
+          "name": "tween_duration",
+          "data_type": "float",
+          "default_value": 0.5,
+          "setter": "",
+          "getter": "",
+          "export": true,
+          "signature": "export var tween_duration: float = 0.5",
+          "description": " Desplazamiento de la cámara sobre su posición original.\n Posición del ratón en la pantalla.\n Tamaño de la pantalla.\n Tamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n Duración de la animación del zoom.\n"
+        },
+        {
+          "name": "max_zoom",
+          "data_type": "float",
+          "default_value": 2,
+          "setter": "",
+          "getter": "",
+          "export": true,
+          "signature": "export var max_zoom: float = 2",
+          "description": " Desplazamiento de la cámara sobre su posición original.\n Posición del ratón en la pantalla.\n Tamaño de la pantalla.\n Tamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n Duración de la animación del zoom.\n Zoom máximo de la cámara.\n"
+        },
+        {
+          "name": "min_zoom",
+          "data_type": "float",
+          "default_value": 0.5,
+          "setter": "",
+          "getter": "",
+          "export": true,
+          "signature": "export var min_zoom: float = 0.5",
+          "description": " Desplazamiento de la cámara sobre su posición original.\n Posición del ratón en la pantalla.\n Tamaño de la pantalla.\n Tamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n Duración de la animación del zoom.\n Zoom máximo de la cámara.\n Zoom mínimo de la cámara.\n"
+        },
+        {
+          "name": "zoom_level",
+          "data_type": "float",
+          "default_value": null,
+          "setter": "set_zoom_level",
+          "getter": "",
+          "export": false,
+          "signature": "var zoom_level: float",
+          "description": " Desplazamiento de la cámara sobre su posición original.\n Posición del ratón en la pantalla.\n Tamaño de la pantalla.\n Tamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n Duración de la animación del zoom.\n Zoom máximo de la cámara.\n Zoom mínimo de la cámara.\n Zoom inicial de la cámara.\n"
+        },
+        {
+          "name": "zoom_factor",
+          "data_type": "float",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var zoom_factor: float",
+          "description": " Desplazamiento de la cámara sobre su posición original.\n Posición del ratón en la pantalla.\n Tamaño de la pantalla.\n Tamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n Duración de la animación del zoom.\n Zoom máximo de la cámara.\n Zoom mínimo de la cámara.\n Zoom inicial de la cámara.\n Escala de cambio del zoom de la cámara.\n"
+        },
+        {
+          "name": "tween",
+          "data_type": "Tween",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var tween: Tween",
+          "description": " Desplazamiento de la cámara sobre su posición original.\n Posición del ratón en la pantalla.\n Tamaño de la pantalla.\n Tamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n Duración de la animación del zoom.\n Zoom máximo de la cámara.\n Zoom mínimo de la cámara.\n Zoom inicial de la cámara.\n Escala de cambio del zoom de la cámara.\n Nodo para animación del zoom.\n"
+        }
+      ],
+      "signals": [
+
+      ],
+      "methods": [
+        {
+          "name": "_ready",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _ready()",
+          "description": " Called when the node enters the scene tree for the first time.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_process",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _process(delta)",
+          "description": "",
+          "arguments": [
+            {
+              "name": "delta",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "_unhandled_input",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _unhandled_input(event)",
+          "description": "",
+          "arguments": [
+            {
+              "name": "event",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "set_zoom_level",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func set_zoom_level(value: float)",
+          "description": " Aplica el zoom a cámara respentado los límites establecidos y aplicando la animación selecionada.\n",
+          "arguments": [
+            {
+              "name": "value",
+              "type": "float"
+            }
+          ]
+        }
+      ],
+      "static_functions": [
+
+      ]
+    },
+    {
+      "name": "LateralMenu.gd",
+      "path": "res://Editor/LateralMenu.gd",
+      "extends_class": [
+        "Control"
+      ],
+      "extends_file": "",
+      "icon": "",
+      "signature": "class LateralMenu.gd",
+      "description": "",
+      "sub_classes": [
+
+      ],
+      "constants": [
+
+      ],
+      "members": [
+
+      ],
+      "signals": [
+
+      ],
+      "methods": [
+        {
+          "name": "_ready",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _ready()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "start_values",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func start_values()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_digSide_minus_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_digSide_minus_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_digSide_plus_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_digSide_plus_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_digDown_minus_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_digDown_minus_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_digDown_plus_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_digDown_plus_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_stopper_minus_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_stopper_minus_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_stopper_plus_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_stopper_plus_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_umbrella_minus_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_umbrella_minus_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_umbrella_plus_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_umbrella_plus_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_stair_minus_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_stair_minus_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_stair_plus_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_stair_plus_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_climber_minus_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_climber_minus_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_climber_plus_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_climber_plus_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_Try_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_Try_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_Control_mouse_entered",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_Control_mouse_entered()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_Control_mouse_exited",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_Control_mouse_exited()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_minus_lives_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_minus_lives_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_plus_lives_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_plus_lives_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        }
+      ],
+      "static_functions": [
+
+      ]
+    },
+    {
+      "name": "TextureRect.gd",
+      "path": "res://Editor/Objects/TextureRect.gd",
+      "extends_class": [
+        "TextureRect"
+      ],
+      "extends_file": "",
+      "icon": "",
+      "signature": "class TextureRect.gd",
+      "description": "",
+      "sub_classes": [
+
+      ],
+      "constants": [
+
+      ],
+      "members": [
+
+      ],
+      "signals": [
+
+      ],
+      "methods": [
+        {
+          "name": "_ready",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _ready()",
+          "description": " Called when the node enters the scene tree for the first time.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "item_clicked",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func item_clicked(event)",
+          "description": "",
+          "arguments": [
+            {
+              "name": "event",
+              "type": "var"
+            }
+          ]
+        }
+      ],
+      "static_functions": [
+
+      ]
+    },
+    {
+      "name": "Global.gd",
+      "path": "res://Levels/Global.gd",
+      "extends_class": [
+        "Node"
+      ],
+      "extends_file": "",
+      "icon": "",
+      "signature": "class Global.gd",
+      "description": "",
+      "sub_classes": [
+
+      ],
+      "constants": [
+
+      ],
+      "members": [
+        {
+          "name": "apiurl",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var apiurl",
+          "description": " URL base para llamar a los métodos de la api.\n"
+        },
+        {
+          "name": "username",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var username",
+          "description": " URL base para llamar a los métodos de la api.\n Almacena el nombre de usuario.\n"
+        },
+        {
+          "name": "user_id",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var user_id",
+          "description": " URL base para llamar a los métodos de la api.\n Almacena el nombre de usuario.\n Almacena el id del usuario.\n"
+        },
+        {
+          "name": "logged",
+          "data_type": "bool",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var logged: bool",
+          "description": " URL base para llamar a los métodos de la api.\n Almacena el nombre de usuario.\n Almacena el id del usuario.\n Almacena si el usuario se encuentra con una sesión iniciada o no.\n"
+        },
+        {
+          "name": "prev_escene",
+          "data_type": "String",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var prev_escene: String",
+          "description": " Almacena la última escena en la que se encontraba el usuario.\n"
+        },
+        {
+          "name": "lives",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var lives",
+          "description": " Numero de vidas del nivel.\n"
+        },
+        {
+          "name": "saved_lives",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var saved_lives",
+          "description": " Numero de vidas del nivel.\n Numero de vidas salvadas al final del nivel.\n"
+        },
+        {
+          "name": "lost_lives",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var lost_lives",
+          "description": " Numero de vidas del nivel.\n Numero de vidas salvadas al final del nivel.\n Numero de vidas perdidas al final del nivel.\n"
+        },
+        {
+          "name": "elapsed_time",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var elapsed_time",
+          "description": " Numero de vidas del nivel.\n Numero de vidas salvadas al final del nivel.\n Numero de vidas perdidas al final del nivel.\n Tiempo usado para finalizar el nivel en formato m:s.\n"
+        },
+        {
+          "name": "level_id",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var level_id",
+          "description": " Numero de vidas del nivel.\n Numero de vidas salvadas al final del nivel.\n Numero de vidas perdidas al final del nivel.\n Tiempo usado para finalizar el nivel en formato m:s.\n Identificador del nivel.\n"
+        },
+        {
+          "name": "elapsed_seconds",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var elapsed_seconds",
+          "description": " Numero de vidas del nivel.\n Numero de vidas salvadas al final del nivel.\n Numero de vidas perdidas al final del nivel.\n Tiempo usado para finalizar el nivel en formato m:s.\n Identificador del nivel.\n Tiempo usado para finalizar el nivel en segundos.\n"
+        },
+        {
+          "name": "tile_mouse",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var tile_mouse",
+          "description": " Numero de vidas del nivel.\n Numero de vidas salvadas al final del nivel.\n Numero de vidas perdidas al final del nivel.\n Tiempo usado para finalizar el nivel en formato m:s.\n Identificador del nivel.\n Tiempo usado para finalizar el nivel en segundos.\n Tipo de casilla seleccionada para colocar en el editor.\n"
+        },
+        {
+          "name": "on_panel",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var on_panel",
+          "description": " Numero de vidas del nivel.\n Numero de vidas salvadas al final del nivel.\n Numero de vidas perdidas al final del nivel.\n Tiempo usado para finalizar el nivel en formato m:s.\n Identificador del nivel.\n Tiempo usado para finalizar el nivel en segundos.\n Tipo de casilla seleccionada para colocar en el editor.\n Almacena si el cursor se encuentra en el área de un panel de la interfaz.\n"
+        },
+        {
+          "name": "map_path",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var map_path",
+          "description": " Rutas a los archivos almacenados en la máquina del usuario.\n"
+        },
+        {
+          "name": "goal_path",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var goal_path",
+          "description": " Rutas a los archivos almacenados en la máquina del usuario.\n"
+        },
+        {
+          "name": "spawn_path",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var spawn_path",
+          "description": ""
+        },
+        {
+          "name": "skills_path",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var skills_path",
+          "description": ""
+        },
+        {
+          "name": "editing",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var editing",
+          "description": " Almacena si el nivel actual esta siendo probado.\n"
+        },
+        {
+          "name": "Digsideers",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Digsideers",
+          "description": " Número de habilidades disponibles para el nivel.\n"
+        },
+        {
+          "name": "Digdowners",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Digdowners",
+          "description": " Número de habilidades disponibles para el nivel.\n"
+        },
+        {
+          "name": "Stopperers",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Stopperers",
+          "description": ""
+        },
+        {
+          "name": "Umbrellaers",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Umbrellaers",
+          "description": ""
+        },
+        {
+          "name": "Stairers",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Stairers",
+          "description": ""
+        },
+        {
+          "name": "Climbers",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Climbers",
+          "description": ""
+        }
+      ],
+      "signals": [
+
+      ],
+      "methods": [
+
+      ],
+      "static_functions": [
+
+      ]
+    },
+    {
+      "name": "LevelBase.gd",
+      "path": "res://Levels/Scripts/LevelBase.gd",
+      "extends_class": [
+        "Node2D"
+      ],
+      "extends_file": "",
+      "icon": "",
+      "signature": "class LevelBase.gd",
+      "description": "",
+      "sub_classes": [
+
+      ],
+      "constants": [
+
+      ],
+      "members": [
+        {
+          "name": "lives",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var lives",
+          "description": " Número de vidas para el nivel.\n"
+        },
+        {
+          "name": "total_lives",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var total_lives",
+          "description": " Número de vidas para el nivel.\n"
+        },
+        {
+          "name": "saved_lives",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var saved_lives: int",
+          "description": " Número de vidas salvadas.\n"
+        },
+        {
+          "name": "lost_lives",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var lost_lives: int",
+          "description": " Número de vidas salvadas.\n Número de vidas perdidas.\n"
+        },
+        {
+          "name": "meeseek",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var meeseek",
+          "description": " Número de vidas salvadas.\n Número de vidas perdidas.\n Precarga de la escena que contiene los meeseeks.\n"
+        },
+        {
+          "name": "arrow",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var arrow",
+          "description": " Número de vidas salvadas.\n Número de vidas perdidas.\n Precarga de la escena que contiene los meeseeks.\n Iconos del cursor.\n"
+        },
+        {
+          "name": "selector",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var selector",
+          "description": " Número de vidas salvadas.\n Número de vidas perdidas.\n Precarga de la escena que contiene los meeseeks.\n Iconos del cursor.\n"
+        },
+        {
+          "name": "time_start",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var time_start: int",
+          "description": " Variables usadas para controlar el tiempo utilizado en el nivel.\n"
+        },
+        {
+          "name": "time_now",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var time_now: int",
+          "description": " Variables usadas para controlar el tiempo utilizado en el nivel.\n"
+        },
+        {
+          "name": "elapsed",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var elapsed",
+          "description": ""
+        },
+        {
+          "name": "minutes",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var minutes",
+          "description": ""
+        },
+        {
+          "name": "seconds",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var seconds",
+          "description": ""
+        },
+        {
+          "name": "str_elapsed",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var str_elapsed",
+          "description": ""
+        },
+        {
+          "name": "mouse_pointer",
+          "data_type": "String",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var mouse_pointer: String",
+          "description": " Valor de la última habilidad seleccionada.\n"
+        },
+        {
+          "name": "Digsideers",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Digsideers",
+          "description": " Valor de la última habilidad seleccionada.\n Número de habilidades disponibles.\n"
+        },
+        {
+          "name": "Digdowners",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Digdowners",
+          "description": " Valor de la última habilidad seleccionada.\n Número de habilidades disponibles.\n"
+        },
+        {
+          "name": "Stopperers",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Stopperers",
+          "description": ""
+        },
+        {
+          "name": "Umbrellaers",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Umbrellaers",
+          "description": ""
+        },
+        {
+          "name": "Stairers",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Stairers",
+          "description": ""
+        },
+        {
+          "name": "Climbers",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Climbers",
+          "description": ""
+        }
+      ],
+      "signals": [
+
+      ],
+      "methods": [
+        {
+          "name": "_ready",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _ready()",
+          "description": " Called when the node enters the scene tree for the first time.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_process",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _process(delta)",
+          "description": "",
+          "arguments": [
+            {
+              "name": "delta",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "_spawn_meeseek",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _spawn_meeseek()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "meeseek_saved",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func meeseek_saved()",
+          "description": " Función llamada cuando un meeseek llega a la meta del nivel.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "meeseek_deceased",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func meeseek_deceased()",
+          "description": " Función llamada cuando un meeseek muere en el nivel, en concreto se llama desde la animación de muerte de estos.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "update_buttons_values",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func update_buttons_values()",
+          "description": " Función utilizada para actualizar los valores de los botones de la interfaz del nivel.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "update_labels",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func update_labels()",
+          "description": " Función que actualiza los valores de las vidas salvadas y perdidas de la interfaz del nivel.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "game_ended",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func game_ended()",
+          "description": " Función llamada cuando la suma de las vidas salvadas y perdidas coincide con el número total de vidas del nivel.\n Almacena todos los valores necesarios para mostrar la pantalla de final de partida y navega a esta.\n",
+          "arguments": [
+
+          ]
+        }
+      ],
+      "static_functions": [
+
+      ]
+    },
+    {
+      "name": "LevelsMenu.gd",
+      "path": "res://Menu/LevelsMenu.gd",
+      "extends_class": [
+        "Control"
+      ],
+      "extends_file": "",
+      "icon": "",
+      "signature": "class LevelsMenu.gd",
+      "description": "",
+      "sub_classes": [
+
+      ],
+      "constants": [
+
+      ],
+      "members": [
+        {
+          "name": "query",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var query",
+          "description": " Almacena el nombre de la petición que se va a realizar\n"
+        },
+        {
+          "name": "level_container",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var level_container",
+          "description": " Almacena el nombre de la petición que se va a realizar\n Recuadro en el que representa un nivel\n"
+        },
+        {
+          "name": "main",
+          "data_type": "bool",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var main: bool",
+          "description": " Almacena el nombre de la petición que se va a realizar\n Recuadro en el que representa un nivel\n Almacena si los niveles que aparecen son los originales o de comunidad.\n"
+        }
+      ],
+      "signals": [
+
+      ],
+      "methods": [
+        {
+          "name": "_ready",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _ready()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_process",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _process(delta)",
+          "description": "",
+          "arguments": [
+            {
+              "name": "delta",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "_on_BackButton_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_BackButton_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_Comunity_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_Comunity_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "on_level_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func on_level_pressed(id)",
+          "description": " Realiza la petición HTTP para obtener el nivel seleccionado.\n",
+          "arguments": [
+            {
+              "name": "id",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "get_main_levels",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func get_main_levels()",
+          "description": " Realiza la petición HTTP para obtener los niveles originales.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "get_community_levels",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func get_community_levels()",
+          "description": " Realiza la petición HTTP para obtener los niveles de la comunidad.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "erase_levels",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func erase_levels()",
+          "description": " Borra de la interfaz todos los niveles que se encuentran listados.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_HTTPRequest_request_completed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_HTTPRequest_request_completed(_result, response_code, _headers, body)",
+          "description": "",
+          "arguments": [
+            {
+              "name": "_result",
+              "type": "var"
+            },
+            {
+              "name": "response_code",
+              "type": "var"
+            },
+            {
+              "name": "_headers",
+              "type": "var"
+            },
+            {
+              "name": "body",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "list_levels_http_response",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func list_levels_http_response(niveles)",
+          "description": " Muestra en la interfaz la lista de niveles obtenidos desde la API.\n",
+          "arguments": [
+            {
+              "name": "niveles",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "level_http_response",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func level_http_response(json)",
+          "description": " Recoge los valores enviados por la API para jugar un nivel y lo lanza.\n",
+          "arguments": [
+            {
+              "name": "json",
+              "type": "var"
+            }
+          ]
+        }
+      ],
+      "static_functions": [
+
+      ]
+    },
+    {
+      "name": "MainMenu.gd",
+      "path": "res://Menu/MainMenu.gd",
+      "extends_class": [
+        "Control"
+      ],
+      "extends_file": "",
+      "icon": "",
+      "signature": "class MainMenu.gd",
+      "description": "",
+      "sub_classes": [
+
+      ],
+      "constants": [
+
+      ],
+      "members": [
+        {
+          "name": "username",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var username",
+          "description": " Almacena el nombre de usuario.\n"
+        },
+        {
+          "name": "password",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var password",
+          "description": " Almacena la contraseña del usuario.\n"
+        },
+        {
+          "name": "user_id",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var user_id",
+          "description": " Almacena el id del usuario\n"
+        },
+        {
+          "name": "token",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var token",
+          "description": " Almacena el token de inicio de sesión.\n"
+        },
+        {
+          "name": "user_data_path",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var user_data_path",
+          "description": " Ruta al archivo para almacenar la sesión iniciada.\n"
+        },
+        {
+          "name": "user_data",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var user_data",
+          "description": " Almacena el contenido del archivo de sesión iniciada.\n"
+        },
+        {
+          "name": "headers",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var headers",
+          "description": " Cabeceras para las peticiones HTTP.\n"
+        },
+        {
+          "name": "query",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var query",
+          "description": " Almacena el nombre de la petición que se va a realizar.\n"
+        },
+        {
+          "name": "tries",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var tries: int",
+          "description": " Contador para el numero de intentos de la petición de comprobación de inicio de sesión.\n"
+        }
+      ],
+      "signals": [
+
+      ],
+      "methods": [
+        {
+          "name": "_ready",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _ready()",
+          "description": " Función llamada cuando el nodo entra por primera vez en el arbol de escenas.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_process",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _process(delta)",
+          "description": "Función que se ejecuta cada frame\n",
+          "arguments": [
+            {
+              "name": "delta",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "_on_play_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_play_pressed()",
+          "description": "# Función llamada al pulsar el botón Jugar.\n Cambia la pantalla actual por la lista de niveles.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_editor_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_editor_pressed()",
+          "description": "# Función llamada al pulsar el botón editor\n Cambia la pantalla actual por la del editor\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_salir_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_salir_pressed()",
+          "description": "# Función llamada al pulsa el botón Salir\n Cierra el programa\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_LoginButton_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_LoginButton_pressed()",
+          "description": "# Función llamada al pulsar el botón iniciar sesión\n Muestra el panel con el formulario para iniciar sesión\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_close_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_close_pressed()",
+          "description": "# Función llamada al pulsar el botón para cerrar el panel de inicio de sesión\n Cierra el panel de inicio de sesión\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_Login_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_Login_pressed()",
+          "description": "# Función llamada al pulsar el botón iniciar sesión en el panel de incio de sesión\n Prepara y realiza la petición HTTP para iniciar sesión\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_Register_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_Register_pressed()",
+          "description": "# Función llamada al pulsar el botón crear usuario en el panel de inicio de sesión\n Muestra el panel con el formulario para crear un ususario\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_close2_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_close2_pressed()",
+          "description": "# Función llamada al pulsar el botón para cerrar el panel de creación de usuario\n Cierra el panel de creación de usuario\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_CreateUser_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_CreateUser_pressed()",
+          "description": "# Función llamada al pulsar el botón crear usuario en el panel de creación de usuario\n Prepara y realiza la petición HTTP para la creación de usuario\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_LogoutButton_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_LogoutButton_pressed()",
+          "description": "# Función llamada al pulsar el botón cerrar sesión\n Cierra la sesión del usuario acutal y borra la información de inicio de sesión\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "check_logged",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func check_logged()",
+          "description": " Comprueba si ya existe una sesión iniciada previamente y comprueba si esta es correcta mediante una petición HTTP.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "save_login",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func save_login()",
+          "description": " Almacena un token de inicio de sesión para mantener esta abierta al volver a abrir el juego.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "set_user",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func set_user()",
+          "description": " Inicia la sesión del usuario.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_HTTPRequest_request_completed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_HTTPRequest_request_completed(_result, response_code, _headers, body)",
+          "description": " Llama a las funciones necesarias en función de la respuesta a una petición HTTP.\n",
+          "arguments": [
+            {
+              "name": "_result",
+              "type": "var"
+            },
+            {
+              "name": "response_code",
+              "type": "var"
+            },
+            {
+              "name": "_headers",
+              "type": "var"
+            },
+            {
+              "name": "body",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "login_http_response",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func login_http_response(json)",
+          "description": " Gestiona la respuesta HTTP para la petición de inicio de sesión\n Muestra un mensaje de error si el nombre de usuario es incorrecto,\n muestra un mensaje de error si la contraseña es incorrecta.\n Si la respuesta es correcta prepara las variables para el inicio de sesión y llama a save_login() y set_user().\n",
+          "arguments": [
+            {
+              "name": "json",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "check_http_response",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func check_http_response(json)",
+          "description": " Gestiona la respuesta HTTP para la petición de comprobación de sesión.\n Llama a set_user() si la comprobación es correcta.\n",
+          "arguments": [
+            {
+              "name": "json",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "register_http_response",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func register_http_response(json)",
+          "description": " Gestiona la respuesta HTTP para la petición de creación de usuario.\n Muestra un error si el nombre de usuario ya está en uso.\n Si la respuesta es correcta el usuario queda registrado y además, se inicia la sesión.\n",
+          "arguments": [
+            {
+              "name": "json",
+              "type": "var"
+            }
+          ]
+        }
+      ],
+      "static_functions": [
+
+      ]
+    },
+    {
+      "name": "ReferenceCollectorCLI.gd",
+      "path": "res://ReferenceCollectorCLI.gd",
+      "extends_class": [
+        "SceneTree"
+      ],
+      "extends_file": "",
+      "icon": "",
+      "signature": "class ReferenceCollectorCLI.gd",
+      "description": "",
+      "sub_classes": [
+
+      ],
+      "constants": [
+
+      ],
+      "members": [
+        {
+          "name": "Collector",
+          "data_type": "SceneTree",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var Collector: SceneTree",
+          "description": ""
+        },
+        {
+          "name": "directories",
+          "data_type": "Array",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var directories: Array",
+          "description": " A list of directories to collect files from.\r\n"
+        },
+        {
+          "name": "is_recursive",
+          "data_type": "bool",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var is_recursive: bool",
+          "description": " A list of directories to collect files from.\r\n If true, explore each directory recursively\r\n"
+        },
+        {
+          "name": "patterns",
+          "data_type": "Array",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var patterns: Array",
+          "description": " A list of directories to collect files from.\r\n If true, explore each directory recursively\r\n A list of patterns to filter files.\r\n"
+        }
+      ],
+      "signals": [
+
+      ],
+      "methods": [
+        {
+          "name": "_init",
+          "return_type": "null",
+          "rpc_mode": 0,
+          "signature": "func _init() -> null",
+          "description": "",
+          "arguments": [
+
+          ]
+        }
+      ],
+      "static_functions": [
+
+      ]
+    },
+    {
+      "name": "Camera2D.gd",
+      "path": "res://Scenes/CameraScene/Camera2D.gd",
+      "extends_class": [
+        "Camera2D"
+      ],
+      "extends_file": "",
+      "icon": "",
+      "signature": "class Camera2D.gd",
+      "description": "",
+      "sub_classes": [
+
+      ],
+      "constants": [
+
+      ],
+      "members": [
+        {
+          "name": "viewport_size",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var viewport_size",
+          "description": " Tamaño de la pantalla.\n"
+        },
+        {
+          "name": "width_half",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var width_half",
+          "description": " Tamaño de la pantalla.\nTamaño de la mitad del ancho de la pantalla.\n"
+        },
+        {
+          "name": "height_half",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var height_half",
+          "description": " Tamaño de la pantalla.\nTamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n"
+        },
+        {
+          "name": "w_h_times_zoom",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var w_h_times_zoom",
+          "description": " Tamaño de la pantalla.\nTamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n"
+        },
+        {
+          "name": "h_h_times_zoom",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var h_h_times_zoom",
+          "description": " Tamaño de la pantalla.\nTamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n"
+        },
+        {
+          "name": "tilemap_border",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var tilemap_border",
+          "description": " Tamaño de la pantalla.\nTamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n Tamaño ocupado por el nivel, todos los niveles empiezan en el pixel [0,0] y acaban en [tilemap_border.x, tilemap_border.y].\n"
+        },
+        {
+          "name": "tween_duration",
+          "data_type": "float",
+          "default_value": 0.5,
+          "setter": "",
+          "getter": "",
+          "export": true,
+          "signature": "export var tween_duration: float = 0.5",
+          "description": " Tamaño de la pantalla.\nTamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n Tamaño ocupado por el nivel, todos los niveles empiezan en el pixel [0,0] y acaban en [tilemap_border.x, tilemap_border.y].\n Duración de la animación del zoom.\n"
+        },
+        {
+          "name": "max_zoom",
+          "data_type": "float",
+          "default_value": 2,
+          "setter": "",
+          "getter": "",
+          "export": true,
+          "signature": "export var max_zoom: float = 2",
+          "description": " Tamaño de la pantalla.\nTamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n Tamaño ocupado por el nivel, todos los niveles empiezan en el pixel [0,0] y acaban en [tilemap_border.x, tilemap_border.y].\n Duración de la animación del zoom.\n Zoom máximo de la cámara.\n"
+        },
+        {
+          "name": "min_zoom",
+          "data_type": "float",
+          "default_value": 0.5,
+          "setter": "",
+          "getter": "",
+          "export": true,
+          "signature": "export var min_zoom: float = 0.5",
+          "description": " Tamaño de la pantalla.\nTamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n Tamaño ocupado por el nivel, todos los niveles empiezan en el pixel [0,0] y acaban en [tilemap_border.x, tilemap_border.y].\n Duración de la animación del zoom.\n Zoom máximo de la cámara.\n Zoom mínimo de la cámara.\n"
+        },
+        {
+          "name": "zoom_level",
+          "data_type": "float",
+          "default_value": null,
+          "setter": "set_zoom_level",
+          "getter": "",
+          "export": false,
+          "signature": "var zoom_level: float",
+          "description": " Tamaño de la pantalla.\nTamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n Tamaño ocupado por el nivel, todos los niveles empiezan en el pixel [0,0] y acaban en [tilemap_border.x, tilemap_border.y].\n Duración de la animación del zoom.\n Zoom máximo de la cámara.\n Zoom mínimo de la cámara.\n Zoom inicial de la cámara.\n"
+        },
+        {
+          "name": "zoom_factor",
+          "data_type": "float",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var zoom_factor: float",
+          "description": " Tamaño de la pantalla.\nTamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n Tamaño ocupado por el nivel, todos los niveles empiezan en el pixel [0,0] y acaban en [tilemap_border.x, tilemap_border.y].\n Duración de la animación del zoom.\n Zoom máximo de la cámara.\n Zoom mínimo de la cámara.\n Zoom inicial de la cámara.\n Escala de cambio del zoom de la cámara.\n"
+        },
+        {
+          "name": "tween",
+          "data_type": "Tween",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var tween: Tween",
+          "description": " Tamaño de la pantalla.\nTamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n Tamaño ocupado por el nivel, todos los niveles empiezan en el pixel [0,0] y acaban en [tilemap_border.x, tilemap_border.y].\n Duración de la animación del zoom.\n Zoom máximo de la cámara.\n Zoom mínimo de la cámara.\n Zoom inicial de la cámara.\n Escala de cambio del zoom de la cámara.\n Nodo para animación del zoom.\n"
+        },
+        {
+          "name": "time_step",
+          "data_type": "float",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var time_step: float",
+          "description": " Tamaño de la pantalla.\nTamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n Tamaño ocupado por el nivel, todos los niveles empiezan en el pixel [0,0] y acaban en [tilemap_border.x, tilemap_border.y].\n Duración de la animación del zoom.\n Zoom máximo de la cámara.\n Zoom mínimo de la cámara.\n Zoom inicial de la cámara.\n Escala de cambio del zoom de la cámara.\n Nodo para animación del zoom.\n Escala de cambio de la velocidad del nivel.\n"
+        },
+        {
+          "name": "min_speed",
+          "data_type": "float",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var min_speed: float",
+          "description": " Tamaño de la pantalla.\nTamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n Tamaño ocupado por el nivel, todos los niveles empiezan en el pixel [0,0] y acaban en [tilemap_border.x, tilemap_border.y].\n Duración de la animación del zoom.\n Zoom máximo de la cámara.\n Zoom mínimo de la cámara.\n Zoom inicial de la cámara.\n Escala de cambio del zoom de la cámara.\n Nodo para animación del zoom.\n Escala de cambio de la velocidad del nivel.\n Mínima velocidad para el nivel.\n"
+        },
+        {
+          "name": "max_speed",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var max_speed: int",
+          "description": " Tamaño de la pantalla.\nTamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n Tamaño ocupado por el nivel, todos los niveles empiezan en el pixel [0,0] y acaban en [tilemap_border.x, tilemap_border.y].\n Duración de la animación del zoom.\n Zoom máximo de la cámara.\n Zoom mínimo de la cámara.\n Zoom inicial de la cámara.\n Escala de cambio del zoom de la cámara.\n Nodo para animación del zoom.\n Escala de cambio de la velocidad del nivel.\n Mínima velocidad para el nivel.\n Máxima velocidad para el nivel.\n"
+        },
+        {
+          "name": "move_vector",
+          "data_type": "Vector2",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var move_vector: Vector2",
+          "description": " Tamaño de la pantalla.\nTamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n Tamaño ocupado por el nivel, todos los niveles empiezan en el pixel [0,0] y acaban en [tilemap_border.x, tilemap_border.y].\n Duración de la animación del zoom.\n Zoom máximo de la cámara.\n Zoom mínimo de la cámara.\n Zoom inicial de la cámara.\n Escala de cambio del zoom de la cámara.\n Nodo para animación del zoom.\n Escala de cambio de la velocidad del nivel.\n Mínima velocidad para el nivel.\n Máxima velocidad para el nivel.\n Desplazamiento de la cámara sobre su posición original.\n"
+        },
+        {
+          "name": "mouse_pos",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var mouse_pos",
+          "description": " Tamaño de la pantalla.\nTamaño de la mitad del ancho de la pantalla.\n Tamaño de la mitad de la altura de la pantalla.\n Tamaño de la mitad del ancho de la pantalla con zoom aplicado.\n Tamaño de la mitad de la altura de la pantalla con zoom aplicado.\n Tamaño ocupado por el nivel, todos los niveles empiezan en el pixel [0,0] y acaban en [tilemap_border.x, tilemap_border.y].\n Duración de la animación del zoom.\n Zoom máximo de la cámara.\n Zoom mínimo de la cámara.\n Zoom inicial de la cámara.\n Escala de cambio del zoom de la cámara.\n Nodo para animación del zoom.\n Escala de cambio de la velocidad del nivel.\n Mínima velocidad para el nivel.\n Máxima velocidad para el nivel.\n Desplazamiento de la cámara sobre su posición original.\n Posición del ratón en la pantalla.\n"
+        }
+      ],
+      "signals": [
+
+      ],
+      "methods": [
+        {
+          "name": "_ready",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _ready()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_process",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _process(delta)",
+          "description": "",
+          "arguments": [
+            {
+              "name": "delta",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "update_wiewport",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func update_wiewport()",
+          "description": " Actualiza los valores de la pantalla.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_unhandled_input",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _unhandled_input(event)",
+          "description": "",
+          "arguments": [
+            {
+              "name": "event",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "set_zoom_level",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func set_zoom_level(value: float)",
+          "description": " Aplica el zoom a la cámara respetando los límites establecidos y aplicando la animación seleccionada.\n",
+          "arguments": [
+            {
+              "name": "value",
+              "type": "float"
+            }
+          ]
+        },
+        {
+          "name": "update_buttons_values",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func update_buttons_values()",
+          "description": " Actualiza el número de habilidades disponibles que aparece en los botones de la interfaz del nivel.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_DiggerSideButton_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_DiggerSideButton_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_DiggerDownButton_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_DiggerDownButton_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_StopperButton_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_StopperButton_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_UmbrellaButton_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_UmbrellaButton_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_StairButton_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_StairButton_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_ClimbButton_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_ClimbButton_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_RestartButton_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_RestartButton_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_TimeDownButton_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_TimeDownButton_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_TimeUpButton_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_TimeUpButton_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "update_speed_label",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func update_speed_label()",
+          "description": " Actualiza la velocidad a la que está el nivel en la interfaz.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_NukeButton_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_NukeButton_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        }
+      ],
+      "static_functions": [
+
+      ]
+    },
+    {
+      "name": "GameOver.gd",
+      "path": "res://Scenes/GameOverScene/GameOver.gd",
+      "extends_class": [
+        "Control"
+      ],
+      "extends_file": "",
+      "icon": "",
+      "signature": "class GameOver.gd",
+      "description": "",
+      "sub_classes": [
+
+      ],
+      "constants": [
+
+      ],
+      "members": [
+        {
+          "name": "move_speed",
+          "data_type": "Vector2",
+          "default_value": "(-15, -15)",
+          "setter": "",
+          "getter": "",
+          "export": true,
+          "signature": "export var move_speed: Vector2 = \"(-15, -15)\"",
+          "description": " Velocidad de movimiento del ParallaxBackground\n"
+        },
+        {
+          "name": "headers",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var headers",
+          "description": " Velocidad de movimiento del ParallaxBackground\n Cabeceras para las peticiones HTTP.\n"
+        },
+        {
+          "name": "query",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var query",
+          "description": " Velocidad de movimiento del ParallaxBackground\n Cabeceras para las peticiones HTTP.\n Nombre de la petición que se va realizar.\n"
+        },
+        {
+          "name": "created_level",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var created_level",
+          "description": " Velocidad de movimiento del ParallaxBackground\n Cabeceras para las peticiones HTTP.\n Nombre de la petición que se va realizar.\n Nivel generado previamente en el editor.\n"
+        }
+      ],
+      "signals": [
+
+      ],
+      "methods": [
+        {
+          "name": "_ready",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _ready()",
+          "description": " Called when the node enters the scene tree for the first time.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_process",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _process(delta)",
+          "description": "",
+          "arguments": [
+            {
+              "name": "delta",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "get_data",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func get_data()",
+          "description": " Recupera los resultados obtenidos en el nivel y los muestra en la interfaz.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_Reintentar_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_Reintentar_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_Marcadores_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_Marcadores_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_MenuPrincipal_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_MenuPrincipal_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_Editor_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_Editor_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_Publicar_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_Publicar_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_No_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_No_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_Yes_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_Yes_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_HTTPRequest_request_completed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_HTTPRequest_request_completed(result, response_code, headers, body)",
+          "description": "",
+          "arguments": [
+            {
+              "name": "result",
+              "type": "var"
+            },
+            {
+              "name": "response_code",
+              "type": "var"
+            },
+            {
+              "name": "headers",
+              "type": "var"
+            },
+            {
+              "name": "body",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "make_file_name",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func make_file_name(file_name)",
+          "description": " Modifica el nombre del nivel introducido por el usuario eliminando los carácteres prohibidos para poder nombrar el archivo del mismo.\n",
+          "arguments": [
+            {
+              "name": "file_name",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "erase_files",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func erase_files()",
+          "description": " Borra los archivos del nivel generado para que la proxima vez que se inicie el editor este esté vacío.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "submit_score",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func submit_score()",
+          "description": " Lanza la petición HTTP para publicar la puntuación obtenida.\n",
+          "arguments": [
+
+          ]
+        }
+      ],
+      "static_functions": [
+
+      ]
+    },
+    {
+      "name": "Meeseek.gd",
+      "path": "res://Scenes/Meeseek/Meeseek.gd",
+      "extends_class": [
+        "KinematicBody2D"
+      ],
+      "extends_file": "",
+      "icon": "",
+      "signature": "class Meeseek.gd",
+      "description": "",
+      "sub_classes": [
+
+      ],
+      "constants": [
+        {
+          "name": "GRAVITY",
+          "value": 150,
+          "data_type": "int",
+          "signature": "const GRAVITY: int = 150",
+          "description": " Velocidad de movimento hacia el suelo.\n"
+        },
+        {
+          "name": "MAXSPEED",
+          "value": 64,
+          "data_type": "int",
+          "signature": "const MAXSPEED: int = 64",
+          "description": " Velocidad máxima de movimiento horizontal, está en píxeles por segundo (1s = 64px).\n"
+        }
+      ],
+      "members": [
+        {
+          "name": "right",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var right",
+          "description": " Dirección en la que el meeseek se mueve (+1 = derecha, -1 izquierda).\n"
+        },
+        {
+          "name": "alive",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var alive",
+          "description": " Indica si el meeseek sigue vivo.\n"
+        },
+        {
+          "name": "once",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var once",
+          "description": " Indica si el meeseek ha estado en contacto con el suelo en el frame anterior.\n"
+        },
+        {
+          "name": "state",
+          "data_type": "String",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var state: String",
+          "description": " Estado del meeseek, este indica que habilidad tiene que realizar un meeseek en cada momento.\n"
+        },
+        {
+          "name": "collision",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var collision",
+          "description": " Contiene los datos de la última collision de meeseek contra algo que no sea el suelo.\n"
+        },
+        {
+          "name": "mouse_in",
+          "data_type": "bool",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var mouse_in: bool",
+          "description": " Indica si el meeseek tiene el cursor encima o no.\n"
+        },
+        {
+          "name": "original_position",
+          "data_type": "Vector2",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var original_position: Vector2",
+          "description": " Stopper\n Almacena la posición en la que el meeseek se queda quieto.\n"
+        },
+        {
+          "name": "en_escalera",
+          "data_type": "bool",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var en_escalera: bool",
+          "description": " Escalera\n Indica si el meeseek se encuentra pisando una escalera.\n"
+        },
+        {
+          "name": "stair_tiles",
+          "data_type": "Array",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var stair_tiles: Array",
+          "description": "Escalera\n Almacena el id de los tiles que representan la escalera.\n"
+        },
+        {
+          "name": "celda",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var celda",
+          "description": " Mapa\n Indica la posición de una celda en el mapa.\n"
+        },
+        {
+          "name": "map",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var map",
+          "description": " Nodo que contiene el mapa del nivel.\n"
+        },
+        {
+          "name": "first_collision",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var first_collision: int",
+          "description": " Diggers\n Almacena el id del primer bloque diferente al suelo con el que colisiona el meeseek.\n"
+        },
+        {
+          "name": "frames_digging",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var frames_digging: int",
+          "description": " Diggers\n Almacena el número de frames que lleva excavando o taladrando un meeseek.\n"
+        },
+        {
+          "name": "next_collision",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var next_collision: int",
+          "description": " Id del siguiente bloque con el que collisionará un meeseek.\n"
+        },
+        {
+          "name": "stop_digging",
+          "data_type": "bool",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var stop_digging: bool",
+          "description": " Indica si el meeseek tiene que dejar de excavar el siguiente bloque.\n"
+        },
+        {
+          "name": "digging",
+          "data_type": "bool",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var digging: bool",
+          "description": " Vertical digger\n Indica si el meeseek esta excavando.\n"
+        },
+        {
+          "name": "stop_umbrella",
+          "data_type": "bool",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var stop_umbrella: bool",
+          "description": " Umbrella\n Indica si el meeseek tiene que dejar de utilizar el paraguas.\n"
+        },
+        {
+          "name": "air_time",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var air_time: int",
+          "description": " Número de frames que lleva el meeseek en el aire.\n"
+        },
+        {
+          "name": "building",
+          "data_type": "bool",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var building: bool",
+          "description": " Stair\n Indica si el meeseek esta actualmente construyendo una escalera.\n"
+        },
+        {
+          "name": "building_block",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var building_block: int",
+          "description": " Almacena el id del tile que esta construyendo actualmente el meeseek.\n"
+        },
+        {
+          "name": "building_cell",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var building_cell",
+          "description": " Indica en que celda esta construyendo el meeseek actualmente.\n"
+        },
+        {
+          "name": "building_frame",
+          "data_type": "int",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var building_frame: int",
+          "description": " Indica cuantos frames lleva el meeseek construyendo.\n"
+        },
+        {
+          "name": "climbing",
+          "data_type": "bool",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var climbing: bool",
+          "description": " Climber\n Indica si el meeseek se encuentra escalando. \n"
+        },
+        {
+          "name": "motion",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var motion",
+          "description": " Velocidad del meeseek en cada frame.\n Se inicia el movimiento del meeseek en caida.\n"
+        }
+      ],
+      "signals": [
+
+      ],
+      "methods": [
+        {
+          "name": "_ready",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _ready()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_physics_process",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _physics_process(delta)",
+          "description": "",
+          "arguments": [
+            {
+              "name": "delta",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "normal_meeseek",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func normal_meeseek()",
+          "description": " Gestiona el comportamiento del meeseek si este no tiene ninguna habilidad asignada.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "digSide_meeseek",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func digSide_meeseek()",
+          "description": " Gestiona el comportamiento del meeseek si este tiene la habilidad taladro asignada.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "digDown_meeseek",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func digDown_meeseek()",
+          "description": " Gestiona el comportamiento del meeseeks si este tiene la habilidad excavadora asignada.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "stopper_meeseek",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func stopper_meeseek()",
+          "description": " Gestiona el comportamiento del meeseek si este tiene la habilidad parar asignada.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "umbrella_meeseek",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func umbrella_meeseek()",
+          "description": " Gestiona el comportamiento del meeseek si este tiene la habilidad paraguas asignada.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "stair_meeseek",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func stair_meeseek()",
+          "description": " Gestiona el comportamiento del meeseek si este tiene la habilidad escaleras asignada.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "climb_meeseek",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func climb_meeseek()",
+          "description": " Gestiona el comportamiento del meeseek si este tiene la habilidad escalar asignada.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "get_nuked",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func get_nuked()",
+          "description": " Elimina al meeseek lanzando la animación de muerte.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "death",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func death()",
+          "description": " Gestiona la muerte del meeseek.\n A esta funci�ón se llama desde la animaci�n Death para que el meeseek muera al terminar la animació�n.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_unhandled_input",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _unhandled_input(event)",
+          "description": "",
+          "arguments": [
+            {
+              "name": "event",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "_on_Meesek_mouse_entered",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_Meesek_mouse_entered()",
+          "description": "funciones para controlar el clickar un solo meeseek a la vez (topmost order)\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_Meesek_mouse_exited",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_Meesek_mouse_exited()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "out_of_bounds",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func out_of_bounds()",
+          "description": " Comprueba si el meeseek se encuentra dentro de los límites del mapa.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_Timer_timeout",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_Timer_timeout()",
+          "description": "",
+          "arguments": [
+
+          ]
+        }
+      ],
+      "static_functions": [
+
+      ]
+    },
+    {
+      "name": "PausePopup.gd",
+      "path": "res://Scenes/PauseScene/PausePopup.gd",
+      "extends_class": [
+        "Popup"
+      ],
+      "extends_file": "",
+      "icon": "",
+      "signature": "class PausePopup.gd",
+      "description": "",
+      "sub_classes": [
+
+      ],
+      "constants": [
+
+      ],
+      "members": [
+        {
+          "name": "paused",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "set_paused",
+          "getter": "",
+          "export": false,
+          "signature": "var paused",
+          "description": ""
+        }
+      ],
+      "signals": [
+
+      ],
+      "methods": [
+        {
+          "name": "_unhandled_input",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _unhandled_input(event)",
+          "description": "",
+          "arguments": [
+            {
+              "name": "event",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "set_paused",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func set_paused(value)",
+          "description": "",
+          "arguments": [
+            {
+              "name": "value",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "_on_Continue_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_Continue_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_Restart_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_Restart_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_Exit_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_Exit_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        }
+      ],
+      "static_functions": [
+
+      ]
+    },
+    {
+      "name": "ScoresScene.gd",
+      "path": "res://Scenes/ScoresScene/ScoresScene.gd",
+      "extends_class": [
+        "Control"
+      ],
+      "extends_file": "",
+      "icon": "",
+      "signature": "class ScoresScene.gd",
+      "description": "",
+      "sub_classes": [
+
+      ],
+      "constants": [
+
+      ],
+      "members": [
+        {
+          "name": "score_container",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var score_container",
+          "description": " Contenedor para una puntuación\n"
+        },
+        {
+          "name": "new_hbox",
+          "data_type": "var",
+          "default_value": null,
+          "setter": "",
+          "getter": "",
+          "export": false,
+          "signature": "var new_hbox",
+          "description": " Contenedor para una puntuación\n Fila de puntuaciones\n"
+        }
+      ],
+      "signals": [
+
+      ],
+      "methods": [
+        {
+          "name": "_ready",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _ready()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_process",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _process(delta)",
+          "description": "",
+          "arguments": [
+            {
+              "name": "delta",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "get_scores",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func get_scores()",
+          "description": " Realiza la petición HTTP para obtener todas las puntuaciones de un nivel.\n",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_HTTPRequest_request_completed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_HTTPRequest_request_completed(result, response_code, headers, body)",
+          "description": "",
+          "arguments": [
+            {
+              "name": "result",
+              "type": "var"
+            },
+            {
+              "name": "response_code",
+              "type": "var"
+            },
+            {
+              "name": "headers",
+              "type": "var"
+            },
+            {
+              "name": "body",
+              "type": "var"
+            }
+          ]
+        },
+        {
+          "name": "_on_RetryButton_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_RetryButton_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        },
+        {
+          "name": "_on_MainMenuButton_pressed",
+          "return_type": "var",
+          "rpc_mode": 0,
+          "signature": "func _on_MainMenuButton_pressed()",
+          "description": "",
+          "arguments": [
+
+          ]
+        }
+      ],
+      "static_functions": [
+
+      ]
+    }
+  ]
+}

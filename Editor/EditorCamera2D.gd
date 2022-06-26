@@ -1,19 +1,30 @@
 extends Camera2D
 
+# Desplazamiento de la cámara sobre su posición original.
 var move_vector
+# Posición del ratón en la pantalla.
 var mouse_pos
+# Tamaño de la pantalla.
 var viewport_size
+# Tamaño de la mitad del ancho de la pantalla.
 var width_half
+# Tamaño de la mitad de la altura de la pantalla.
 var height_half
-var zoom_dif_h
-var zoom_dif_v
+# Tamaño de la mitad del ancho de la pantalla con zoom aplicado.
 var w_h_times_zoom
+# Tamaño de la mitad de la altura de la pantalla con zoom aplicado.
 var h_h_times_zoom
+# Duración de la animación del zoom.
 export var tween_duration := 0.5
+# Zoom máximo de la cámara.
 export var max_zoom := 2.0
+# Zoom mínimo de la cámara.
 export var min_zoom := 0.5
+# Zoom inicial de la cámara.
 var zoom_level := 1.0 setget set_zoom_level
+# Escala de cambio del zoom de la cámara.
 var zoom_factor := 0.1
+# Nodo para animación del zoom.
 onready var tween: Tween = $Tween
 
 # Called when the node enters the scene tree for the first time.
@@ -46,7 +57,7 @@ func _unhandled_input(event):
 	if event.is_action_pressed("zoom_out"):
 		set_zoom_level(zoom_level + zoom_factor)
 
-#el zoom ahora mismo permite ver fuera del mapa.
+# Aplica el zoom a cámara respentado los límites establecidos y aplicando la animación selecionada.
 func set_zoom_level(value: float):
 	zoom_level = clamp(value, min_zoom, max_zoom)
 	tween.interpolate_property(
