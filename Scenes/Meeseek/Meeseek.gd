@@ -88,6 +88,8 @@ var climbing := false
 # Se inicia el movimiento del meeseek en caida.
 var motion = Vector2(0, GRAVITY)
 
+var saved = false
+
 func _ready():
 	#mapa
 	map = get_parent().get_node("TileMap")
@@ -147,7 +149,8 @@ func normal_meeseek():
 			#comprueba las colisiones durante el movimiento,
 			for i in get_slide_count():
 				collision = get_slide_collision(i)
-				if collision.get_collider().get_class() == "StaticBody2D":
+				if collision.get_collider().get_class() == "StaticBody2D" and !saved:
+						saved = true
 						self.get_parent().meeseek_saved()
 						self.queue_free()  #borrado
 						###sumar meeseek a contador de exito y borrarlo
@@ -224,7 +227,8 @@ func digSide_meeseek():
 
 				for i in get_slide_count():
 					collision = get_slide_collision(i)
-					if collision.get_collider().get_class() == "StaticBody2D":
+					if collision.get_collider().get_class() == "StaticBody2D"and !saved:
+							saved = true
 							self.get_parent().meeseek_saved()
 							self.queue_free()  #borrado
 							###sumar meeseek a contador de exito y borrarlo
@@ -273,7 +277,8 @@ func digDown_meeseek():
 				collision =get_slide_collision(i)
 				if collision:
 					celda = map.world_to_map(collision.position - collision.normal)
-					if collision.get_collider().get_class() == "StaticBody2D":
+					if collision.get_collider().get_class() == "StaticBody2D"and !saved:
+						saved = true
 						self.get_parent().meeseek_saved()
 						self.queue_free()  #borrado
 					if collision.normal != Vector2(0,-1):
@@ -367,7 +372,8 @@ func umbrella_meeseek():
 			#comprueba las colisiones durante el movimiento,
 			for i in get_slide_count():
 				collision = get_slide_collision(i)
-				if collision.get_collider().get_class() == "StaticBody2D":
+				if collision.get_collider().get_class() == "StaticBody2D"and !saved:
+						saved = true
 						self.get_parent().meeseek_saved()
 						self.queue_free()  #borrado
 						###sumar meeseek a contador de exito y borrarlo
@@ -462,7 +468,8 @@ func stair_meeseek():
 				#comprueba las colisiones durante el movimiento,
 				for i in get_slide_count():
 					collision = get_slide_collision(i)
-					if collision.get_collider().get_class() == "StaticBody2D":
+					if collision.get_collider().get_class() == "StaticBody2D"and !saved:
+						saved = true
 						self.get_parent().meeseek_saved()
 						self.queue_free()  #borrado
 						###sumar meeseek a contador de exito y borrarlo
@@ -542,7 +549,8 @@ func climb_meeseek():
 				for i in get_slide_count():
 					collision =get_slide_collision(i)
 					if collision:
-						if collision.get_collider().get_class() == "StaticBody2D":
+						if collision.get_collider().get_class() == "StaticBody2D"and !saved:
+							saved = true
 							self.get_parent().meeseek_saved()
 							self.queue_free()  #borrado
 							#sumar meeseek a contador de exito y borrarlo

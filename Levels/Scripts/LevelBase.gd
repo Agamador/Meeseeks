@@ -60,6 +60,7 @@ func _process(delta):
 	$Camera2D/CanvasLayer/HBoxContainer/Panel/HBoxContainer/VBoxContainer/TimeLabel.text = str_elapsed
 	$ParallaxBackground/ParallaxLayer.motion_offset +=  delta * Vector2(-10,-10)
 	if saved_lives + lost_lives == total_lives:
+		print('aaaaaa')
 		game_ended()
 	if $AudioStreamPlayer.playing == false:
 		$AudioStreamPlayer.play()

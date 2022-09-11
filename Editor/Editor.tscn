@@ -107,12 +107,12 @@ margin_left = 64.0
 margin_top = 112.0
 margin_right = 95.0
 margin_bottom = 144.0
+custom_fonts/font = SubResource( 2 )
 custom_styles/hover = ExtResource( 8 )
 custom_styles/pressed = ExtResource( 8 )
 custom_styles/focus = ExtResource( 8 )
 custom_styles/disabled = ExtResource( 8 )
 custom_styles/normal = ExtResource( 8 )
-custom_fonts/font = SubResource( 2 )
 text = "Sí"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -123,12 +123,12 @@ margin_left = 176.0
 margin_top = 112.0
 margin_right = 208.0
 margin_bottom = 144.0
+custom_fonts/font = SubResource( 2 )
 custom_styles/hover = ExtResource( 8 )
 custom_styles/pressed = ExtResource( 8 )
 custom_styles/focus = ExtResource( 8 )
 custom_styles/disabled = ExtResource( 8 )
 custom_styles/normal = ExtResource( 8 )
-custom_fonts/font = SubResource( 2 )
 text = "No"
 
 [node name="\?" type="Button" parent="Camera2D/CanvasLayer"]

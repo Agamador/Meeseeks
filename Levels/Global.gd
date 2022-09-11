@@ -1,7 +1,7 @@
 extends Node
 
 # URL base para llamar a los métodos de la api.
-var apiurl = 'https://meeseeks-api-3eivo.ondigitalocean.app/api'
+var apiurl = 'http://api.agamador.com/api'
 # Almacena el nombre de usuario.
 var username
 # Almacena el id del usuario.
